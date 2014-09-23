@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+xmlns:pm="http://primefaces.org/mobile" >
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+
+<h:head>
+
+</h:head>
+
+<h:body  >
+<pm:page id="first">
+ <p style="text-align:center; font-weight: bold;font-size:1.2em ; border-bottom: 1px solid #ddd ; color: #25aae1 ;background-color: #e0e0e0 ; text-shadow: none; font-family:sans-serif;">Consultar Ficha Clinica</p>
+
+<pm:field>
+    <p:outputLabel for="nombreape" value="Nombre y Apellidos:" />
+    <p:inputText id="nombreape" placeholder="Maria de La Paz Gonzales" type="nom" />
+</pm:field>
+
+<pm:field>
+    <p:outputLabel for="dni" value="Numero de Documento:" />
+    <p:inputText id="dni" placeholder="978646683" type="dni" />
+</pm:field>
+
+<pm:field>
+    <p:outputLabel for="edad" value="Edad:" />
+    <p:inputText id="edad" placeholder="24" type="edad" />
+</pm:field>
+
+<pm:field>
+    <p:outputLabel for="fechanaci" value="Fecha de nacimiento:" />
+    <p:inputText id="fechanaci" placeholder="13/06/1990" type="fecha" />
+</pm:field>
+
+<pm:field>
+    <p:outputLabel for="email" value="E-mail:" />
+    <p:inputText id="email"   placeholder="caro112@hotmail.com" type="email" />
+</pm:field>
+
+<pm:field>
+    <p:outputLabel for="info" value="Informacion:" />
+    <p:inputTextarea id="info" />
+</pm:field>
+
+<pm:field>
+    <p:outputLabel for="operacion" value="Operacion:" />
+    <p:inputTextarea id="operacion" />
+</pm:field>
+ 
+ <p:panelGrid columns="2" style="margin-left:50px;">
+    <p:commandButton value="Abrir" type="button" style="width:120px"/>
+    
+    <p:commandButton value="Atras" type="button" style="width:120px"/>
+</p:panelGrid>
+
+</pm:page>
+</h:body>
+
+</html>

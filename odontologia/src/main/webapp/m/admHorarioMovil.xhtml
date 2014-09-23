@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+xmlns:pm="http://primefaces.org/mobile" >
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+
+<h:head>
+  <link href="http://localhost:8090/odontologia/resources/css/estilosAdmHorarioMovil.css" type="text/css" rel="stylesheet"/>
+</h:head>
+
+<h:body  >
+<pm:page id="wrapper">
+ <p style="text-align:center; font-weight: bold;font-size:1.2em ; border-bottom: 1px solid #ddd ; color: #25aae1 ;background-color: #e0e0e0 ; text-shadow: none; font-family:sans-serif;">Horario Opcional</p>
+
+<pm:field>
+    <p:outputLabel for="selectCheckboxMenu" value="Especialidad"  styleClass="ui-field-contain > label"/>
+    <p:selectCheckboxMenu id="selectCheckboxMenu" styleClass="ui-field-contain > label ~ [class*='ui-']">
+        <f:selectItem itemLabel="Escoja las especilidades" itemValue="" />
+        <f:selectItem itemLabel="Ortodancia" itemValue="1" />
+        <f:selectItem itemLabel="Dentista Estetico" itemValue="2" />
+        <f:selectItem itemLabel="Cirujano Dental" itemValue="3" />
+    </p:selectCheckboxMenu>
+</pm:field>  
+	
+<pm:field>
+    <p:outputLabel for="selectCheckboxMenu4" value="Turno" styleClass="ui-field-contain > label"/>
+    <p:selectCheckboxMenu id="selectCheckboxMenu4" styleClass="ui-field-contain > label ~ [class*='ui-']">
+        <f:selectItem itemLabel="Escoja los turnos" itemValue="" />
+        <f:selectItem itemLabel="Mañana" itemValue="1" />
+        <f:selectItem itemLabel="Tarde" itemValue="2" />
+        <f:selectItem itemLabel="Noche" itemValue="3" />
+    </p:selectCheckboxMenu>
+</pm:field>  
+
+<pm:field>
+    <p:outputLabel for="selectCheckboxMenu2" value="Horario" styleClass="ui-field-contain > label"/>
+    <p:selectCheckboxMenu id="selectCheckboxMenu2" styleClass="ui-field-contain > label ~ [class*='ui-']">
+        <f:selectItem itemLabel="Escoja los Horarios" itemValue="" />
+        <f:selectItem itemLabel="8:00 - 10:00 am" itemValue="1" />
+        <f:selectItem itemLabel="10:00 - 12:00 pm" itemValue="2" />
+        <f:selectItem itemLabel="12:00 - 2:00 pm" itemValue="3" />
+        <f:selectItem itemLabel="2:00 - 4:00 pm" itemValue="4" />
+        <f:selectItem itemLabel="4:00 - 6:00 pm" itemValue="5" />
+        <f:selectItem itemLabel="6:00 - 8:00 pm" itemValue="6" />
+        <f:selectItem itemLabel="8:00 - 10:00 pm" itemValue="7" />
+    </p:selectCheckboxMenu>
+</pm:field>  
+
+<pm:field>
+    <p:outputLabel for="selectCheckboxMenu3" value="Dia de la semana"  styleClass="ui-field-contain > label"/>
+    <p:selectCheckboxMenu id="selectCheckboxMenu3" styleClass="ui-field-contain > label ~ [class*='ui-']">
+        <f:selectItem itemLabel="Escoja los días de la semana" itemValue="" />
+        <f:selectItem itemLabel="Lunes" itemValue="1" />
+        <f:selectItem itemLabel="Martes" itemValue="2" />
+        <f:selectItem itemLabel="Miercoles" itemValue="3" />
+        <f:selectItem itemLabel="Jueves" itemValue="4" />
+        <f:selectItem itemLabel="Viernes" itemValue="5" />
+        <f:selectItem itemLabel="Sabado" itemValue="6" />
+    </p:selectCheckboxMenu>
+</pm:field>  
+ 
+ <p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
+    <p:commandButton value="Guardar" type="button" style="width:120px"/>
+    <p:commandButton value="Atras" style="width:120px" onclick="location.href='indexMovil.xhtml'"/>
+</p:panelGrid>
+</pm:page>
+</h:body>
+
+</html>

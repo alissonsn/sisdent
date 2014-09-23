@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+xmlns:pm="http://primefaces.org/mobile" >
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+
+<h:head>
+  <link href="http://localhost:8090/odontologia/resources/css/estilosM.css" type="text/css" rel="stylesheet"/>
+</h:head>
+<h:body  >
+<pm:page id="wrapper">
+ <p style="text-align:center; font-weight: bold;font-size:1.2em ; border-bottom: 1px solid #ddd ; color: #25aae1 ;background-color: #e0e0e0 ; text-shadow: none; font-family:sans-serif;">Consultar Horario Cita</p>
+
+
+<h2 class="first">Citas</h2>
+<p:menu>
+    <p:menuitem value="Se asigno un turno para el 11 de Octubre del 2014  9:40 a.m" url="consInformHorarioCiMovil.xhtml" />
+    <p:menuitem value="Se asigno un turno para el 21 de Septiembre del 2014  10:30 a.m" url="consInformHorarioCiMovil.xhtml" />
+    <p:menuitem value="Se asigno un turno para el 25 de Noviembre del 2014  5:40 p.m" url="consInformHorarioCiMovil.xhtml" />
+</p:menu>
+
+ 
+ <p:panelGrid columns="2" style="margin-left:50px;">  
+    <p:commandButton value="Atras" type="button" style="width:120px" onclick="location.href='indexMovil.xhtml'" />
+</p:panelGrid>
+
+</pm:page>
+</h:body>
+
+</html>

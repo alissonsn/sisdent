@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+xmlns:pm="http://primefaces.org/mobile" >
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+
+
+<h:head>
+  <link href="http://localhost:8090/odontologia/resources/css/estilosConsInfHoraCiMovil.css" type="text/css" rel="stylesheet"/>
+</h:head>
+<h:body  >
+<pm:page id="wrapper">
+ <p style="text-align:center; font-weight: bold;font-size:1.2em ; border-bottom: 1px solid #ddd ; color: #25aae1 ;background-color: #e0e0e0 ; text-shadow: none; font-family:sans-serif;">Información de la Cita</p>
+<pm:field>
+    <p:outputLabel for="nombre" value="Nombre:" styleClass="ui-field-contain > label"/>
+    <p:inputText id="nombre"  disabled="true" styleClass="ui-field-contain > label ~ [class*='ui-']" />
+</pm:field>
+
+<pm:field>
+    <p:outputLabel for="apellido" value="Apellidos:" styleClass="ui-field-contain > label" />
+    <p:inputText id="apellido"  disabled="true" styleClass="ui-field-contain > label ~ [class*='ui-']"/>
+</pm:field>
+
+<pm:field>
+    <p:outputLabel for="especialidad" value="N° Especialidad" styleClass="ui-field-contain > label"/>
+    <p:inputText id="especialidad" disabled="true" styleClass="ui-field-contain > label ~ [class*='ui-']"/>
+</pm:field>
+
+<pm:field>
+    <p:outputLabel for="numconsultorio" value="N° Consultorio:" styleClass="ui-field-contain > label"/>
+    <p:inputText id="numconsultorio" disabled="true" styleClass="ui-field-contain > label ~ [class*='ui-']"/>
+</pm:field>
+
+<pm:field>
+    <p:outputLabel for="horaatencion" value="Hora de Atencion:" styleClass="ui-field-contain > label"/>
+    <p:inputText id="horaatencion" disabled="true" styleClass="ui-field-contain > label ~ [class*='ui-']"/>
+</pm:field>
+
+<pm:field>
+    <p:outputLabel for="fecha" value="Fecha" styleClass="ui-field-contain > label"/>
+    <p:inputText id="fecha" disabled="true" styleClass="ui-field-contain > label ~ [class*='ui-']"/>
+</pm:field>
+
+ 
+ <p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
+    <p:commandButton value="Cancelar Cita"  style="width:140px"/>
+    
+    <p:commandButton value="Atras"  style="width:140px" onclick="location.href='consHorarioCiMovil.xhtml'" />
+</p:panelGrid>
+
+</pm:page>
+</h:body>
+
+</html>

@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>SPADENT</title>
+	<h:outputStylesheet name="css/estilos.css" />
+</h:head>
+<h:body>
+
+
+	<div id="header"></div>
+
+	<br></br>
+	<h:form>
+		<p:growl id="messages" />
+
+		<p:menubar>
+			<p:submenu label="Perfil" icon="ui-icon-document">
+				<p:menuitem value="Datos" url="#" />
+			</p:submenu>
+
+			<p:submenu label="Consulta" icon="ui-icon-pencil">
+				<p:menuitem value="Consulta #1" url="#"
+					icon="ui-icon-arrowreturnthick-1-w" />
+				<p:menuitem value="Consulta #2" url="#"
+					icon="ui-icon-arrowreturnthick-1-e" />
+			</p:submenu>
+
+			<p:submenu label="Contacto" icon="ui-icon-help">
+				<p:menuitem value="Contents" url="#" />
+			</p:submenu>	
+			<f:facet name="options">
+				<p:commandButton action="#{loginBean.cerrarSesion}" value="Cerrar sesión" icon="ui-icon-extlink" />				
+					
+			</f:facet>
+		</p:menubar>
+	</h:form>
+
+</h:body>
+
+</html>

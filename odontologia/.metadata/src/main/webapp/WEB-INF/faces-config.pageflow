@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14099073859300" configfile="/odontologia/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="24" y="108" id="pf14100766176176" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf14100766176187" inlinks="pf14100810517129" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="276" y="84" id="pf14100766176188" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14100810517129" inlinks="pf14100766176187" path="/index.xhtml"/>
+  <links id="pf14100766176187" target="pf14100766176188" source="pf14100766176176" outcome="index" redirect="true"/>
+  <links id="pf14100810517129" target="pf14100766176176" source="pf14100766176188" outcome="login" redirect="true"/>
+</pageflow:Pageflow>

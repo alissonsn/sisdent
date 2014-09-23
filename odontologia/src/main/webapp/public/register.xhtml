@@ -1,0 +1,74 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Registro - SPADENT</title>
+	
+</h:head>
+
+<h:body>
+	
+	<h:form id="formRegistro">
+	<p:messages id="growl" />			
+		<h:panelGrid id="grid" columns="3">
+		
+			<p:outputLabel for="usuario" value="Usuario: " />
+			<p:inputText value="#{registroBean.usuario.usuario}" maxlength="16" id="usuario" required="true" requiredMessage="Debe ingresar un usuario" />				
+			<p:message for="usuario" />
+			
+			<p:outputLabel for="password" value="Password: " />
+			<p:password value="#{registroBean.usuario.password}" feedback="true" promptLabel="Por favor, ingrese una password" weakLabel="Débil" goodLabel="Buena" strongLabel="Excelente" maxlength="16" id="password" required="true" requiredMessage="Debe ingresar una contraseña" />
+			<p:message for="password" />
+			
+			<p:outputLabel for="nombre" value="Nombre: " />
+			<p:inputText value="#{registroBean.persona.nombre}" maxlength="50" id="nombre" required="true" requiredMessage="Debe ingresar un nombre" />
+			<p:message for="nombre" />	
+			
+			<p:outputLabel for="aPaterno" value="Apellido Paterno: " />
+			<p:inputText value="#{registroBean.persona.apellidoPaterno}" maxlength="50" id="aPaterno" required="true" requiredMessage="Debe ingresar un apellido paterno" />
+			<p:message for="aPaterno" />
+			
+			<p:outputLabel for="aMaterno" value="Apellido Materno: " />
+			<p:inputText value="#{registroBean.persona.apellidoMaterno}" maxlength="50" id="aMaterno" required="true" requiredMessage="Debe ingresar un apellido materno" />
+			<p:message for="aMaterno" />
+			
+			<p:outputLabel for="telefono" value="Telefono: " />
+			<p:inputMask value="#{registroBean.persona.telefono}" mask="(99) 999-9999" id="telefono" required="false" />
+			<p:message for="telefono" />
+			
+			<p:outputLabel for="celular" value="Celular: " />
+			<p:inputMask value="#{registroBean.persona.celular}" mask="999999999" id="celular" required="false" />
+			<p:message for="celular" />
+			
+			<p:outputLabel for="direccion" value="Direccion: " />
+			<p:inputText value="#{registroBean.persona.direccion}" maxlength="200" id="direccion" required="true" requiredMessage="Debe ingresar una direccion" />
+			<p:message for="direccion" />
+			
+			<p:outputLabel for="distrito" value="Distrito: " />
+			<p:selectOneMenu id="distrito" value="#{registroBean.distrito.idDistrito}" required="true" requiredMessage="Debe seleccionar un distrito">
+			<f:selectItem itemLabel="Elija un distrito" ></f:selectItem>
+            <f:selectItems value="#{registroBean.distritos}" var="distrito" itemLabel="#{distrito.nombre}" itemValue="#{distrito.idDistrito}"/>
+        	</p:selectOneMenu>
+			<p:message for="distrito" />	
+			
+			<p:outputLabel for="email" value="Correo Electronico: " />
+			<p:inputText value="#{registroBean.persona.correoElectronico}" id="email" required="true"
+			 requiredMessage="Debe ingresar un correo electronico" 
+			 validatorMessage="El formato de correo electrónico es incorrecto"> 
+				  <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+			</p:inputText>
+			<p:message for="email" />
+			
+		</h:panelGrid>
+			<h:panelGrid columns="2">
+			<p:commandButton actionListener="#{registroBean.registrar}" value="Registrar" update="grid" />
+			<p:commandButton actionListener="#{registroBean.limpiarFormulario}" value="Limpiar Registro" update="grid" />
+			</h:panelGrid>
+	</h:form>
+
+</h:body>
+
+</html>
+

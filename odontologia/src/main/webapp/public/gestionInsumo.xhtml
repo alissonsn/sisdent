@@ -1,0 +1,159 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+	<title>Gestion de Insumos - SPADENT</title>
+
+</h:head>
+
+<h:body>
+
+<!-- Creación de nuevo insumo -->
+
+	<h:form id="formNuevoInsumo">
+		<p:messages id="growl" />
+		<h:panelGrid id="grid" columns="3">
+
+			<p:outputLabel for="nombre" value="Nombre: " />
+			<p:inputText value="#{insumoBean.insumo.nombre}" required="true"
+				requiredMessage="Debe ingresar un nombre de insumo" id="nombre"
+				maxlength="50" />
+			<p:message for="nombre" />
+
+			<p:outputLabel for="precioUnitario" value="Precio unitario: " />
+			<pe:inputNumber decimalPlaces="3"
+				value="#{insumoBean.insumo.precioUnitario}" required="true"
+				requiredMessage="Debe ingresar el precio unitario"
+				id="precioUnitario" />
+			<p:message for="precioUnitario" />
+
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<p:commandButton actionListener="#{insumoBean.ingresarInsumo}"
+				value="Agregar insumo" update=":formListarInsumos, grid" />
+			<p:button actionListener="#{insumoBean.cancelar}" value="Cancelar"
+				update="formNuevoInsumo" />
+		</h:panelGrid>
+
+	</h:form>
+	
+<!-- Lista de insumos -->
+
+	<h:form id="formListarInsumos">
+
+		<p:dataTable id="tableInsumos" resizableColumns="true"
+			emptyMessage="No hay insumos disponibles" var="insumo"
+			value="#{insumoBean.insumos}" paginator="true" rows="10"
+			paginatorPosition="top" widgetVar="tInsumo"
+			rowKey="#{insumo.idInsumo}"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}
+                     {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="10">
+
+			<f:facet name="header">
+				<p:outputPanel>
+					<h:outputText value="Busqueda:" />
+					<p:inputText id="globalFilter" onkeyup="PF('tInsumo').filter()"
+						style="width:150px" />
+				</p:outputPanel>
+			</f:facet>
+
+			<p:column filterBy="#{insumo.nombre}" headerText="Nombre"
+				footerText="" filterMatchMode="contains">
+				<h:outputText value="#{insumo.nombre}" />
+			</p:column>
+
+			<p:column filterBy="#{insumo.precioUnitario}"
+				headerText="Precio Unitario" footerText=""
+				filterMatchMode="contains">
+				<h:outputText value="#{insumo.precioUnitario}" />
+			</p:column>
+
+			<p:column headerText="Modificar">
+				<h:outputText />
+				<p:commandButton update=":formModificar" id="btnModificar"
+					value="Modificar" oncomplete="PF('dlgUpdate').show();">
+					<f:setPropertyActionListener target="#{insumoBean.insumo}"
+						value="#{insumo}" />
+				</p:commandButton>
+			</p:column>
+
+			<p:column headerText="Eliminar">
+				<p:commandButton update=":formEliminar" id="btnEliminar" value="Eliminar" 
+				oncomplete="PF('dlgDelete').show();">
+						<f:setPropertyActionListener target="#{insumoBean.insumo}"
+						value="#{insumo}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+
+	</h:form>
+
+<!-- Diálogo de modificacion de insumos -->
+
+	<p:dialog closable="false" id="dlg" header="Modificar Insumo"
+		showEffect="explode" hideEffect="explode" widgetVar="dlgUpdate"
+		modal="true" resizable="false" minWidth="200">
+		<h:form id="formModificar">
+
+			<h:panelGrid id="grid" columns="3">
+
+				<p:outputLabel for="nombre" value="Nombre: " />
+				<p:inputText value="#{insumoBean.insumo.nombre}" required="true"
+					requiredMessage="Debe ingresar un nombre de insumo" id="nombre"
+					maxlength="50" />
+				<p:message for="nombre" />
+
+				<p:outputLabel for="precioUnitario" value="Precio unitario: " />
+				<pe:inputNumber decimalPlaces="3"
+					value="#{insumoBean.insumo.precioUnitario}" required="true"
+					requiredMessage="Debe ingresar el precio unitario"
+					id="precioUnitario" />
+				<p:message for="precioUnitario" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+
+				<p:commandButton value="Modificar"
+					update=":formListarInsumos, :formNuevoInsumo"
+					actionListener="#{insumoBean.modificarInsumo()}"
+					oncomplete="PF('dlgUpdate').hide()" />
+
+				<p:commandButton value="Cancelar"
+					actionListener="#{insumoBean.cancelar()}"					
+					oncomplete="PF('dlgUpdate').hide()" />
+
+			</h:panelGrid>
+
+
+		</h:form>
+	</p:dialog>
+
+<!-- Diálogo de eliminación de insumos -->
+
+	<p:dialog id="dlg2" header="Eliminar Insumo" showEffect="explode"
+		hideEffect="explode" widgetVar="dlgDelete" modal="true"
+		resizable="false" minWidth="200" closable="false">
+		<h:form id="formEliminar">
+			<h:outputText value="¿Desea eliminar al insumo #{insumoBean.insumo.nombre}?" />
+			<h:panelGrid columns="2" >
+			<p:commandButton value="Si"
+				actionListener="#{insumoBean.eliminarInsumo()}" 
+				update=":formListarInsumos, :formNuevoInsumo"
+				oncomplete="PF('dlgDelete').hide()" />
+			<p:commandButton value="Cancelar"
+					actionListener="#{insumoBean.cancelar()}"
+					update=":formListarInsumos, :formNuevoInsumo"
+					oncomplete="PF('dlgDelete').hide()" />
+			</h:panelGrid>					
+		</h:form>
+	</p:dialog>
+
+</h:body>
+
+</html>
+

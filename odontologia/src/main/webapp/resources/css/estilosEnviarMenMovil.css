@@ -1,0 +1,75 @@
+.ui-state-default .icon-agenda{	
+	 background-size: 18px 18px;
+}
+#wrapper {
+    width: 0 auto;
+    margin: 0 auto;
+    background-image: url("http://localhost:8090/odontologia/resources/images/fondo1.jpg");"
+}
+	/* Celular de 480x320*/
+@media only screen and (min-width: 320px) and (orientation : landscape){
+	
+	.ui-btnPanelGrid{
+		margin-left: 135px;	
+	}
+	.ui-field-contain > label ~ [class*='ui-']{
+	    width: 96%;
+	    margin-left: 12px;
+	}
+	.ui-field-contain > label{
+		margin-left: 12px;
+	}
+	.ui-fileUpload{
+		width: 96%;
+		margin-left: 10px;
+	}
+	.ui-mobile label{
+		margin-left: 10px;
+	}
+	
+}
+@media only screen and (min-width: 320px) and (max-width: 480px){
+	
+	.ui-btnPanelGrid{
+		margin-left: 60px;
+		margin-top: 10px;
+	}
+
+}
+  /* ipad de 1024x768*/
+@media only screen and (min-width: 768px) and (orientation : landscape){
+	
+	.ui-btnPanelGrid{
+		margin-left: 390px;
+		margin-top: 40px;
+	}
+	.ui-field-contain{
+		margin-left: 50px;	
+	    margin-top: 68px;
+	    margin-bottom: 80px;
+	}
+	.ui-mobile label{
+		margin-left: 60px;
+	}
+	.ui-field-contain > label ~ [class*='ui-']{
+	    width: 95%;
+	    margin-left: 6px;
+	}
+	.ui-field-contain > label{
+		margin-left: 10px;
+	}
+	.ui-fileUpload{
+		width: 91%;
+		margin-left: 54px;
+	}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px){
+	
+	
+	.ui-btnPanelGrid{
+	 margin-left: 270px;
+		margin-top: 40px;
+	}
+}
+
