@@ -1,9 +1,17 @@
 #header {
-  background-position:  center center;
-  background-repeat: no-repeat;
-  background-image: url("../../resources/images/bannerDent.png");
-  height: 200px;
-  background-size: cover;
-  
-  
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-image: url("../../resources/images/bannerDent.png");
+	height: 200px;
+	background-size: cover;
 }
+/* Para que el menubar no esté atrás del layout  */
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}
+/***/
