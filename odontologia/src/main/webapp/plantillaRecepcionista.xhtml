@@ -12,53 +12,76 @@
 <h:body>
 
 	<p:layout fullPage="true">
-		<p:layoutUnit position="north" size="350" header="Bienvenido a SPADENT, #{loginBean.usuario}"
-			resizable="true" closable="false" collapsible="true">
-			<div id="header"></div>
-			<br></br>
-	<h:form>
-		<p:growl id="messages" />
 
-		<p:menubar>
-			<p:submenu label="Perfil" icon="ui-icon-document">
-				<p:menuitem value="Datos" url="#" />
-			</p:submenu>
-			
-			<p:submenu label="Administrar" icon="ui-icon-document">
-				<p:menuitem value="Odontólogo" url="administrarOdontologo.jsf" />
-				<p:menuitem value="Paciente" url="administrarPaciente.jsf" />
-			</p:submenu>
+		<!-- LAYOUT FOR TOP -->
+		<p:layoutUnit position="north" size="350"
+			header="Bienvenido a SPADENT, #{loginBean.usuario}" resizable="true"
+			closable="false" collapsible="true">
 
-			<p:submenu label="Consulta" icon="ui-icon-pencil">
-				<p:menuitem value="Consulta #1" url="#"
-					icon="ui-icon-arrowreturnthick-1-w" />
-				<p:menuitem value="Consulta #2" url="#"
-					icon="ui-icon-arrowreturnthick-1-e" />
-			</p:submenu>
 
-			<p:submenu label="Contacto" icon="ui-icon-help">
-				<p:menuitem value="Contents" url="#" />
-			</p:submenu>	
-			<f:facet name="options">
-				<p:commandButton action="#{loginBean.cerrarSesion}" value="Cerrar sesión" icon="ui-icon-extlink" />				
-					
-			</f:facet>
-		</p:menubar>
-	</h:form>
+			<ui:insert name="header">
+				<div id="header"></div>
+				<br></br>
+				<h:form>
+					<p:growl id="messages" />
+
+					<p:menubar>
+						<p:submenu label="Perfil" icon="ui-icon-document">
+							<p:menuitem value="Datos" url="#" />
+						</p:submenu>
+
+						<p:submenu label="Administrar" icon="ui-icon-document">
+							<p:menuitem value="Odontólogo" url="administrarOdontologo.jsf" />
+							<p:menuitem value="Paciente" url="administrarPaciente.jsf" />
+						</p:submenu>
+
+						<p:submenu label="Consulta" icon="ui-icon-pencil">
+							<p:menuitem value="Consulta #1" url="#"
+								icon="ui-icon-arrowreturnthick-1-w" />
+							<p:menuitem value="Consulta #2" url="#"
+								icon="ui-icon-arrowreturnthick-1-e" />
+						</p:submenu>
+
+						<p:submenu label="Contacto" icon="ui-icon-help">
+							<p:menuitem value="Contents" url="#" />
+						</p:submenu>
+						<f:facet name="options">
+							<p:commandButton action="#{loginBean.cerrarSesion}"
+								value="Cerrar sesión" icon="ui-icon-extlink" />
+
+						</f:facet>
+					</p:menubar>
+				</h:form>
+			</ui:insert>
+
 		</p:layoutUnit>
+		<!-- END LAYOUT FOR TOP -->
 
+		<!-- LAYOUT FOR WEST -->
 		<p:layoutUnit position="west" size="200" header="Left"
 			resizable="true" closable="false" collapsible="true">
-			<h:outputText value="West unit content." />
+			<ui:insert name="west">
+			No se usa porque varía
+			</ui:insert>
 		</p:layoutUnit>
+		<!-- END LAYOUT FOR WEST -->
 
 
+
+
+		<!-- LAYOUT FOR CENTER -->
 		<p:layoutUnit position="center">
-        //page code
-        </p:layoutUnit>
+			<ui:insert name="center">
+            No se usa porque varía
+            </ui:insert>
+		</p:layoutUnit>
+		<!-- END LAYOUT FOR CENTER -->
+
+
 
 
 	</p:layout>
+
 
 
 </h:body>
