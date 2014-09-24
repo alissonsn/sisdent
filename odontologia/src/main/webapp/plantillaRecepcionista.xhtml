@@ -12,7 +12,7 @@
 <h:body>
 
 	<p:layout fullPage="true">
-		<p:layoutUnit position="north" size="350" header="Bienvenido a SPADENT"
+		<p:layoutUnit position="north" size="350" header="Bienvenido a SPADENT, #{loginBean.usuario}"
 			resizable="true" closable="false" collapsible="true">
 			<div id="header"></div>
 			<br></br>
@@ -25,7 +25,8 @@
 			</p:submenu>
 			
 			<p:submenu label="Administrar" icon="ui-icon-document">
-				<p:menuitem value="Odontologo" url="administrarOdontologo.jsf" />
+				<p:menuitem value="Odontólogo" url="administrarOdontologo.jsf" />
+				<p:menuitem value="Paciente" url="administrarPaciente.jsf" />
 			</p:submenu>
 
 			<p:submenu label="Consulta" icon="ui-icon-pencil">
