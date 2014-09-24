@@ -21,6 +21,9 @@ public class Odontologo {
 	@JoinColumn(name = "idpersona", nullable = false)
 	private Persona odontologoPersona;
 	
+	@Column(name="especialidad", nullable=false)
+	private String especialidad;
+	
 	@OneToMany(mappedBy="citaOdontologo")
 	private Collection<Cita> odontologoCitas;
 	
@@ -58,6 +61,14 @@ public class Odontologo {
 
 	public void setOdontologoPersona(Persona odontologoPersona) {
 		this.odontologoPersona = odontologoPersona;
+	}
+
+	public String getEspecialidad() {
+		return especialidad;
+	}
+
+	public void setEspecialidad(String especialidad) {
+		this.especialidad = especialidad;
 	}	
 	
 }
