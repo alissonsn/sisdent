@@ -12,13 +12,113 @@
 <h:body>
 
 
-	<h:form id="frmAgregar">
-		 <p:commandButton value="Nuevo Equipo"
-                                         oncomplete="PF('dlgNuevo').show();" />
-	</h:form>
+	<h:form id="frmAdmOdon">
 
-	 <h:form id="formNuevo">
-                        <p:dialog header="Nuevo Equipo" widgetVar="dlgNuevo" resizable="false" id="dlgNuevo"  
-                                  showEffect="fade" hideEffect="explode" modal="true">  </p:dialog></h:form>
+		<p:commandButton id="btnAgregar" value="Nuevo Odontólogo"
+			oncomplete="PF('dlgAgregarW').show()">
+		</p:commandButton>
+
+		<br></br>
+
+		<p:dialog id="dlgAgregar" header="Agregar Nuevo Odontólogo"
+			resizable="false" widgetVar="dlgAgregarW" showEffect="fade"
+			modal="true" hideEffect="fade" position="center" appendTo="@(body)">
+
+			<p:panelGrid columns="2">
+
+				<p:outputLabel value="Nombre:"></p:outputLabel>
+				<p:inputText
+					value="#{odontologoBean.odontologo.odontologoPersona.nombre}">
+				</p:inputText>
+
+				<p:outputLabel value="Apellido Paterno:"></p:outputLabel>
+				<p:inputText
+					value="#{odontologoBean.odontologo.odontologoPersona.apellidoPaterno}">
+				</p:inputText>
+
+				<p:outputLabel value="Apellido Materno:"></p:outputLabel>
+				<p:inputText
+					value="#{odontologoBean.odontologo.odontologoPersona.apellidoMaterno}">
+				</p:inputText>
+
+				<p:outputLabel value="Dirección:"></p:outputLabel>
+				<p:inputText
+					value="#{odontologoBean.odontologo.odontologoPersona.direccion}">
+				</p:inputText>
+
+				<p:outputLabel value="Distrito:"></p:outputLabel>
+				<p:selectOneMenu
+					value="#{odontologoBean.odontologo.odontologoPersona.personaDistrito.idDistrito}"
+					effect="drop">
+					<f:selectItem itemLabel="Seleccionar distrito" itemValue="" />
+					<f:selectItems value="#{odontologoBean.distritos}" var="distrito"
+						itemLabel="#{distrito.nombre}" itemValue="#{distrito.idDistrito}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Celular:"></p:outputLabel>
+				<p:inputText
+					value="#{odontologoBean.odontologo.odontologoPersona.celular}">
+				</p:inputText>
+
+				<p:outputLabel value="Teléfono Fijo:"></p:outputLabel>
+				<p:inputText
+					value="#{odontologoBean.odontologo.odontologoPersona.telefono}">
+				</p:inputText>
+
+				<p:outputLabel value="Correo Electrónico:"></p:outputLabel>
+				<p:inputText
+					value="#{odontologoBean.odontologo.odontologoPersona.correoElectronico}">
+				</p:inputText>
+
+				<p:outputLabel value="Usuario:"></p:outputLabel>
+				<p:inputText
+					value="#{odontologoBean.odontologo.odontologoPersona.personaUsuario.usuario}">
+				</p:inputText>
+
+				<p:outputLabel value="Conraseña:"></p:outputLabel>
+				<p:inputText
+					value="#{odontologoBean.odontologo.odontologoPersona.personaUsuario.password}">
+				</p:inputText>
+
+				<p:outputLabel value="Especialidad:"></p:outputLabel>
+				<p:inputText value="#{odontologoBean.odontologo.especialidad}">
+				</p:inputText>
+
+			</p:panelGrid>
+
+			<p:separator></p:separator>
+
+			<p:commandButton
+				actionListener="#{odontologoBean.registrarOdontologo}"
+				value="Guardar" update=":frmAdmOdon" />
+			<p:commandButton value="Cancelar"
+				actionListener="#{odontologoBean.cancelar}" update="frmAdmOdon">
+			</p:commandButton>
+
+
+
+		</p:dialog>
+
+		<br></br>
+
+		<p:dataTable var="odon" value="#{odontologoBean.odontologos}"
+			paginator="true" rows="10"
+			paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+			rowsPerPageTemplate="5,10,15">
+
+			<p:column headerText="Nombre"
+				sortBy="#{odon.odontologoPersona.nombre}"
+				filterBy="#{odon.odontologoPersona.nombre}">
+				<h:outputText value="#{odon.odontologoPersona.nombre}" />
+			</p:column>
+
+			<p:column headerText="Especialidad" sortBy="#{odon.especialidad}"
+				filterBy="#{odon.especialidad}">
+				<h:outputText value="#{odon.especialidad}" />
+			</p:column>
+
+		</p:dataTable>
+
+	</h:form>
 </h:body>
 </html>
