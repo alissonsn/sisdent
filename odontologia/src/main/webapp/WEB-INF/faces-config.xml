@@ -35,7 +35,7 @@
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>odontologoBean</managed-bean-name>
-		<managed-bean-class>com.odontologia.bean.odontologoBean</managed-bean-class>
+		<managed-bean-class>com.odontologia.bean.OdontologoBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>

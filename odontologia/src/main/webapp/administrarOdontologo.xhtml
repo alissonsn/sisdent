@@ -20,111 +20,237 @@
 
 			<h:form id="frmAdmOdon">
 
+
 				<p:commandButton id="btnAgregar" value="Nuevo Odontólogo"
-					oncomplete="PF('dlgAgregarW').show()">
+					oncomplete="PF('dlgAgregarW').show()" update=":dlgAgregar">
 				</p:commandButton>
 
 				<br></br>
-
-				<p:dialog id="dlgAgregar" header="Agregar Nuevo Odontólogo"
-					resizable="false" widgetVar="dlgAgregarW" showEffect="fade"
-					modal="true" hideEffect="fade" position="center" appendTo="@(body)">
-
-					<p:panelGrid columns="2">
-
-						<p:outputLabel value="Nombre:"></p:outputLabel>
-						<p:inputText
-							value="#{odontologoBean.odontologo.odontologoPersona.nombre}">
-						</p:inputText>
-
-						<p:outputLabel value="Apellido Paterno:"></p:outputLabel>
-						<p:inputText
-							value="#{odontologoBean.odontologo.odontologoPersona.apellidoPaterno}">
-						</p:inputText>
-
-						<p:outputLabel value="Apellido Materno:"></p:outputLabel>
-						<p:inputText
-							value="#{odontologoBean.odontologo.odontologoPersona.apellidoMaterno}">
-						</p:inputText>
-
-						<p:outputLabel value="Dirección:"></p:outputLabel>
-						<p:inputText
-							value="#{odontologoBean.odontologo.odontologoPersona.direccion}">
-						</p:inputText>
-
-						<p:outputLabel value="Distrito:"></p:outputLabel>
-						<p:selectOneMenu value="#{odontologoBean.odontologo.odontologoPersona.personaDistrito.idDistrito}" effect="drop">
-							<f:selectItem itemLabel="Seleccionar distrito" itemValue="" />
-							<f:selectItems value="#{odontologoBean.distritos}" var="distrito" itemLabel="#{distrito.nombre}" itemValue="#{distrito.idDistrito}"   />
-						</p:selectOneMenu>
-
-						<p:outputLabel value="Celular:"></p:outputLabel>
-						<p:inputText
-							value="#{odontologoBean.odontologo.odontologoPersona.celular}">
-						</p:inputText>
-
-						<p:outputLabel value="Teléfono Fijo:"></p:outputLabel>
-						<p:inputText
-							value="#{odontologoBean.odontologo.odontologoPersona.telefono}">
-						</p:inputText>
-
-						<p:outputLabel value="Correo Electrónico:"></p:outputLabel>
-						<p:inputText
-							value="#{odontologoBean.odontologo.odontologoPersona.correoElectronico}">
-						</p:inputText>
-						
-						<p:outputLabel value="Usuario:"></p:outputLabel>
-						<p:inputText
-							value="#{odontologoBean.odontologo.odontologoPersona.personaUsuario.usuario}">
-						</p:inputText>
-						
-						<p:outputLabel value="Conraseña:"></p:outputLabel>
-						<p:inputText
-							value="#{odontologoBean.odontologo.odontologoPersona.personaUsuario.password}">
-						</p:inputText>
-						
-						<p:outputLabel value="Especialidad:"></p:outputLabel>
-						<p:inputText
-							value="#{odontologoBean.odontologo.especialidad}">
-						</p:inputText>
-
-					</p:panelGrid>
-
-					<p:separator></p:separator>
-
-					<p:commandButton actionListener="#{odontologoBean.registrarOdontologo}" value="Guardar" update=":frmAdmOdon" />					                 
-					<p:commandButton value="Cancelar" actionListener="#{odontologoBean.cancelar}"
-					                 update="frmAdmOdon">
-					</p:commandButton>
-
-
-
-				</p:dialog>
-
 				<br></br>
 
-				<p:dataTable var="odon" value="#{odontologoBean.odontologos}"
-					paginator="true" rows="10"
+				<p:dataTable var="odon" resizableColumns="true" widgetVar="tOdon"
+					emptyMessage="No hay Odontólogos registrados"
+					paginatorPosition="top" rowKey="#{odon.idOdontologo}"
+					value="#{odontologoBean.odontologos}" paginator="true" rows="10"
 					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 					rowsPerPageTemplate="5,10,15">
 
-					<p:column headerText="Nombre"
-						sortBy="#{odon.odontologoPersona.nombre}"
+					<f:facet name="header">
+						<p:outputPanel>
+							<h:outputText value="Búsqueda:" />
+							<p:inputText id="globalFilter" onkeyup="PF('tOdon').filter()"
+								style="width:150px" />
+						</p:outputPanel>
+					</f:facet>
+
+					<p:column headerText="Nombre" footerText=""
+						filterMatchMode="contains"
 						filterBy="#{odon.odontologoPersona.nombre}">
 						<h:outputText value="#{odon.odontologoPersona.nombre}" />
 					</p:column>
 
-					<p:column headerText="Especialidad" sortBy="#{odon.especialidad}"
-						filterBy="#{odon.especialidad}">
+					<p:column headerText="Apellido Paterno" footerText=""
+						filterMatchMode="contains"
+						filterBy="#{odon.odontologoPersona.apellidoPaterno}">
+						<h:outputText value="#{odon.odontologoPersona.apellidoPaterno}" />
+					</p:column>
+
+					<p:column headerText="Apellido Materno" footerText=""
+						filterMatchMode="contains"
+						filterBy="#{odon.odontologoPersona.apellidoMaterno}">
+						<h:outputText value="#{odon.odontologoPersona.apellidoMaterno}" />
+					</p:column>
+
+					<p:column headerText="Celular" footerText=""
+						filterMatchMode="contains"
+						filterBy="#{odon.odontologoPersona.celular}">
+						<h:outputText value="#{odon.odontologoPersona.celular}" />
+					</p:column>
+
+					<p:column headerText="Especialidad" footerText=""
+						filterMatchMode="contains" filterBy="#{odon.especialidad}">
 						<h:outputText value="#{odon.especialidad}" />
+					</p:column>
+
+					<p:column headerText="Acciones">
+						<p:commandButton update=":dlgEditar" value="Editar"
+							oncomplete="PF('dlgEditarW').show()"
+							actionListener="#{odontologoBean.prepararAccion(odon.idOdontologo)}" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+							<p:commandButton update=":dlgEliminar" value="Eliminar"
+							oncomplete="PF('dlgEliminarW').show()"
+							actionListener="#{odontologoBean.prepararAccion(odon.idOdontologo)}" />
+
 					</p:column>
 
 				</p:dataTable>
 
 			</h:form>
 
+			<!-- Diálogo de agregar odontólogo -->
 
+			<p:dialog id="dlgAgregar" header="Agregar Nuevo Odontólogo"
+				resizable="false" widgetVar="dlgAgregarW" showEffect="fade"
+				modal="true" hideEffect="fade" position="center" appendTo="@(body)">
+				<h:form id="frmNuevo">
+					<p:messages id="growl" />
+					<p:panelGrid columns="2">
 
+						<p:outputLabel value="Nombre:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.persona.nombre}">
+						</p:inputText>
+
+						<p:outputLabel value="Apellido Paterno:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.persona.apellidoPaterno}">
+						</p:inputText>
+
+						<p:outputLabel value="Apellido Materno:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.persona.apellidoMaterno}">
+						</p:inputText>
+
+						<p:outputLabel value="Dirección:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.persona.direccion}">
+						</p:inputText>
+
+						<p:outputLabel value="Distrito:"></p:outputLabel>
+						<p:selectOneMenu value="#{odontologoBean.distrito.idDistrito}"
+							effect="drop">
+							<f:selectItem itemLabel="Seleccionar distrito" itemValue="" />
+							<f:selectItems value="#{odontologoBean.distritos}" var="distrito"
+								itemLabel="#{distrito.nombre}"
+								itemValue="#{distrito.idDistrito}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Celular:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.persona.celular}">
+						</p:inputText>
+
+						<p:outputLabel value="Teléfono Fijo:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.persona.telefono}">
+						</p:inputText>
+
+						<p:outputLabel value="Correo Electrónico:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.persona.correoElectronico}">
+						</p:inputText>
+
+						<p:outputLabel value="Usuario:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.usuario.usuario}">
+						</p:inputText>
+
+						<p:outputLabel value="Conraseña:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.usuario.password}">
+						</p:inputText>
+
+						<p:outputLabel value="Especialidad:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.odontologo.especialidad}">
+						</p:inputText>
+
+					</p:panelGrid>
+
+					<p:separator></p:separator>
+
+					<p:commandButton
+						actionListener="#{odontologoBean.registrarOdontologo(actionEvent)}"
+						value="Guardar" update=":frmAdmOdon"
+						oncomplete="PF('dlgAgregarW').hide()" />
+					<p:commandButton value="Cancelar"
+						actionListener="#{odontologoBean.cancelar(actionEvent)}"
+						update=":frmAdmOdon" oncomplete="PF('dlgAgregarW').hide()">
+					</p:commandButton>
+
+				</h:form>
+
+			</p:dialog>
+
+			<!-- Diálogo de editar odontólogo -->
+
+			<p:dialog id="dlgEditar" header="Editar Odontólogo" resizable="false"
+				widgetVar="dlgEditarW" showEffect="fade" modal="true"
+				hideEffect="fade" position="center" appendTo="@(body)">
+				<h:form>
+
+					<p:panelGrid columns="2">
+
+						<p:outputLabel value="Nombre:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.persona.nombre}">
+						</p:inputText>
+
+						<p:outputLabel value="Apellido Paterno:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.persona.apellidoPaterno}">
+						</p:inputText>
+
+						<p:outputLabel value="Apellido Materno:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.persona.apellidoMaterno}">
+						</p:inputText>
+
+						<p:outputLabel value="Dirección:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.persona.direccion}">
+						</p:inputText>
+
+						<p:outputLabel value="Distrito:"></p:outputLabel>
+						<p:selectOneMenu value="#{odontologoBean.distrito.idDistrito}"
+							effect="drop">
+							<f:selectItem itemLabel="Seleccionar distrito" itemValue="" />
+							<f:selectItems value="#{odontologoBean.distritos}" var="distrito"
+								itemLabel="#{distrito.nombre}"
+								itemValue="#{distrito.idDistrito}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Celular:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.persona.celular}">
+						</p:inputText>
+
+						<p:outputLabel value="Teléfono Fijo:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.persona.telefono}">
+						</p:inputText>
+
+						<p:outputLabel value="Correo Electrónico:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.persona.correoElectronico}">
+						</p:inputText>
+
+						<p:outputLabel value="Usuario:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.usuario.usuario}">
+						</p:inputText>
+
+						<p:outputLabel value="Conraseña:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.usuario.password}">
+						</p:inputText>
+
+						<p:outputLabel value="Especialidad:"></p:outputLabel>
+						<p:inputText value="#{odontologoBean.odontologo.especialidad}">
+						</p:inputText>
+
+					</p:panelGrid>
+
+					<p:separator></p:separator>
+
+					<p:commandButton
+						actionListener="#{odontologoBean.actualizarOdontologo(actionEvent)}"
+						value="Actualizar" update=":frmAdmOdon"
+						oncomplete="PF('dlgEditarW').hide()" />
+					<p:commandButton value="Cancelar"
+						actionListener="#{odontologoBean.cancelar(actionEvent)}"
+						update=":frmAdmOdon" oncomplete="PF('dlgEditarW').hide()">
+					</p:commandButton>
+
+				</h:form>
+
+			</p:dialog>
+
+			<!-- Diálogo de eliminar odontólogo -->
+			<p:confirmDialog id="dlgEliminar" appendTo="@(body)"
+				message="¿Está seguro de eliminar al odontólogo #{odontologoBean.persona.nombre} #{odontologoBean.persona.apellidoPaterno}"
+				header="Eliminar odontólogo" severity="alert" widgetVar="dlgEliminarW">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+                 <h:form>
+
+					<p:commandButton value="Sí"
+						update=":frmAdmOdon"
+						actionListener="#{odontologoBean.eliminarOdontologo(actionEvent)}"
+						oncomplete="PF('dlgEliminarW').hide()" />    
+                            <p:commandButton value="No"
+						update=":frmAdmOdon" oncomplete="PF('dlgEliminarW').hide()"
+						 />
+				</h:form>
+			</p:confirmDialog>
 
 		</ui:define>
 
