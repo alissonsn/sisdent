@@ -19,11 +19,12 @@
 
 		<ui:define name="center">
 
-			<h:form id="frmAdmOdon">
+			<h:form id="frmAdmPac">
 
 
 				<p:commandButton id="btnAgregar" value="Nuevo Paciente"
-					oncomplete="PF('dlgAgregarW').show()" update=":dlgAgregar">
+					icon="ui-icon-plus" oncomplete="PF('dlgAgregarW').show()"
+					update=":dlgAgregar">
 				</p:commandButton>
 
 				<br></br>
@@ -68,12 +69,13 @@
 						<h:outputText value="#{pac.pacientePersona.celular}" />
 					</p:column>
 
-					<p:column headerText="Acciones">
+					<p:column headerText="Acciones"
+						style="width:300px; text-align:center;">
 						<p:commandButton update=":dlgEditar" value="Editar"
-							oncomplete="PF('dlgEditarW').show()"
+							oncomplete="PF('dlgEditarW').show()" icon="ui-icon-pencil"
 							actionListener="#{pacienteBean.prepararAccion(pac.idPaciente)}" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 							<p:commandButton update=":dlgEliminar" value="Eliminar"
-							oncomplete="PF('dlgEliminarW').show()"
+							oncomplete="PF('dlgEliminarW').show()" icon="ui-icon-trash"
 							actionListener="#{pacienteBean.prepararAccion(pac.idPaciente)}" />
 
 					</p:column>
@@ -100,7 +102,7 @@
 						</p:inputText>
 
 						<p:outputLabel value="Apellido Materno:"></p:outputLabel>
-						<p:inputText value="#pacienteBean.persona.apellidoMaterno}">
+						<p:inputText value="#{pacienteBean.persona.apellidoMaterno}">
 						</p:inputText>
 
 						<p:outputLabel value="Dirección:"></p:outputLabel>
@@ -143,11 +145,11 @@
 
 					<p:commandButton
 						actionListener="#{pacienteBean.registrarPaciente(actionEvent)}"
-						value="Guardar" update=":frmAdmOdon"
+						value="Guardar" update=":frmAdmPac"
 						oncomplete="PF('dlgAgregarW').hide()" />
 					<p:commandButton value="Cancelar"
 						actionListener="#{pacienteBean.cancelar(actionEvent)}"
-						update=":frmAdmOdon" oncomplete="PF('dlgAgregarW').hide()">
+						update=":frmAdmPac" oncomplete="PF('dlgAgregarW').hide()">
 					</p:commandButton>
 
 				</h:form>
@@ -172,7 +174,7 @@
 						</p:inputText>
 
 						<p:outputLabel value="Apellido Materno:"></p:outputLabel>
-						<p:inputText value="#pacienteBean.persona.apellidoMaterno}">
+						<p:inputText value="#{pacienteBean.persona.apellidoMaterno}">
 						</p:inputText>
 
 						<p:outputLabel value="Dirección:"></p:outputLabel>
@@ -214,11 +216,11 @@
 
 					<p:commandButton
 						actionListener="#{pacienteBean.actualizarPaciente(actionEvent)}"
-						value="Actualizar" update=":frmAdmOdon"
-						oncomplete="PF('dlgEditarW').hide()" />
+						value="Actualizar" update=":frmAdmPac"
+						oncomplete="PF('dlgEditarW').hide()" ></p:commandButton>
 					<p:commandButton value="Cancelar"
 						actionListener="#{pacienteBean.cancelar(actionEvent)}"
-						update=":frmAdmOdon" oncomplete="PF('dlgEditarW').hide()">
+						update=":frmAdmPac" oncomplete="PF('dlgEditarW').hide()">
 					</p:commandButton>
 
 				</h:form>
@@ -230,14 +232,16 @@
 				message="¿Está seguro de eliminar al paciente #{pacienteBean.persona.nombre} #{pacienteBean.persona.apellidoPaterno}"
 				header="Eliminar paciente" severity="alert" widgetVar="dlgEliminarW">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
                  <h:form>
-
-					<p:commandButton value="Sí" icon="ui-icon-circle-check"
-						update=":frmAdmOdon"
-						actionListener="#{pacienteBean.eliminarPaciente(actionEvent)}"
-						oncomplete="PF('dlgEliminarW').hide()" />
-					<p:commandButton value="No" icon="ui-icon-circle-close"
-						actionListener="#{pacienteBean.cancelar(actionEvent)}"
-						update=":frmAdmOdon" oncomplete="PF('dlgEliminarW').hide()" />
+					<h:panelGrid columns="2"  >
+						<p:commandButton value="Sí" icon="ui-icon-circle-check"
+							update=":frmAdmPac"
+							actionListener="#{pacienteBean.eliminarPaciente(actionEvent)}"
+							oncomplete="PF('dlgEliminarW').hide()" ></p:commandButton>
+							
+						<p:commandButton value="No" icon="ui-icon-circle-close"
+							actionListener="#{pacienteBean.cancelar(actionEvent)}"
+							update=":frmAdmPac" oncomplete="PF('dlgEliminarW').hide()" ></p:commandButton>
+					</h:panelGrid>
 				</h:form>
 			</p:confirmDialog>
 

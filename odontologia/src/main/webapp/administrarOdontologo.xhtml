@@ -22,7 +22,7 @@
 			<h:form id="frmAdmOdon">
 
 
-				<p:commandButton id="btnAgregar" value="Nuevo Odontólogo"
+				<p:commandButton id="btnAgregar" value="Nuevo Odontólogo" icon="ui-icon-plus"
 					oncomplete="PF('dlgAgregarW').show()" update=":dlgAgregar">
 				</p:commandButton>
 
@@ -73,12 +73,12 @@
 						<h:outputText value="#{odon.especialidad}" />
 					</p:column>
 
-					<p:column headerText="Acciones">
+					<p:column headerText="Acciones" style="width:300px; text-align:center;">
 						<p:commandButton update=":dlgEditar" value="Editar"
-							oncomplete="PF('dlgEditarW').show()"
+							oncomplete="PF('dlgEditarW').show()" icon="ui-icon-pencil"
 							actionListener="#{odontologoBean.prepararAccion(odon.idOdontologo)}" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 							<p:commandButton update=":dlgEliminar" value="Eliminar"
-							oncomplete="PF('dlgEliminarW').show()"
+							oncomplete="PF('dlgEliminarW').show()" icon="ui-icon-trash"
 							actionListener="#{odontologoBean.prepararAccion(odon.idOdontologo)}" />
 
 					</p:column>

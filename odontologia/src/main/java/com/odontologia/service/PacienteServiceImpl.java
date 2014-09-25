@@ -68,7 +68,7 @@ public class PacienteServiceImpl implements PacienteService {
 	public List<Paciente> getPacientes() {
 		List<Paciente> result = new ArrayList<>();
 		try{
-			Query q = em.createQuery("SELECT o FROM Odontologo o");
+			Query q = em.createQuery("SELECT p FROM Paciente p");
 			result = q.getResultList();
 		}
 		catch(NoResultException e){

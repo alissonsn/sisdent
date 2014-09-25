@@ -62,6 +62,8 @@ public class PacienteBean {
 	public void prepararAccion(int id) {
 		paciente = pacienteService.buscarPorId(id);
 		persona = paciente.getPacientePersona();
+		usuario = paciente.getPacientePersona().getPersonaUsuario();
+		distrito = paciente.getPacientePersona().getPersonaDistrito();
 		
 	}
 

@@ -5,29 +5,35 @@
 
 <h:head>
 	<title>Inicio de sesión</title>
-	
+	<h:outputStylesheet name="css/estilos.css" />
+
 </h:head>
 
 <h:body>
-	<h:form>	
-	
-	<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
-	
-		<h:panelGrid columns="2" cellpadding="5">			
-			
-			<p:outputLabel value="Usuario:" />
-			<p:inputText id="usuario" value="#{loginBean.usuario}" label="Usuario" />
 
-			<p:outputLabel value="Password:" />
-			<p:password id="password" value="#{loginBean.password}" label="Password" />
+	<div id="frmDiv">
+		<h:form>
 
-			<f:facet name="footer">
-				<p:commandButton value="Iniciar Sesion" update="growl"
-					action="#{loginBean.usuarioLogin}"/>
-			</f:facet>
-			
-		</h:panelGrid>
-	</h:form>
+			<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+			<h:panelGrid columns="2" cellpadding="5" >
+
+				<p:outputLabel value="Usuario:" />
+				<p:inputText id="usuario" value="#{loginBean.usuario}"
+					label="Usuario" />
+
+				<p:outputLabel value="Password:" />
+				<p:password id="password" value="#{loginBean.password}"
+					label="Password" />
+
+				<f:facet name="footer">
+					<p:commandButton value="Iniciar Sesion" update="growl"
+						action="#{loginBean.usuarioLogin}" />
+				</f:facet>
+
+			</h:panelGrid>
+		</h:form>
+	</div>
 
 </h:body>
 
