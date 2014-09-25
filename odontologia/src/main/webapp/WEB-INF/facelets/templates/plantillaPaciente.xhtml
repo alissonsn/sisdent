@@ -1,11 +1,86 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head> 
-<body> 
+<h:head>
+	<h:outputStylesheet name="css/estilos.css" />
 
-</body> 
+</h:head>
+<h:body>
+
+	<p:layout fullPage="true">
+
+		<!-- LAYOUT FOR TOP -->
+		<p:layoutUnit position="north" size="350"
+			header="Bienvenido a SPADENT, #{loginBean.usuario}" resizable="true"
+			closable="false" collapsible="true">
+
+
+			<ui:insert name="header">
+				<div id="header"></div>
+				<br></br>
+				<h:form>
+					<p:growl id="messages" />
+
+					<p:menubar>
+						<p:submenu label="Perfil" icon="ui-icon-person">
+							<p:menuitem value="Datos Personales" url="consultarInformacionPersonal.jsf" />
+						</p:submenu>
+
+						<p:submenu label="Citas" icon="ui-icon-pencil">
+							<p:menuitem value="Reservar cita" url="reservarCitaPersonal.jsf" />
+							<p:menuitem value="Consultar cita" url="consultarCitaPersonal.jsf" />
+						</p:submenu>
+						
+						<p:submenu label="Consultar" icon="ui-icon-clipboard">
+							<p:menuitem value="Consultar ficha" url="consultarFichaOdontologica.jsf" />							
+						</p:submenu>
+
+						<p:submenu label="Contacto" icon="ui-icon-mail-closed">
+							<p:menuitem value="Mensajes" url="enviarMensaje.jsf" />
+						</p:submenu>
+						<f:facet name="options">
+							<p:commandButton action="#{loginBean.cerrarSesion}"
+								value="Cerrar sesión" icon="ui-icon-extlink" />
+
+						</f:facet>
+					</p:menubar>
+				</h:form>
+			</ui:insert>
+
+		</p:layoutUnit>
+		<!-- END LAYOUT FOR TOP -->
+
+		<!-- LAYOUT FOR WEST -->
+		<p:layoutUnit position="west" size="200" header="Left"
+			resizable="true" closable="false" collapsible="true">
+			<ui:insert name="west">
+			No se usa porque varía
+			</ui:insert>
+		</p:layoutUnit>
+		<!-- END LAYOUT FOR WEST -->
+
+
+
+
+		<!-- LAYOUT FOR CENTER -->
+		<p:layoutUnit position="center">
+			<ui:insert name="center">
+            No se usa porque varía
+            </ui:insert>
+		</p:layoutUnit>
+		<!-- END LAYOUT FOR CENTER -->
+
+
+
+
+	</p:layout>
+
+
+
+</h:body>
 </html>
+

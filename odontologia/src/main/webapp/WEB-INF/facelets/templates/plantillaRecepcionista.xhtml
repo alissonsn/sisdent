@@ -26,8 +26,8 @@
 					<p:growl id="messages" />
 
 					<p:menubar>
-						<p:submenu label="Perfil" icon="ui-icon-document">
-							<p:menuitem value="Datos" url="#" />
+						<p:submenu label="Perfil" icon="ui-icon-person">
+							<p:menuitem value="Datos Personales" url="consultarInformacionPersonal.jsf" />
 						</p:submenu>
 
 						<p:submenu label="Administrar" icon="ui-icon-document">
@@ -35,15 +35,12 @@
 							<p:menuitem value="Paciente" url="administrarPaciente.jsf" />
 						</p:submenu>
 
-						<p:submenu label="Consulta" icon="ui-icon-pencil">
-							<p:menuitem value="Consulta #1" url="#"
-								icon="ui-icon-arrowreturnthick-1-w" />
-							<p:menuitem value="Consulta #2" url="#"
-								icon="ui-icon-arrowreturnthick-1-e" />
+						<p:submenu label="Horario" icon="ui-icon-pencil">
+							<p:menuitem value="Administrar citas" url="reservarCita.jsf" />
 						</p:submenu>
 
-						<p:submenu label="Contacto" icon="ui-icon-help">
-							<p:menuitem value="Contents" url="#" />
+						<p:submenu label="Contacto" icon="ui-icon-mail-closed">
+							<p:menuitem value="Mensajes" url="enviarMensaje.jsf" />
 						</p:submenu>
 						<f:facet name="options">
 							<p:commandButton action="#{loginBean.cerrarSesion}"

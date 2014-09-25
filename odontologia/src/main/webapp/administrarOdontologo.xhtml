@@ -10,7 +10,8 @@
 
 </h:head>
 <h:body>
-	<ui:composition template="plantillaRecepcionista.xhtml">
+	<ui:composition
+		template="/WEB-INF/facelets/templates/plantillaRecepcionista.xhtml">
 
 		<ui:define name="west">
 	INDEX
@@ -239,16 +240,17 @@
 			<!-- Diálogo de eliminar odontólogo -->
 			<p:confirmDialog id="dlgEliminar" appendTo="@(body)"
 				message="¿Está seguro de eliminar al odontólogo #{odontologoBean.persona.nombre} #{odontologoBean.persona.apellidoPaterno}"
-				header="Eliminar odontólogo" severity="alert" widgetVar="dlgEliminarW">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+				header="Eliminar odontólogo" severity="alert"
+				widgetVar="dlgEliminarW">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
                  <h:form>
 
-					<p:commandButton value="Sí"
+					<p:commandButton value="Sí" icon="ui-icon-circle-check"
 						update=":frmAdmOdon"
 						actionListener="#{odontologoBean.eliminarOdontologo(actionEvent)}"
-						oncomplete="PF('dlgEliminarW').hide()" />    
-                            <p:commandButton value="No"
-						update=":frmAdmOdon" oncomplete="PF('dlgEliminarW').hide()"
-						 />
+						oncomplete="PF('dlgEliminarW').hide()" />
+					<p:commandButton value="No" icon="ui-icon-circle-close"
+						actionListener="#{odontologoBean.cancelar(actionEvent)}"
+						update=":frmAdmOdon" oncomplete="PF('dlgEliminarW').hide()" />
 				</h:form>
 			</p:confirmDialog>
 

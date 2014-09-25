@@ -1,11 +1,249 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head> 
-<body> 
+<h:head>
+	<h:outputStylesheet name="css/estilos.css" />
 
-</body> 
+</h:head>
+<h:body>
+	<ui:composition
+		template="/WEB-INF/facelets/templates/plantillaRecepcionista.xhtml">
+
+		<ui:define name="west">
+	INDEX
+	</ui:define>
+
+		<ui:define name="center">
+
+			<h:form id="frmAdmOdon">
+
+
+				<p:commandButton id="btnAgregar" value="Nuevo Paciente"
+					oncomplete="PF('dlgAgregarW').show()" update=":dlgAgregar">
+				</p:commandButton>
+
+				<br></br>
+				<br></br>
+
+				<p:dataTable var="pac" resizableColumns="true" widgetVar="tPac"
+					emptyMessage="No hay Pacientes registrados" paginatorPosition="top"
+					rowKey="#{pac.idPaciente}" value="#{pacienteBean.pacientes}"
+					paginator="true" rows="10"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,15">
+
+					<f:facet name="header">
+						<p:outputPanel>
+							<h:outputText value="Búsqueda:" />
+							<p:inputText id="globalFilter" onkeyup="PF('tPac').filter()"
+								style="width:150px" />
+						</p:outputPanel>
+					</f:facet>
+
+					<p:column headerText="Nombre" footerText=""
+						filterMatchMode="contains"
+						filterBy="#{pac.pacientePersona.nombre}">
+						<h:outputText value="#{pac.pacientePersona.nombre}" />
+					</p:column>
+
+					<p:column headerText="Apellido Paterno" footerText=""
+						filterMatchMode="contains"
+						filterBy="#{pac.pacientePersona.apellidoPaterno}">
+						<h:outputText value="#{pac.pacientePersona.apellidoPaterno}" />
+					</p:column>
+
+					<p:column headerText="Apellido Materno" footerText=""
+						filterMatchMode="contains"
+						filterBy="#{pac.pacientePersona.apellidoMaterno}">
+						<h:outputText value="#{pac.pacientePersona.apellidoMaterno}" />
+					</p:column>
+
+					<p:column headerText="Celular" footerText=""
+						filterMatchMode="contains"
+						filterBy="#{pac.pacientePersona.celular}">
+						<h:outputText value="#{pac.pacientePersona.celular}" />
+					</p:column>
+
+					<p:column headerText="Acciones">
+						<p:commandButton update=":dlgEditar" value="Editar"
+							oncomplete="PF('dlgEditarW').show()"
+							actionListener="#{pacienteBean.prepararAccion(pac.idPaciente)}" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+							<p:commandButton update=":dlgEliminar" value="Eliminar"
+							oncomplete="PF('dlgEliminarW').show()"
+							actionListener="#{pacienteBean.prepararAccion(pac.idPaciente)}" />
+
+					</p:column>
+
+				</p:dataTable>
+
+			</h:form>
+
+			<!-- Diálogo de agregar paciente -->
+
+			<p:dialog id="dlgAgregar" header="Agregar Nuevo Paciente"
+				resizable="false" widgetVar="dlgAgregarW" showEffect="fade"
+				modal="true" hideEffect="fade" position="center" appendTo="@(body)">
+				<h:form id="frmNuevo">
+					<p:messages id="growl" />
+					<p:panelGrid columns="2">
+
+						<p:outputLabel value="Nombre:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.persona.nombre}">
+						</p:inputText>
+
+						<p:outputLabel value="Apellido Paterno:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.persona.apellidoPaterno}">
+						</p:inputText>
+
+						<p:outputLabel value="Apellido Materno:"></p:outputLabel>
+						<p:inputText value="#pacienteBean.persona.apellidoMaterno}">
+						</p:inputText>
+
+						<p:outputLabel value="Dirección:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.persona.direccion}">
+						</p:inputText>
+
+						<p:outputLabel value="Distrito:"></p:outputLabel>
+						<p:selectOneMenu value="#{pacienteBean.distrito.idDistrito}"
+							effect="drop">
+							<f:selectItem itemLabel="Seleccionar distrito" itemValue="" />
+							<f:selectItems value="#{pacienteBean.distritos}" var="distrito"
+								itemLabel="#{distrito.nombre}"
+								itemValue="#{distrito.idDistrito}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Celular:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.persona.celular}">
+						</p:inputText>
+
+						<p:outputLabel value="Teléfono Fijo:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.persona.telefono}">
+						</p:inputText>
+
+						<p:outputLabel value="Correo Electrónico:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.persona.correoElectronico}">
+						</p:inputText>
+
+						<p:outputLabel value="Usuario:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.usuario.usuario}">
+						</p:inputText>
+
+						<p:outputLabel value="Conraseña:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.usuario.password}">
+						</p:inputText>
+
+
+					</p:panelGrid>
+
+					<p:separator></p:separator>
+
+					<p:commandButton
+						actionListener="#{pacienteBean.registrarPaciente(actionEvent)}"
+						value="Guardar" update=":frmAdmOdon"
+						oncomplete="PF('dlgAgregarW').hide()" />
+					<p:commandButton value="Cancelar"
+						actionListener="#{pacienteBean.cancelar(actionEvent)}"
+						update=":frmAdmOdon" oncomplete="PF('dlgAgregarW').hide()">
+					</p:commandButton>
+
+				</h:form>
+
+			</p:dialog>
+
+			<!-- Diálogo de editar paciente -->
+
+			<p:dialog id="dlgEditar" header="Editar Paciente" resizable="false"
+				widgetVar="dlgEditarW" showEffect="fade" modal="true"
+				hideEffect="fade" position="center" appendTo="@(body)">
+				<h:form>
+
+					<p:panelGrid columns="2">
+
+						<p:outputLabel value="Nombre:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.persona.nombre}">
+						</p:inputText>
+
+						<p:outputLabel value="Apellido Paterno:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.persona.apellidoPaterno}">
+						</p:inputText>
+
+						<p:outputLabel value="Apellido Materno:"></p:outputLabel>
+						<p:inputText value="#pacienteBean.persona.apellidoMaterno}">
+						</p:inputText>
+
+						<p:outputLabel value="Dirección:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.persona.direccion}">
+						</p:inputText>
+
+						<p:outputLabel value="Distrito:"></p:outputLabel>
+						<p:selectOneMenu value="#{pacienteBean.distrito.idDistrito}"
+							effect="drop">
+							<f:selectItem itemLabel="Seleccionar distrito" itemValue="" />
+							<f:selectItems value="#{pacienteBean.distritos}" var="distrito"
+								itemLabel="#{distrito.nombre}"
+								itemValue="#{distrito.idDistrito}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Celular:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.persona.celular}">
+						</p:inputText>
+
+						<p:outputLabel value="Teléfono Fijo:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.persona.telefono}">
+						</p:inputText>
+
+						<p:outputLabel value="Correo Electrónico:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.persona.correoElectronico}">
+						</p:inputText>
+
+						<p:outputLabel value="Usuario:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.usuario.usuario}">
+						</p:inputText>
+
+						<p:outputLabel value="Conraseña:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.usuario.password}">
+						</p:inputText>
+
+					</p:panelGrid>
+
+					<p:separator></p:separator>
+
+					<p:commandButton
+						actionListener="#{pacienteBean.actualizarPaciente(actionEvent)}"
+						value="Actualizar" update=":frmAdmOdon"
+						oncomplete="PF('dlgEditarW').hide()" />
+					<p:commandButton value="Cancelar"
+						actionListener="#{pacienteBean.cancelar(actionEvent)}"
+						update=":frmAdmOdon" oncomplete="PF('dlgEditarW').hide()">
+					</p:commandButton>
+
+				</h:form>
+
+			</p:dialog>
+
+			<!-- Diálogo de eliminar paciente -->
+			<p:confirmDialog id="dlgEliminar" appendTo="@(body)"
+				message="¿Está seguro de eliminar al paciente #{pacienteBean.persona.nombre} #{pacienteBean.persona.apellidoPaterno}"
+				header="Eliminar paciente" severity="alert" widgetVar="dlgEliminarW">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+                 <h:form>
+
+					<p:commandButton value="Sí" icon="ui-icon-circle-check"
+						update=":frmAdmOdon"
+						actionListener="#{pacienteBean.eliminarPaciente(actionEvent)}"
+						oncomplete="PF('dlgEliminarW').hide()" />
+					<p:commandButton value="No" icon="ui-icon-circle-close"
+						actionListener="#{pacienteBean.cancelar(actionEvent)}"
+						update=":frmAdmOdon" oncomplete="PF('dlgEliminarW').hide()" />
+				</h:form>
+			</p:confirmDialog>
+
+		</ui:define>
+
+	</ui:composition>
+</h:body>
 </html>
+
