@@ -21,8 +21,8 @@ public class Cita {
 	@Column(name="horafin", nullable=true)
 	private Timestamp horaFin;	
 	
-	@Column(name="fecha", nullable=true)
-	private Timestamp fecha;
+	@Column(name="titulo", nullable=true, length=50)
+	private String titulo;
 	
 	@ManyToOne @JoinColumn(name="idodontologo", nullable=false)
 	private Odontologo citaOdontologo;
@@ -57,14 +57,6 @@ public class Cita {
 		this.horaFin = horaFin;
 	}
 
-	public Timestamp getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Timestamp fecha) {
-		this.fecha = fecha;
-	}
-
 	public Odontologo getCitaOdontologo() {
 		return citaOdontologo;
 	}
@@ -87,6 +79,14 @@ public class Cita {
 
 	public void setCitaEstadoCita(EstadoCita citaEstadoCita) {
 		this.citaEstadoCita = citaEstadoCita;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 	
 	
