@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14099073859300" configfile="/odontologia/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="24" y="108" id="pf14100766176176" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf14100766176187" inlinks="pf14100810517129" path="/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="276" y="84" id="pf14100766176188" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14100810517129" inlinks="pf14100766176187" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="338" y="178" id="pf14100766176176" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf14100766176187" inlinks="pf14100810517129" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="178" id="pf14100766176188" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14100810517129" inlinks="pf14100766176187" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="m/loginMovil.xhtml" x="338" y="562" id="pf14117408180910" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" outlinks="pf14117408180911" inlinks="pf14117408180912" path="/m/loginMovil.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="m/indexMovil.xhtml" x="122" y="562" id="pf14117408180913" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf14117408180912" inlinks="pf14117408180911" path="/m/indexMovil.xhtml"/>
   <links id="pf14100766176187" target="pf14100766176188" source="pf14100766176176" outcome="index" redirect="true"/>
   <links id="pf14100810517129" target="pf14100766176176" source="pf14100766176188" outcome="login" redirect="true"/>
+  <links id="pf14117408180911" target="pf14117408180913" source="pf14117408180910" outcome="indexMovil" redirect="true"/>
+  <links id="pf14117408180912" target="pf14117408180910" source="pf14117408180913" outcome="loginMovil" redirect="true"/>
 </pageflow:Pageflow>

@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="css/estilos.css" />
+
+</h:head>
+<h:body>
+	<ui:composition
+		template="/WEB-INF/facelets/templates/plantillaRecepcionista.xhtml">
+
+		<ui:define name="west">
+	INDEX
+	</ui:define>
+
+		<ui:define name="center">
+
+			<h:form id="frmAdmOdon">
+
+				<br></br>
+				<br></br>
+
+				<p:dataTable var="apo" resizableColumns="true" widgetVar="tApo"
+					emptyMessage="No hay Apoderados registrados"
+					paginatorPosition="top" rowKey="#{apo.idApoderado}"
+					value="#{apoderadoBean.apoderados}" paginator="true" rows="10"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,15">
+
+					<f:facet name="header">
+						<p:outputPanel>
+							<h:outputText value="Búsqueda:" />
+							<p:inputText id="globalFilter" onkeyup="PF('tApo').filter()"
+								style="width:150px" />
+						</p:outputPanel>
+					</f:facet>
+
+					<p:column headerText="Nombre" footerText=""
+						filterMatchMode="contains"
+						filterBy="#{apo.apoderadoPersona.nombre}">
+						<h:outputText value="#{apo.apoderadoPersona.nombre}" />
+					</p:column>
+
+					<p:column headerText="Apellido Paterno" footerText=""
+						filterMatchMode="contains"
+						filterBy="#{apo.apoderadoPersona.apellidoPaterno}">
+						<h:outputText value="#{apo.apoderadoPersona.apellidoPaterno}" />
+					</p:column>
+
+					<p:column headerText="Apellido Materno" footerText=""
+						filterMatchMode="contains"
+						filterBy="#{apo.apoderadoPersona.apellidoMaterno}">
+						<h:outputText value="#{apo.apoderadoPersona.apellidoMaterno}" />
+					</p:column>
+
+					<p:column headerText="Teléfono Trabajo" footerText=""
+						filterMatchMode="contains"
+						filterBy="#{apo.telefonoTrabajo}">
+						<h:outputText value="#{apo.telefonoTrabajo}" />
+					</p:column>
+					
+					<p:column headerText="Ver Niño" style="text-align:center;">
+					<p:commandButton icon="ui-icon-search"> </p:commandButton>
+					</p:column>
+
+
+				</p:dataTable>
+
+			</h:form>
+			
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

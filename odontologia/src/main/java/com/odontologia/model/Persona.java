@@ -1,5 +1,7 @@
 package com.odontologia.model;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,8 +38,14 @@ public class Persona {
 	@Column(name="correoelectronico", length = 200, nullable = true)
 	private String correoElectronico;
 	
+	@Column(name="fechanacimiento", nullable = true)
+	private Date fechaNacimiento;
+	
+	@Column(name="dni", nullable = true)
+	private Integer dni;
+	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idusuario", nullable = false)
+	@JoinColumn(name = "idusuario", nullable = true)
 	private Usuario personaUsuario;
 	
 	@OneToOne(mappedBy="odontologoPersona")
@@ -143,6 +151,22 @@ public class Persona {
 
 	public void setPersonaUsuario(Usuario personaUsuario) {
 		this.personaUsuario = personaUsuario;
+	}
+
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public Integer getDni() {
+		return dni;
+	}
+
+	public void setDni(Integer dni) {
+		this.dni = dni;
 	}
 	
 	

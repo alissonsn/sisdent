@@ -12,21 +12,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.odontologia.model.Apoderado;
-import com.odontologia.model.Paciente;
+
 
 @Service
-public class PacienteServiceImpl implements PacienteService {
+public class ApoderadoServiceImpl implements ApoderadoService {
+
 	
 	@PersistenceContext
 	EntityManager em;
 	
-
+	
 	@Transactional
-	public boolean registrarPaciente(Paciente paciente) {
+	public boolean registrarApoderado(Apoderado apoderado) {
 		boolean resultado=false;
 		try{
 										
-			em.persist(paciente);
+			em.persist(apoderado);
 			resultado = true;
 		}
 		catch(Exception e){
@@ -37,10 +38,11 @@ public class PacienteServiceImpl implements PacienteService {
 	}
 
 	@Transactional
-	public boolean actualizarPaciente(Paciente paciente) {
+	public boolean actualizarApoderado(Apoderado apoderado) {
 		boolean resultado=false;
-		try{										
-			em.merge(paciente);
+		try{
+										
+			em.merge(apoderado);
 			resultado = true;
 		}
 		catch(Exception e){
@@ -51,10 +53,11 @@ public class PacienteServiceImpl implements PacienteService {
 	}
 
 	@Transactional
-	public boolean eliminarPaciente(Paciente paciente) {
+	public boolean eliminarApoderado(Apoderado apoderado) {
 		boolean resultado=false;
-		try{										
-			em.remove(em.merge(paciente));
+		try{
+										
+			em.remove(em.merge(apoderado));
 			resultado = true;
 		}
 		catch(Exception e){
@@ -66,10 +69,10 @@ public class PacienteServiceImpl implements PacienteService {
 
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<Paciente> getPacientes() {
-		List<Paciente> result = new ArrayList<>();
+	public List<Apoderado> getApoderados() {
+		List<Apoderado> result = new ArrayList<>();
 		try{
-			Query q = em.createQuery("SELECT p FROM Paciente p");
+			Query q = em.createQuery("SELECT a FROM Apoderado a");
 			result = q.getResultList();
 		}
 		catch(NoResultException e){
@@ -79,24 +82,8 @@ public class PacienteServiceImpl implements PacienteService {
 	}
 
 	@Transactional
-	public Paciente buscarPorId(int id) {
-		return em.find(Paciente.class, id);
-	}
-
-	@Transactional
-	public boolean registrarPacienteApoderado(Paciente paciente,
-			Apoderado apoderado) {
-		boolean resultado=false;
-		try{
-			em.persist(apoderado);										
-			em.persist(paciente);
-			resultado = true;
-		}
-		catch(Exception e){
-			System.out.println("ERROR: "+e.getMessage());
-			resultado = false;
-		}		
-		return resultado;
+	public Apoderado buscarPorId(int id) {
+		return em.find(Apoderado.class, id);
 	}
 
 }

@@ -9,8 +9,8 @@ import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.odontologia.model.Apoderado;
 import com.odontologia.model.Distrito;
-
 import com.odontologia.model.Paciente;
 import com.odontologia.model.Persona;
 import com.odontologia.model.Usuario;
@@ -31,6 +31,8 @@ public class PacienteBean {
 	private Persona persona;
 	private Usuario usuario;
 	private Distrito distrito;
+	private Apoderado apoderado;
+	private Persona personaApoderado;
 
 	private List<Paciente> pacientes;
 	private List<Distrito> distritos;
@@ -44,22 +46,43 @@ public class PacienteBean {
 		persona = new Persona();
 		usuario = new Usuario();
 		distrito = new Distrito();
+		apoderado = new Apoderado();
+		personaApoderado = new Persona();
 		pacientes = new ArrayList<>();
 	}
 
 	public void registrarPaciente(ActionEvent actionEvent) {
-		persona.setPersonaDistrito(distrito);
-		persona.setPersonaUsuario(usuario);
-		paciente.setPacientePersona(persona);
-		if (pacienteService.registrarPaciente(paciente)) {
-			StaticHelp.correctMessage("Se ha registrado con éxito el paciente",
-					"");
-			RequestContext.getCurrentInstance().update("frmNuevoo:growl");
+		//Registrar un paciente sin apoderado
+		if (apoderado.getTelefonoTrabajo()==null) {
+			persona.setPersonaDistrito(distrito);
+			persona.setPersonaUsuario(usuario);
+			paciente.setPacientePersona(persona);
+			if (pacienteService.registrarPaciente(paciente)) {
+				StaticHelp.correctMessage(
+						"Se ha registrado con éxito el paciente", "");
+				RequestContext.getCurrentInstance().update("frmNuevoo:growl");
+			}
+		} else { //Registrar un paciente con apoderado
+			persona.setPersonaDistrito(distrito);			
+			paciente.setPacientePersona(persona);
+			
+			personaApoderado.setPersonaDistrito(distrito);
+			personaApoderado.setPersonaUsuario(usuario);
+			apoderado.setApoderadoPersona(personaApoderado);
+			paciente.setPacienteApoderado(apoderado);
+			if (pacienteService.registrarPacienteApoderado(paciente, apoderado)) {
+				StaticHelp.correctMessage(
+						"Se ha registrado con éxito el paciente y su apoderado", "");
+				RequestContext.getCurrentInstance().update("frmNuevoo:growl");
+			}
 		}
+
 		paciente = new Paciente();
 		persona = new Persona();
 		usuario = new Usuario();
 		distrito = new Distrito();
+		personaApoderado = new Persona();
+		apoderado = new Apoderado();
 
 	}
 
@@ -84,6 +107,8 @@ public class PacienteBean {
 		persona = new Persona();
 		usuario = new Usuario();
 		distrito = new Distrito();
+		personaApoderado = new Persona();
+		apoderado = new Apoderado();
 	}
 
 	public void eliminarPaciente(ActionEvent actionEvent) {
@@ -97,6 +122,8 @@ public class PacienteBean {
 		persona = new Persona();
 		usuario = new Usuario();
 		distrito = new Distrito();
+		personaApoderado = new Persona();
+		apoderado = new Apoderado();
 	}
 
 	public void cancelar(ActionEvent actionEvent) {
@@ -104,6 +131,8 @@ public class PacienteBean {
 		persona = new Persona();
 		usuario = new Usuario();
 		distrito = new Distrito();
+		personaApoderado = new Persona();
+		apoderado = new Apoderado();
 	}
 
 	public Paciente getPaciente() {
@@ -150,6 +179,22 @@ public class PacienteBean {
 	public List<Distrito> getDistritos() {
 		distritos = distritoService.getDistritos();
 		return distritos;
+	}
+
+	public Persona getPersonaApoderado() {
+		return personaApoderado;
+	}
+
+	public void setPersonaApoderado(Persona personaApoderado) {
+		this.personaApoderado = personaApoderado;
+	}
+
+	public Apoderado getApoderado() {
+		return apoderado;
+	}
+
+	public void setApoderado(Apoderado apoderado) {
+		this.apoderado = apoderado;
 	}
 
 	public void setDistritos(List<Distrito> distritos) {

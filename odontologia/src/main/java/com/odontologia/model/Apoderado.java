@@ -17,6 +17,9 @@ public class Apoderado {
 	@Id @GeneratedValue @Column(name="idapoderado", nullable=false)
 	private Integer idApoderado;
 	
+	@Column(name="telefonotrabajo", nullable = true)
+	private Integer telefonoTrabajo;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="idpersona", nullable=true)
 	private Persona apoderadoPersona;
@@ -47,6 +50,14 @@ public class Apoderado {
 
 	public void setApoderadoPacientes(Collection<Paciente> apoderadoPacientes) {
 		this.apoderadoPacientes = apoderadoPacientes;
+	}
+
+	public Integer getTelefonoTrabajo() {
+		return telefonoTrabajo;
+	}
+
+	public void setTelefonoTrabajo(Integer telefonoTrabajo) {
+		this.telefonoTrabajo = telefonoTrabajo;
 	}
 	
 	
