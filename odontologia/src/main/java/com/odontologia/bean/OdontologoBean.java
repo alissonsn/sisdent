@@ -9,6 +9,7 @@ import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.odontologia.model.Apoderado;
 import com.odontologia.model.Distrito;
 import com.odontologia.model.Odontologo;
 import com.odontologia.model.Persona;
@@ -32,12 +33,11 @@ public class OdontologoBean{
 	private Persona persona;
 	private Usuario usuario;
 	private Distrito distrito;
+
 	
 	private List<Odontologo> odontologos;	
 	private List<Distrito> distritos;
 	
-	//Atributos dentro de la vista
-	private boolean esMenorDeEdad;
 	
 	
 	public OdontologoBean() {		
@@ -154,21 +154,8 @@ public class OdontologoBean{
 		this.distrito = distrito;
 	}
 	
-	public void desactivarMenorDeEdad(){
-		esMenorDeEdad = false;
-	}
-	
-	public void activarMenorDeEdad(){
-		esMenorDeEdad = true;
-	}
-
-	public boolean isEsMenorDeEdad() {
-		return esMenorDeEdad;
-	}
-
-	public void setEsMenorDeEdad(boolean esMenorDeEdad) {
-		this.esMenorDeEdad = esMenorDeEdad;
-	}
 	
 }
+	
+
 

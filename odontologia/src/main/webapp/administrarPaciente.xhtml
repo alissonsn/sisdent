@@ -22,7 +22,7 @@
 			<h:form id="frmAdmPac">
 
 
-				<p:commandButton id="btnAgregar" value="Nuevo Paciente"					
+				<p:commandButton id="btnAgregar" value="Nuevo Paciente"
 					icon="ui-icon-plus" oncomplete="PF('dlgMenorW').show()"
 					update=":dlgMenor">
 				</p:commandButton>
@@ -90,7 +90,7 @@
 				resizable="false" widgetVar="dlgAgregarW" showEffect="fade"
 				modal="true" hideEffect="fade" position="center" appendTo="@(body)">
 				<h:form id="frmNuevo">
-					<p:tabView>
+					<p:tabView activeIndex="#{pacienteBean.tabIndex}">
 						<p:tab title="Paciente">
 							<p:panelGrid columns="2">
 
@@ -146,21 +146,69 @@
 
 							<p:separator></p:separator>
 
-							<p:commandButton
-								actionListener="#{pacienteBean.registrarPaciente(actionEvent)}"
-								value="Guardar" update=":frmAdmPac"
-								oncomplete="PF('dlgAgregarW').hide()" />
-								
 							<p:commandButton value="Cancelar"
 								actionListener="#{pacienteBean.cancelar(actionEvent)}"
 								update=":frmAdmPac" oncomplete="PF('dlgAgregarW').hide()">
 							</p:commandButton>
 						</p:tab>
-						
-						<p:tab title="Apoderado" disabled="#{odontologoBean.esMenorDeEdad}"
-							>
 
-						
+						<p:tab title="Apoderado"
+							disabled="#{pacienteBean.esMenorDeEdad}">
+
+							<p:panelGrid columns="2">
+
+								<p:outputLabel value="Nombre:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.}">
+								</p:inputText>
+
+								<p:outputLabel value="Apellido Paterno:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.persona.apellidoPaterno}">
+								</p:inputText>
+
+								<p:outputLabel value="Apellido Materno:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.persona.apellidoMaterno}">
+								</p:inputText>
+
+								<p:outputLabel value="Dirección:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.persona.direccion}">
+								</p:inputText>
+
+								<p:outputLabel value="Distrito:"></p:outputLabel>
+								<p:selectOneMenu value="#{pacienteBean.distrito.idDistrito}"
+									effect="drop">
+									<f:selectItem itemLabel="Seleccionar distrito" itemValue="" />
+									<f:selectItems value="#{pacienteBean.distritos}" var="distrito"
+										itemLabel="#{distrito.nombre}"
+										itemValue="#{distrito.idDistrito}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel value="Celular:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.persona.celular}">
+								</p:inputText>
+
+								<p:outputLabel value="Teléfono Fijo:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.persona.telefono}">
+								</p:inputText>
+
+								<p:outputLabel value="Correo Electrónico:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.persona.correoElectronico}">
+								</p:inputText>
+
+								<p:outputLabel value="Usuario:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.usuario.usuario}">
+								</p:inputText>
+
+								<p:outputLabel value="Conraseña:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.usuario.password}">
+								</p:inputText>
+
+
+							</p:panelGrid>
+
+
+
+							<p:separator></p:separator>
+
 
 							<p:commandButton
 								actionListener="#{pacienteBean.registrarPaciente(actionEvent)}"
@@ -265,7 +313,7 @@
 					</h:panelGrid>
 				</h:form>
 			</p:confirmDialog>
-			
+
 
 			<!-- Diálogo de Preguntar si es menor de edad el paciente -->
 			<p:confirmDialog id="dlgMenor" appendTo="@(body)"
@@ -275,12 +323,12 @@
                  <h:form>
 					<h:panelGrid columns="2">
 						<p:commandButton value="Sí" icon="ui-icon-circle-check"
-						action="#{odontologoBean.desactivarMenorDeEdad}"
-							update=":frmNuevo"
+							action="#{pacienteBean.activarMenorDeEdad}" update=":frmNuevo"
 							oncomplete="PF('dlgAgregarW').show();PF('dlgMenorW').hide()"></p:commandButton>
 
 						<p:commandButton value="No" icon="ui-icon-circle-close"
-							action="#{odontologoBean.activarMenorDeEdad}" update=":frmNuevo"
+							action="#{pacienteBean.desactivarMenorDeEdad}"
+							update=":frmNuevo"
 							oncomplete="PF('dlgAgregarW').show();PF('dlgMenorW').hide()"></p:commandButton>
 					</h:panelGrid>
 				</h:form>

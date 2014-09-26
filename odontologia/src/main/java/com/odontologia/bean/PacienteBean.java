@@ -23,17 +23,21 @@ public class PacienteBean {
 
 	@Autowired
 	PacienteService pacienteService;
-	
+
 	@Autowired
-	DistritoService distritoService; 
+	DistritoService distritoService;
 
 	private Paciente paciente;
 	private Persona persona;
 	private Usuario usuario;
 	private Distrito distrito;
-	
+
 	private List<Paciente> pacientes;
 	private List<Distrito> distritos;
+
+	// Atributos dentro de la vista
+	private boolean esMenorDeEdad;
+	private int tabIndex;
 
 	public PacienteBean() {
 		paciente = new Paciente();
@@ -48,8 +52,8 @@ public class PacienteBean {
 		persona.setPersonaUsuario(usuario);
 		paciente.setPacientePersona(persona);
 		if (pacienteService.registrarPaciente(paciente)) {
-			StaticHelp.correctMessage(
-					"Se ha registrado con éxito el paciente", "");
+			StaticHelp.correctMessage("Se ha registrado con éxito el paciente",
+					"");
 			RequestContext.getCurrentInstance().update("frmNuevoo:growl");
 		}
 		paciente = new Paciente();
@@ -64,7 +68,7 @@ public class PacienteBean {
 		persona = paciente.getPacientePersona();
 		usuario = paciente.getPacientePersona().getPersonaUsuario();
 		distrito = paciente.getPacientePersona().getPersonaDistrito();
-		
+
 	}
 
 	public void actualizarPaciente(ActionEvent actionEvent) {
@@ -82,11 +86,11 @@ public class PacienteBean {
 		distrito = new Distrito();
 	}
 
-	public void eliminarPaciente(ActionEvent actionEvent) {		
+	public void eliminarPaciente(ActionEvent actionEvent) {
 		paciente.setPacientePersona(persona);
 		if (pacienteService.eliminarPaciente(paciente)) {
-			StaticHelp.correctMessage(
-					"Se ha eliminado con éxito el paciente", "");
+			StaticHelp.correctMessage("Se ha eliminado con éxito el paciente",
+					"");
 			RequestContext.getCurrentInstance().update("frmNuevoo:growl");
 		}
 		paciente = new Paciente();
@@ -150,6 +154,34 @@ public class PacienteBean {
 
 	public void setDistritos(List<Distrito> distritos) {
 		this.distritos = distritos;
+	}
+
+	// Métodos para jugar con VISTA
+
+	public void desactivarMenorDeEdad() {
+		tabIndex = 0;
+		esMenorDeEdad = true;
+	}
+
+	public void activarMenorDeEdad() {
+		tabIndex = 0;
+		esMenorDeEdad = false;
+	}
+
+	public boolean isEsMenorDeEdad() {
+		return esMenorDeEdad;
+	}
+
+	public void setEsMenorDeEdad(boolean esMenorDeEdad) {
+		this.esMenorDeEdad = esMenorDeEdad;
+	}
+
+	public int getTabIndex() {
+		return tabIndex;
+	}
+
+	public void setTabIndex(int tabIndex) {
+		this.tabIndex = tabIndex;
 	}
 
 }
