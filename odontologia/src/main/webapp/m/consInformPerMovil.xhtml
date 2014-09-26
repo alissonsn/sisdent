@@ -1,67 +1,82 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:p="http://primefaces.org/ui"
-xmlns:pm="http://primefaces.org/mobile" >
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
 <f:view renderKitId="PRIMEFACES_MOBILE" />
 
 <h:head>
-<link href="http://localhost:8090/odontologia/resources/css/estilosConsInformPerMovil.css" media="only screen" type="text/css" rel="stylesheet"/>
+	<link
+		href="http://localhost:8090/odontologia/resources/css/estilosConsInformPerMovil.css"
+		media="only screen" type="text/css" rel="stylesheet" />
 </h:head>
-<h:body  >
-<pm:page id="wrapper"  title="Hola #{loginBean.usuario}" >
- <p style="text-align:center; font-weight: bold;font-size:1.2em ; border-bottom: 1px solid #ddd ; color: #25aae1 ;background-color: #e0e0e0 ; text-shadow: none; font-family:sans-serif;">Datos Generales</p>
-<p:graphicImage url="http://localhost:8090/odontologia/resources/images/usuario.jpg" styleClass="ui-imagen" ></p:graphicImage>
+<h:body>
+	<pm:page id="wrapper" title="Hola #{username}">
+		<p
+			style="text-align: center; font-weight: bold; font-size: 1.2em; border-bottom: 1px solid #ddd; color: #25aae1; background-color: #e0e0e0; text-shadow: none; font-family: sans-serif;">Datos
+			Generales</p>
+		<p:graphicImage
+			url="http://localhost:8090/odontologia/resources/images/usuario.jpg"
+			styleClass="ui-imagen"></p:graphicImage>
 
-<pm:field>
-    <p:outputLabel for="nombre" value="Nombre:" styleClass="ui-field-contain > label"/>
-    <p:inputText id="nombre" styleClass="ui-field-contain > label ~ [class*='ui-']"  value="#{pacientePersona.nombre}"/>
-</pm:field>
+		<h:form>
+			<pm:field>
+				<p:outputLabel for="nombre" value="Nombre:"
+					styleClass="ui-field-contain > label" />
+				<p:inputText id="nombre"
+					styleClass="ui-field-contain > label ~ [class*='ui-']"
+					value="#{loginBean.persona.nombre}" />
+			</pm:field>
 
-<pm:field>
-    <p:outputLabel for="apellidopat" value="Apellido Paterno:" styleClass="ui-field-contain > label"/>
-    <p:inputText id="apellidopat" styleClass="ui-field-contain > label ~ [class*='ui-']" value="#{pacientePersona.apellidoPaterno}"/>
-</pm:field>
+			<pm:field>
+				<p:outputLabel for="apellidopat" value="Apellido Paterno:"
+					styleClass="ui-field-contain > label" />
+				<p:inputText id="apellidopat"
+					styleClass="ui-field-contain > label ~ [class*='ui-']"
+					value="#{loginBean.persona.apellidoPaterno}" />
+			</pm:field>
 
-<pm:field>
-    <p:outputLabel for="apellidomat" value="Apellido Materno:" styleClass="ui-field-contain > label"/>
-    <p:inputText id="apellidomat" styleClass="ui-field-contain > label ~ [class*='ui-']" value="#{pacientePersona.apellidoMaterno}"/>
-</pm:field>
+			<pm:field>
+				<p:outputLabel for="apellidomat" value="Apellido Materno:"
+					styleClass="ui-field-contain > label" />
+				<p:inputText id="apellidomat"
+					styleClass="ui-field-contain > label ~ [class*='ui-']"
+					value="#{loginBean.persona.apellidoMaterno}" />
+			</pm:field>
 
-<pm:field>
-    <p:outputLabel for="direccion" value="Direccion:" styleClass="ui-field-contain > label"/>
-    <p:inputText id="direccion" styleClass="ui-field-contain > label ~ [class*='ui-']" value="#{pacientePersona.direccion}"/>
-</pm:field>
+			<pm:field>
+				<p:outputLabel for="direccion" value="Direccion:"
+					styleClass="ui-field-contain > label" />
+				<p:inputText id="direccion"
+					styleClass="ui-field-contain > label ~ [class*='ui-']"
+					value="#{loginBean.persona.direccion}" />
+			</pm:field>
 
-<pm:field  >
-    <p:outputLabel for="selectOneMenu" value="Distrito" styleClass="ui-field-contain > label"/>
-    <p:selectOneMenu id="selectOneMenu"  value="#{pacientePersona.personaDistrito}" styleClass="ui-field-contain > label ~ [class*='ui-']">
-        <f:selectItem itemLabel="Seleccione" itemValue="" />
-        <f:selectItem itemLabel="Surco" itemValue="1" />
-        <f:selectItem itemLabel="Miraflores" itemValue="2" />
-        <f:selectItem itemLabel="San Borja" itemValue="3" />
-    </p:selectOneMenu>
-</pm:field>
+			<pm:field>
+				<p:outputLabel for="telefono" value="Telefono:"
+					styleClass="ui-field-contain > label" />
+				<p:inputText id="telefono" value="#{loginBean.persona.telefono}"
+					styleClass="ui-field-contain > label ~ [class*='ui-']" />
+			</pm:field>
 
-<pm:field>
-    <p:outputLabel for="telefono" value="Telefono:" styleClass="ui-field-contain > label"/>
-    <p:inputText id="telefono" value="#{pacientePersona.telefono}"  styleClass="ui-field-contain > label ~ [class*='ui-']"/>
-</pm:field>
+			<pm:field>
+				<p:outputLabel for="email" value="E-mail:"
+					styleClass="ui-field-contain > label" />
+				<p:inputText id="email" value="#{loginBean.persona.correoElectronico}"
+					styleClass="ui-field-contain > label ~ [class*='ui-']" />
+			</pm:field>
 
-<pm:field>
-    <p:outputLabel for="email" value="E-mail:" styleClass="ui-field-contain > label"/>
-    <p:inputText id="email" value="#{pacientePersona.correoElectronico}" styleClass="ui-field-contain > label ~ [class*='ui-']"/>
-</pm:field>
+		</h:form>
 
- 
- <p:panelGrid columns="2"  styleClass="ui-btnPanelGrid">
-    <p:commandButton value="Editar"  style="width:120px"/>
-    
-    <p:commandButton value="Atras" style="width:120px" onclick="location.href='indexMovil.xhtml'" />
-</p:panelGrid>
+		<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
+			<p:commandButton value="Editar" style="width:120px" />
 
-</pm:page>
+			<p:commandButton value="Atras" style="width:120px"
+				onclick="location.href='indexMovil.xhtml'" />
+		</p:panelGrid>
+
+	</pm:page>
 </h:body>
 
 </html>

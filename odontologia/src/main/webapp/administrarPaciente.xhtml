@@ -96,8 +96,8 @@
 				modal="true" hideEffect="fade" position="center" appendTo="@(body)">
 				<h:form id="frmNuevo">
 					<p:growl id="growl" sticky="true" showDetail="true" />
-					<p:wizard backLabel="Atrás" nextLabel="Siguiente">
-						<p:tab title="Datos Personales">
+					<p:wizard id="wizardM" backLabel="Atrás" nextLabel="Siguiente" step="tab1M">
+						<p:tab id="tab1M" title="Datos Personales">
 							<p:messages />
 							<p:panelGrid columns="4">
 
@@ -481,7 +481,7 @@
 					<h:panelGrid columns="2">
 						<p:commandButton value="Sí" icon="ui-icon-circle-check"
 							update=":frmNuevo"
-							oncomplete="PF('dlgAgregarW').show();PF('dlgMenorW').hide()"></p:commandButton>
+							oncomplete="PF('dlgAgregarW').show();PF('dlgMenorW').hide();"></p:commandButton>
 
 						<p:commandButton value="No" icon="ui-icon-circle-close"
 							update=":frmNuevoM"

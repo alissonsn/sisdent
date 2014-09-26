@@ -20,7 +20,7 @@ xmlns:pm="http://primefaces.org/mobile" >
    <p:commandButton value="Horario de Citas" icon="ui-btn ui-icon-edit ui-btn-icon-left ui-shadow ui-corner-all" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{redirectBean.fromIndextoHoraCit}" rendered="false" /> 
    <p:commandButton value="Perfil"  icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user"  iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{redirectBean.fromIndextoPerfil}"/> 
    <p:commandButton value="Mensajes" icon="ui-btn ui-icon-mail ui-btn-icon-left ui-shadow ui-corner-all" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{redirectBean.fromIndextoMensajes}"/>    
-   <p:commandButton value="Salir" icon="ui-btn ui-icon-mail ui-btn-icon-left ui-shadow ui-corner-all" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{redirectBean.fromIndextoSalir}"/>
+   <p:commandButton value="Salir" icon="ui-btn ui-icon-mail ui-btn-icon-left ui-shadow ui-corner-all" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{loginBean.cerrarSesionMovil}"/>
    </h:form> 
    <h:form>
    <p:graphicImage url="/resources/images/logo.jpg" style="width:80%; max-width:350px; margin-left:170px; margin-top:50px" ></p:graphicImage>
