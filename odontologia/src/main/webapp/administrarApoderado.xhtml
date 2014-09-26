@@ -63,6 +63,12 @@
 						<h:outputText value="#{apo.telefonoTrabajo}" />
 					</p:column>
 					
+					<p:column headerText="Usuario" footerText=""
+						filterMatchMode="contains"
+						filterBy="#{apo.apoderadoPersona.personaUsuario.nombre}">
+						<h:outputText value="#{apo.apoderadoPersona.personaUsuario.usuario}" />
+					</p:column>
+					
 					<p:column headerText="Ver Niño" style="text-align:center;">
 					<p:commandButton icon="ui-icon-search"> </p:commandButton>
 					</p:column>

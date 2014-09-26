@@ -1,6 +1,7 @@
 package com.odontologia.bean;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.event.ActionEvent;
@@ -37,9 +38,9 @@ public class PacienteBean {
 	private List<Paciente> pacientes;
 	private List<Distrito> distritos;
 
-	// Atributos dentro de la vista
-	private boolean esMenorDeEdad;
-	private int tabIndex;
+	//Atributos dinámicos para las vistas
+	private Date fechaHoy;
+	
 
 	public PacienteBean() {
 		paciente = new Paciente();
@@ -200,33 +201,19 @@ public class PacienteBean {
 	public void setDistritos(List<Distrito> distritos) {
 		this.distritos = distritos;
 	}
+	
+	
+	
+	//Métodos para atributos dinámicos
 
-	// Métodos para jugar con VISTA
-
-	public void desactivarMenorDeEdad() {
-		tabIndex = 0;
-		esMenorDeEdad = true;
+	public Date getFechaHoy() {
+		fechaHoy = new Date();
+		return fechaHoy;
 	}
 
-	public void activarMenorDeEdad() {
-		tabIndex = 0;
-		esMenorDeEdad = false;
+	public void setFechaHoy(Date fechaHoy) {
+		this.fechaHoy = fechaHoy;
 	}
 
-	public boolean isEsMenorDeEdad() {
-		return esMenorDeEdad;
-	}
-
-	public void setEsMenorDeEdad(boolean esMenorDeEdad) {
-		this.esMenorDeEdad = esMenorDeEdad;
-	}
-
-	public int getTabIndex() {
-		return tabIndex;
-	}
-
-	public void setTabIndex(int tabIndex) {
-		this.tabIndex = tabIndex;
-	}
 
 }

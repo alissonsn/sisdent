@@ -16,9 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.odontologia.model.Cita;
-import com.odontologia.model.EstadoCita;
-import com.odontologia.model.Odontologo;
-import com.odontologia.model.Paciente;
 import com.odontologia.service.CitaService;
 import com.odontologia.util.citaData;
 import com.odontologia.util.horarioAdapter;
