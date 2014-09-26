@@ -34,6 +34,7 @@ public class Usuario {
 	@OneToOne(mappedBy="personaUsuario")
 	private Persona usuarioPersona;
 	
+	
 	@OneToMany(mappedBy="mensajeUsuarioEmisor")
 	private Collection<Mensaje> usuarioMensajeEmisores;
 	

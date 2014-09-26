@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -26,6 +27,9 @@ public class Paciente {
 	
 	@OneToOne(mappedBy="historiaClinicaPaciente")
 	private HistoriaClinica pacienteHistoriaClinica;
+	
+	@ManyToOne @JoinColumn(name="idapoderado", nullable=true)
+	private Apoderado pacienteApoderado;
 
 	public HistoriaClinica getPacienteHistoriaClinica() {
 		return pacienteHistoriaClinica;
@@ -57,6 +61,14 @@ public class Paciente {
 
 	public void setPacientePersona(Persona pacientePersona) {
 		this.pacientePersona = pacientePersona;
+	}
+
+	public Apoderado getPacienteApoderado() {
+		return pacienteApoderado;
+	}
+
+	public void setPacienteApoderado(Apoderado pacienteApoderado) {
+		this.pacienteApoderado = pacienteApoderado;
 	}	
 	
 }
