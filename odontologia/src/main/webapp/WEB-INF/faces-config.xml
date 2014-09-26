@@ -69,6 +69,24 @@
 		</navigation-case>
 	</navigation-rule>
 
+		<navigation-rule>
+		<display-name>m/loginMovil.xhtml</display-name>
+		<from-view-id>/m/loginMovil.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>indexMovil</from-outcome>
+			<to-view-id>/m/indexMovil.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 
+	<navigation-rule>
+		<display-name>m/indexMovil.xhtml</display-name>
+		<from-view-id>/m/indexMovil.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>loginMovil</from-outcome>
+			<to-view-id>/m/loginMovil.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 
 </faces-config>
