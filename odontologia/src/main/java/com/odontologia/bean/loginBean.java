@@ -29,6 +29,16 @@ public class loginBean {
 		return null;
 	}	
 	
+	public String usuarioLoginMovil(){
+		esLogueado = usuarioservice.login(usuario, password);						
+		if(esLogueado){
+			HttpSession session = StaticHelp.getSession();
+			session.setAttribute("username", usuario);
+			return "indexMovil";
+		}
+		return null;
+	}
+		
 	public String cerrarSesion(){
 		HttpSession session = StaticHelp.getSession();
 		session.invalidate();		

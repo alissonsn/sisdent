@@ -16,12 +16,11 @@ xmlns:pm="http://primefaces.org/mobile" >
  
    <h:form style="margin-top:80px">
    <p:commandButton value="Reserva de Citas" icon="ui-btn ui-icon-calendar ui-btn-icon-left ui-shadow ui-corner-all" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{redirectBean.fromIndextoReservarCita}" /> 
-   <p:commandButton value="Consultar Horario de Citas " icon="ui-btn ui-icon-edit ui-btn-icon-left ui-shadow ui-corner-all" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="Horario"/> 
-   <p:commandButton value="Horario de Citas " icon="ui-btn ui-icon-edit ui-btn-icon-left ui-shadow ui-corner-all" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="HorarioOdont" rendered="false" /> 
-   <p:commandButton value="Perfil"  icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user"  iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="Perfil"/> 
-   <p:commandButton value="Mensajes" icon="ui-btn ui-icon-mail ui-btn-icon-left ui-shadow ui-corner-all" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="Mensaje"/>    
-   <p:commandButton value="Salir" icon="ui-btn ui-icon-mail ui-btn-icon-left ui-shadow ui-corner-all" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="Salir"/>
-   <p:graphicImage ></p:graphicImage>
+   <p:commandButton value="Consultar Horario de Citas" icon="ui-btn ui-icon-edit ui-btn-icon-left ui-shadow ui-corner-all" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{redirectBean.fromIndextoConsulHoraCit}"/> 
+   <p:commandButton value="Horario de Citas" icon="ui-btn ui-icon-edit ui-btn-icon-left ui-shadow ui-corner-all" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{redirectBean.fromIndextoHoraCit}" rendered="false" /> 
+   <p:commandButton value="Perfil"  icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user"  iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{redirectBean.fromIndextoPerfil}"/> 
+   <p:commandButton value="Mensajes" icon="ui-btn ui-icon-mail ui-btn-icon-left ui-shadow ui-corner-all" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{redirectBean.fromIndextoMensajes}"/>    
+   <p:commandButton value="Salir" icon="ui-btn ui-icon-mail ui-btn-icon-left ui-shadow ui-corner-all" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{redirectBean.fromIndextoSalir}"/>
    </h:form> 
    <h:form>
    <p:graphicImage url="/resources/images/logo.jpg" style="width:80%; max-width:350px; margin-left:170px; margin-top:50px" ></p:graphicImage>
