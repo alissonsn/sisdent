@@ -28,25 +28,47 @@
 
 		</h:panelGrid>
 
-		<p:dialog widgetVar="eventDialog" header="Detalles del evento" showEffect="clip" hideEffect="clip">
-        <h:panelGrid id="eventDetails" columns="2">
-            <h:outputLabel for="titulo" value="Titulo:" />
-            <p:inputText id="titulo" value="#{horarioBean.event.title}" required="true" />
- 
-            <h:outputLabel for="inicio" value="Inicio:" />
-            <p:inputMask id="inicio" value="#{horarioBean.event.startDate}" mask="99/99/9999">
-                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-5"/>
-            </p:inputMask>
- 
-            <h:outputLabel for="fin" value="Fin:" />
-            <p:inputMask id="fin" value="#{horarioBean.event.endDate}" mask="99/99/9999">
-                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-5"/>
-            </p:inputMask>
- 
-            <p:commandButton type="reset" value="Reset" />
-            <p:commandButton id="addButton" value="Guardar" actionListener="#{horarioBean.addEvent}" oncomplete="PF('horario').update();PF('eventDialog').hide();" />
-        </h:panelGrid>
-    </p:dialog>    
+		<p:dialog widgetVar="eventDialog" header="Detalles del evento"
+			showEffect="clip" hideEffect="clip">
+			<h:panelGrid id="eventDetails" columns="2">
+				<h:outputLabel for="titulo" value="Titulo:" />
+				<p:inputText id="titulo" value="#{horarioBean.data.titulo}"
+					required="true" />
+
+				<h:outputLabel for="inicio" value="Inicio:" />
+				<p:inputMask id="inicio" value="#{horarioBean.data.inicio}"
+					mask="99/99/9999">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-5" />
+				</p:inputMask>
+				
+				<h:outputLabel for="horaInicio" value="Hora de Inicio: " />
+				<h:panelGrid columns="2">				
+				<pe:inputNumber id="horaInicio" style="width: 50px;"
+					value="#{horarioBean.data.horaInicio}" minValue="0" maxValue="23" />									
+				<pe:inputNumber id="minInicio" style="width: 50px;"
+					value="#{horarioBean.data.minInicio}" minValue="0" maxValue="59" />
+				</h:panelGrid>
+				
+				<h:outputLabel for="fin" value="Fin:" />
+				<p:inputMask id="fin" value="#{horarioBean.data.fin}"
+					mask="99/99/9999">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-5" />
+				</p:inputMask>
+				
+				<h:outputLabel for="horaFin" value="Hora de Fin: " />
+				<h:panelGrid columns="2">				
+				<pe:inputNumber id="horaFin" style="width: 50px;"
+					value="#{horarioBean.data.horaFin}" minValue="0" maxValue="23" />									
+				<pe:inputNumber id="minFin" style="width: 50px;"
+					value="#{horarioBean.data.minFin}" minValue="0" maxValue="59" />
+				</h:panelGrid>				
+
+				<p:commandButton type="reset" value="Reset" />
+				<p:commandButton id="addButton" value="Guardar"
+					actionListener="#{horarioBean.addEvent}"
+					oncomplete="PF('horario').update();PF('eventDialog').hide();" />
+			</h:panelGrid>
+		</p:dialog>
 
 	</h:form>
 
