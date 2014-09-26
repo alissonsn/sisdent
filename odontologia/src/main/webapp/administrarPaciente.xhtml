@@ -22,9 +22,9 @@
 			<h:form id="frmAdmPac">
 
 
-				<p:commandButton id="btnAgregar" value="Nuevo Paciente"
-					icon="ui-icon-plus" oncomplete="PF('dlgAgregarW').show()"
-					update=":dlgAgregar">
+				<p:commandButton id="btnAgregar" value="Nuevo Paciente"					
+					icon="ui-icon-plus" oncomplete="PF('dlgMenorW').show()"
+					update=":dlgMenor">
 				</p:commandButton>
 
 				<br></br>
@@ -90,68 +90,89 @@
 				resizable="false" widgetVar="dlgAgregarW" showEffect="fade"
 				modal="true" hideEffect="fade" position="center" appendTo="@(body)">
 				<h:form id="frmNuevo">
-					<p:messages id="growl" />
-					<p:panelGrid columns="2">
+					<p:tabView>
+						<p:tab title="Paciente">
+							<p:panelGrid columns="2">
 
-						<p:outputLabel value="Nombre:"></p:outputLabel>
-						<p:inputText value="#{pacienteBean.persona.nombre}">
-						</p:inputText>
+								<p:outputLabel value="Nombre:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.persona.nombre}">
+								</p:inputText>
 
-						<p:outputLabel value="Apellido Paterno:"></p:outputLabel>
-						<p:inputText value="#{pacienteBean.persona.apellidoPaterno}">
-						</p:inputText>
+								<p:outputLabel value="Apellido Paterno:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.persona.apellidoPaterno}">
+								</p:inputText>
 
-						<p:outputLabel value="Apellido Materno:"></p:outputLabel>
-						<p:inputText value="#{pacienteBean.persona.apellidoMaterno}">
-						</p:inputText>
+								<p:outputLabel value="Apellido Materno:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.persona.apellidoMaterno}">
+								</p:inputText>
 
-						<p:outputLabel value="Dirección:"></p:outputLabel>
-						<p:inputText value="#{pacienteBean.persona.direccion}">
-						</p:inputText>
+								<p:outputLabel value="Dirección:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.persona.direccion}">
+								</p:inputText>
 
-						<p:outputLabel value="Distrito:"></p:outputLabel>
-						<p:selectOneMenu value="#{pacienteBean.distrito.idDistrito}"
-							effect="drop">
-							<f:selectItem itemLabel="Seleccionar distrito" itemValue="" />
-							<f:selectItems value="#{pacienteBean.distritos}" var="distrito"
-								itemLabel="#{distrito.nombre}"
-								itemValue="#{distrito.idDistrito}" />
-						</p:selectOneMenu>
+								<p:outputLabel value="Distrito:"></p:outputLabel>
+								<p:selectOneMenu value="#{pacienteBean.distrito.idDistrito}"
+									effect="drop">
+									<f:selectItem itemLabel="Seleccionar distrito" itemValue="" />
+									<f:selectItems value="#{pacienteBean.distritos}" var="distrito"
+										itemLabel="#{distrito.nombre}"
+										itemValue="#{distrito.idDistrito}" />
+								</p:selectOneMenu>
 
-						<p:outputLabel value="Celular:"></p:outputLabel>
-						<p:inputText value="#{pacienteBean.persona.celular}">
-						</p:inputText>
+								<p:outputLabel value="Celular:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.persona.celular}">
+								</p:inputText>
 
-						<p:outputLabel value="Teléfono Fijo:"></p:outputLabel>
-						<p:inputText value="#{pacienteBean.persona.telefono}">
-						</p:inputText>
+								<p:outputLabel value="Teléfono Fijo:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.persona.telefono}">
+								</p:inputText>
 
-						<p:outputLabel value="Correo Electrónico:"></p:outputLabel>
-						<p:inputText value="#{pacienteBean.persona.correoElectronico}">
-						</p:inputText>
+								<p:outputLabel value="Correo Electrónico:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.persona.correoElectronico}">
+								</p:inputText>
 
-						<p:outputLabel value="Usuario:"></p:outputLabel>
-						<p:inputText value="#{pacienteBean.usuario.usuario}">
-						</p:inputText>
+								<p:outputLabel value="Usuario:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.usuario.usuario}">
+								</p:inputText>
 
-						<p:outputLabel value="Conraseña:"></p:outputLabel>
-						<p:inputText value="#{pacienteBean.usuario.password}">
-						</p:inputText>
+								<p:outputLabel value="Conraseña:"></p:outputLabel>
+								<p:inputText value="#{pacienteBean.usuario.password}">
+								</p:inputText>
 
 
-					</p:panelGrid>
+							</p:panelGrid>
 
-					<p:separator></p:separator>
 
-					<p:commandButton
-						actionListener="#{pacienteBean.registrarPaciente(actionEvent)}"
-						value="Guardar" update=":frmAdmPac"
-						oncomplete="PF('dlgAgregarW').hide()" />
-					<p:commandButton value="Cancelar"
-						actionListener="#{pacienteBean.cancelar(actionEvent)}"
-						update=":frmAdmPac" oncomplete="PF('dlgAgregarW').hide()">
-					</p:commandButton>
 
+							<p:separator></p:separator>
+
+							<p:commandButton
+								actionListener="#{pacienteBean.registrarPaciente(actionEvent)}"
+								value="Guardar" update=":frmAdmPac"
+								oncomplete="PF('dlgAgregarW').hide()" />
+								
+							<p:commandButton value="Cancelar"
+								actionListener="#{pacienteBean.cancelar(actionEvent)}"
+								update=":frmAdmPac" oncomplete="PF('dlgAgregarW').hide()">
+							</p:commandButton>
+						</p:tab>
+						
+						<p:tab title="Apoderado" disabled="#{odontologoBean.esMenorDeEdad}"
+							>
+
+						
+
+							<p:commandButton
+								actionListener="#{pacienteBean.registrarPaciente(actionEvent)}"
+								value="Guardar" update=":frmAdmPac"
+								oncomplete="PF('dlgAgregarW').hide()" />
+							<p:commandButton value="Cancelar"
+								actionListener="#{pacienteBean.cancelar(actionEvent)}"
+								update=":frmAdmPac" oncomplete="PF('dlgAgregarW').hide()">
+							</p:commandButton>
+
+						</p:tab>
+					</p:tabView>
 				</h:form>
 
 			</p:dialog>
@@ -217,7 +238,7 @@
 					<p:commandButton
 						actionListener="#{pacienteBean.actualizarPaciente(actionEvent)}"
 						value="Actualizar" update=":frmAdmPac"
-						oncomplete="PF('dlgEditarW').hide()" ></p:commandButton>
+						oncomplete="PF('dlgEditarW').hide()"></p:commandButton>
 					<p:commandButton value="Cancelar"
 						actionListener="#{pacienteBean.cancelar(actionEvent)}"
 						update=":frmAdmPac" oncomplete="PF('dlgEditarW').hide()">
@@ -232,15 +253,35 @@
 				message="¿Está seguro de eliminar al paciente #{pacienteBean.persona.nombre} #{pacienteBean.persona.apellidoPaterno}"
 				header="Eliminar paciente" severity="alert" widgetVar="dlgEliminarW">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
                  <h:form>
-					<h:panelGrid columns="2"  >
+					<h:panelGrid columns="2">
 						<p:commandButton value="Sí" icon="ui-icon-circle-check"
 							update=":frmAdmPac"
 							actionListener="#{pacienteBean.eliminarPaciente(actionEvent)}"
-							oncomplete="PF('dlgEliminarW').hide()" ></p:commandButton>
-							
+							oncomplete="PF('dlgEliminarW').hide()"></p:commandButton>
+
 						<p:commandButton value="No" icon="ui-icon-circle-close"
 							actionListener="#{pacienteBean.cancelar(actionEvent)}"
-							update=":frmAdmPac" oncomplete="PF('dlgEliminarW').hide()" ></p:commandButton>
+							update=":frmAdmPac" oncomplete="PF('dlgEliminarW').hide()"></p:commandButton>
+					</h:panelGrid>
+				</h:form>
+			</p:confirmDialog>
+			
+
+			<!-- Diálogo de Preguntar si es menor de edad el paciente -->
+			<p:confirmDialog id="dlgMenor" appendTo="@(body)"
+				message="¿Es menor de edad el paciente?"
+				header="Escoger tipo paciente" severity="alert"
+				widgetVar="dlgMenorW">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+                 <h:form>
+					<h:panelGrid columns="2">
+						<p:commandButton value="Sí" icon="ui-icon-circle-check"
+						action="#{odontologoBean.desactivarMenorDeEdad}"
+							update=":frmNuevo"
+							oncomplete="PF('dlgAgregarW').show();PF('dlgMenorW').hide()"></p:commandButton>
+
+						<p:commandButton value="No" icon="ui-icon-circle-close"
+							action="#{odontologoBean.activarMenorDeEdad}" update=":frmNuevo"
+							oncomplete="PF('dlgAgregarW').show();PF('dlgMenorW').hide()"></p:commandButton>
 					</h:panelGrid>
 				</h:form>
 			</p:confirmDialog>

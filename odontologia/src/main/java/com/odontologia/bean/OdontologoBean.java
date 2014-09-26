@@ -36,6 +36,9 @@ public class OdontologoBean{
 	private List<Odontologo> odontologos;	
 	private List<Distrito> distritos;
 	
+	//Atributos dentro de la vista
+	private boolean esMenorDeEdad;
+	
 	
 	public OdontologoBean() {		
 		odontologo = new Odontologo();
@@ -149,6 +152,22 @@ public class OdontologoBean{
 
 	public void setDistrito(Distrito distrito) {
 		this.distrito = distrito;
+	}
+	
+	public void desactivarMenorDeEdad(){
+		esMenorDeEdad = false;
+	}
+	
+	public void activarMenorDeEdad(){
+		esMenorDeEdad = true;
+	}
+
+	public boolean isEsMenorDeEdad() {
+		return esMenorDeEdad;
+	}
+
+	public void setEsMenorDeEdad(boolean esMenorDeEdad) {
+		this.esMenorDeEdad = esMenorDeEdad;
 	}
 	
 }
