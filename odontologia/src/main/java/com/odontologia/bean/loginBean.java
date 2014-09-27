@@ -18,7 +18,7 @@ public class loginBean {
 	private String password;
 	private Boolean esLogueado;
 	private Persona persona;
-	
+	private Boolean activar=true;
 	@Autowired
 	UsuarioService usuarioservice;
 	
@@ -90,7 +90,20 @@ public class loginBean {
 	public void setPersona(Persona persona) {
 		this.persona = persona;
 	}
+
+	public Boolean getActivar() {
+		return activar;
+	}
+
+	public void setActivar(Boolean activar) {
+		this.activar = activar;
+	}
 	
+	public void habilitarCampo(){
+		activar=false;
+	}
 	
-	
+	public void deshabilitarCampo(){
+		activar=true;
+	}
 }
