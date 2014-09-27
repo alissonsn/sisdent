@@ -9,24 +9,24 @@
 <h:head>
 	<link
 		href="http://localhost:8090/odontologia/resources/css/estilosConsInformPerMovil.css"
-		media="only screen" type="text/css" rel="stylesheet" />	
+		media="only screen" type="text/css" rel="stylesheet" />
 </h:head>
 <h:body>
 	<pm:page id="wrapper" title="Perfil Usuario #{username}">
-	<h:form id="formid">
-		<p
-			style="text-align: center; font-weight: bold; font-size: 1.2em; border-bottom: 1px solid #ddd; color: #25aae1; background-color: #e0e0e0; text-shadow: none; font-family: sans-serif;">Datos
-			Generales</p>
-		<p:graphicImage
-			url="http://localhost:8090/odontologia/resources/images/usuario.jpg"
-			styleClass="ui-imagen"></p:graphicImage>
-	
-			<pm:field >
+		<h:form id="formid">
+			<p
+				style="text-align: center; font-weight: bold; font-size: 1.2em; border-bottom: 1px solid #ddd; color: #25aae1; background-color: #e0e0e0; text-shadow: none; font-family: sans-serif;">Datos
+				Generales</p>
+			<p:graphicImage
+				url="http://localhost:8090/odontologia/resources/images/usuario.jpg"
+				styleClass="ui-imagen"></p:graphicImage>
+
+			<pm:field>
 				<p:outputLabel for="nombre" value="Nombre:"
 					styleClass="ui-field-contain > label" />
 				<p:inputText id="nombre"
 					styleClass="ui-field-contain > label ~ [class*='ui-']"
-					value="#{loginBean.persona.nombre}" disabled="true"/>
+					value="#{loginBean.persona.nombre}" disabled="true" />
 			</pm:field>
 
 			<pm:field>
@@ -34,7 +34,7 @@
 					styleClass="ui-field-contain > label" />
 				<p:inputText id="apellidopat"
 					styleClass="ui-field-contain > label ~ [class*='ui-']"
-					value="#{loginBean.persona.apellidoPaterno}"  disabled="true"/>
+					value="#{loginBean.persona.apellidoPaterno}" disabled="true" />
 			</pm:field>
 
 			<pm:field>
@@ -50,33 +50,43 @@
 					styleClass="ui-field-contain > label" />
 				<p:inputText id="direccion"
 					styleClass="ui-field-contain > label ~ [class*='ui-']"
-					value="#{loginBean.persona.direccion}"  disabled="true"/>
+					value="#{loginBean.persona.direccion}" disabled="true" />
 			</pm:field>
 
 			<pm:field>
 				<p:outputLabel for="telefono" value="Telefono:"
 					styleClass="ui-field-contain > label" />
 				<p:inputText id="telefono" value="#{loginBean.persona.telefono}"
-					styleClass="ui-field-contain > label ~ [class*='ui-']"  disabled="true"/>
+					styleClass="ui-field-contain > label ~ [class*='ui-']"
+					disabled="true" />
 			</pm:field>
 
 			<pm:field>
 				<p:outputLabel for="email" value="E-mail:"
 					styleClass="ui-field-contain > label" />
-				<p:inputText id="email" value="#{loginBean.persona.correoElectronico}"
-					styleClass="ui-field-contain > label ~ [class*='ui-']"  disabled="#{loginBean.activar}"/>
+				<p:inputText id="email"
+					value="#{loginBean.persona.correoElectronico}"
+					styleClass="ui-field-contain > label ~ [class*='ui-']"
+					disabled="#{loginBean.activar}" />
 			</pm:field>
 
+
+
+
+			<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
+				<p:commandButton value="Editar" style="width:120px"
+					action="#{loginBean.habilitarCampo}" update="formid" />
+				<p:commandButton id="btnguardar" value="Guardar"
+					rendered="#{!loginBean.activar}" />
+				<p:commandButton value="Atras" style="width:120px"
+					onclick="location.href='indexMovil.xhtml'"
+					action="#{loginBean.deshabilitarCampo}" update="formid" />
+			</p:panelGrid>
+
 		</h:form>
-         <h:form id="formid2">
-		<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
-			<p:commandButton value="Editar"   style="width:120px"  action="#{loginBean.habilitarCampo}" update=":formid,formid2"/>
-			<p:commandButton id="btnguardar" value="Guardar" rendered="#{loginBean.activar}"/>
-			<p:commandButton value="Atras" style="width:120px" onclick="location.href='indexMovil.xhtml'" action="#{loginBean.deshabilitarCampo}" update="formid" />
-		</p:panelGrid>
-		</h:form>
+
 	</pm:page>
-	
+
 
 </h:body>
 
