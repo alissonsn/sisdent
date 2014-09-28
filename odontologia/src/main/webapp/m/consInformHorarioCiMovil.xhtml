@@ -11,26 +11,26 @@ xmlns:pm="http://primefaces.org/mobile" >
   <link href="http://localhost:8090/odontologia/resources/css/estilosConsInfHoraCiMovil.css" type="text/css" rel="stylesheet"/>
 </h:head>
 <h:body  >
-<pm:page id="wrapper">
+<pm:page id="wrapper" title="Informacion de Cita #{username}">
  <p style="text-align:center; font-weight: bold;font-size:1.2em ; border-bottom: 1px solid #ddd ; color: #25aae1 ;background-color: #e0e0e0 ; text-shadow: none; font-family:sans-serif;">Información de la Cita</p>
 <pm:field>
     <p:outputLabel for="nombre" value="Nombre:" styleClass="ui-field-contain > label"/>
-    <p:inputText id="nombre"  disabled="true" styleClass="ui-field-contain > label ~ [class*='ui-']" />
+    <p:inputText id="nombre" value="#{OdontologoBean.persona.nombre}" disabled="true" styleClass="ui-field-contain > label ~ [class*='ui-']" />
 </pm:field>
 
 <pm:field>
     <p:outputLabel for="apellido" value="Apellidos:" styleClass="ui-field-contain > label" />
-    <p:inputText id="apellido"  disabled="true" styleClass="ui-field-contain > label ~ [class*='ui-']"/>
+    <p:inputText id="apellido" value="#{OdontologoBean.persona.apellidoPaterno}" disabled="true" styleClass="ui-field-contain > label ~ [class*='ui-']"/>
+</pm:field>
+
+<pm:field>
+   <p:outputLabel for="apellidomat" value="Apellido Materno:" styleClass="ui-field-contain > label" />		
+   <p:inputText id="apellidomat" styleClass="ui-field-contain > label ~ [class*='ui-']" value="#{OdontologoBean.persona.apellidoMaterno}" disabled="true" />
 </pm:field>
 
 <pm:field>
     <p:outputLabel for="especialidad" value="N° Especialidad" styleClass="ui-field-contain > label"/>
     <p:inputText id="especialidad" disabled="true" styleClass="ui-field-contain > label ~ [class*='ui-']"/>
-</pm:field>
-
-<pm:field>
-    <p:outputLabel for="numconsultorio" value="N° Consultorio:" styleClass="ui-field-contain > label"/>
-    <p:inputText id="numconsultorio" disabled="true" styleClass="ui-field-contain > label ~ [class*='ui-']"/>
 </pm:field>
 
 <pm:field>
@@ -42,7 +42,6 @@ xmlns:pm="http://primefaces.org/mobile" >
     <p:outputLabel for="fecha" value="Fecha" styleClass="ui-field-contain > label"/>
     <p:inputText id="fecha" disabled="true" styleClass="ui-field-contain > label ~ [class*='ui-']"/>
 </pm:field>
-
  
  <p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
     <p:commandButton value="Cancelar Cita"  style="width:140px"/>

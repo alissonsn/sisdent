@@ -13,14 +13,18 @@ xmlns:pm="http://primefaces.org/mobile" >
 <pm:page id="wrapper">
  <p style="text-align:center; font-weight: bold;font-size:1.2em ; border-bottom: 1px solid #ddd ; color: #25aae1 ;background-color: #e0e0e0 ; text-shadow: none; font-family:sans-serif;">Consultar Horario Cita</p>
 
-
-<h2 class="first">Citas</h2>
-<p:menu>
-    <p:menuitem value="Se asigno un turno para el 11 de Octubre del 2014  9:40 a.m" url="consInformHorarioCiMovil.xhtml" />
-    <p:menuitem value="Se asigno un turno para el 21 de Septiembre del 2014  10:30 a.m" url="consInformHorarioCiMovil.xhtml" />
-    <p:menuitem value="Se asigno un turno para el 25 de Noviembre del 2014  5:40 p.m" url="consInformHorarioCiMovil.xhtml" />
-</p:menu>
-
+<h2>Citas</h2>
+<p></p>
+<p:dataList value="#{horarioBean.citas}" var="cit"  >
+    <f:facet name="header">
+    </f:facet>
+    <h:outputLink value="consInformHorarioCiMovil.xhtml"  >
+    <!--    <p:graphicImage name="demo/images/car/#{car.brand}-big.gif" /> -->
+        <h2>#{cit.titulo}</h2>
+        <p>#{cit.horaInicio}</p>
+        <p class="ui-li-aside"  ><strong>#{cit.citaEstadoCita.nombre}</strong></p>
+    </h:outputLink>
+</p:dataList>  
  
  <p:panelGrid columns="2" style="margin-left:50px;">  
     <p:commandButton value="Atras" type="button" style="width:120px" onclick="location.href='indexMovil.xhtml'" />

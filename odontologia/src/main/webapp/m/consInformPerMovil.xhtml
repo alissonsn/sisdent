@@ -76,7 +76,7 @@
 			<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
 				<p:commandButton value="Editar" style="width:120px"
 					action="#{loginBean.habilitarCampo}" update="formid"  rendered="#{loginBean.activar}"/>
-				<p:commandButton id="btnguardar" value="Guardar" style="width:120px"
+				<p:commandButton id="btnguardar" value="Guardar" style="width:120px" update="formid"
 					rendered="#{!loginBean.activar}" actionListener="#{pacienteBean.actualizarPaciente(actionEvent)}" />
 				<p:commandButton value="Atras" style="width:120px"
 					onclick="location.href='indexMovil.xhtml'"

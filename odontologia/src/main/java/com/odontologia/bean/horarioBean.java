@@ -142,5 +142,4 @@ public class horarioBean {
 	public void setData(citaData data) {
 		this.dataSeleccionado = data;
 	}
-
 }
