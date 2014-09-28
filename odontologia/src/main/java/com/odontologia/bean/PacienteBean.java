@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,6 +112,20 @@ public class PacienteBean {
 		personaApoderado = new Persona();
 		apoderado = new Apoderado();
 	}
+	
+	/*public void actualizarPacienteMovil(){
+		HttpSession session = StaticHelp.getSession();
+		persona = (Persona) session.getAttribute("personaSesion");
+		paciente.setPacientePersona(persona);
+		if (pacienteService.actualizarPaciente(paciente)) {
+			StaticHelp.correctMessage(
+					"Se ha actualizado con éxito el paciente", "");
+			
+		}
+		paciente = new Paciente();
+		persona = new Persona();
+		
+	}*/
 
 	public void eliminarPaciente(ActionEvent actionEvent) {
 		paciente.setPacientePersona(persona);

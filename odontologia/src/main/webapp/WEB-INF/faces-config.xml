@@ -53,6 +53,11 @@
 		<managed-bean-class>com.odontologia.bean.ApoderadoBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>personaBean</managed-bean-name>
+		<managed-bean-class>com.odontologia.bean.PersonaBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 	
 	<navigation-rule>
 		<display-name>login.xhtml</display-name>

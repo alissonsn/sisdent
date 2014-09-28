@@ -77,7 +77,7 @@
 				<p:commandButton value="Editar" style="width:120px"
 					action="#{loginBean.habilitarCampo}" update="formid"  rendered="#{loginBean.activar}"/>
 				<p:commandButton id="btnguardar" value="Guardar" style="width:120px" update="formid"
-					rendered="#{!loginBean.activar}" actionListener="#{pacienteBean.actualizarPaciente(actionEvent)}" />
+					rendered="#{!loginBean.activar}" action="#{personaBean.actualizarPersonaMovil}" />
 				<p:commandButton value="Atras" style="width:120px"
 					onclick="location.href='indexMovil.xhtml'"
 					action="#{loginBean.deshabilitarCampo}" update="formid" />

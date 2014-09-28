@@ -40,8 +40,9 @@ public class loginBean {
 		esLogueado = usuarioservice.login(usuario, password);						
 		if(esLogueado){
 			HttpSession session = StaticHelp.getSession();
-			session.setAttribute("username", usuario);
+			session.setAttribute("username", usuario);		
 			persona = personaService.buscarPorUsuario(usuario);
+			session.setAttribute("personaSesion",persona);
 			return "indexMovil";
 		}
 		return null;
