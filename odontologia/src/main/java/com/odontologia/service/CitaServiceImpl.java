@@ -12,7 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.odontologia.model.Cita;
-import com.odontologia.model.Insumo;
+import com.odontologia.model.EstadoCita;
+import com.odontologia.model.Paciente;
 
 @Service
 public class CitaServiceImpl implements CitaService{
@@ -81,5 +82,25 @@ public class CitaServiceImpl implements CitaService{
 		}		
 		return resultado;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Cita> getCitasPorPacientePorEstado(Integer idPaciente,
+			Integer idEstadoCita) {
+		List<Cita> result = new ArrayList<>();
+		try{
+			//Query q = em.createQuery("SELECT c FROM Cita c JOIN c.citaPaciente cp AND c.citaEstadoCita ce WHERE cp.idPaciente=:idPaciente and ce.idEstadoCita:idEstadoCita");
+			//Arreglar método (SIN DISTINCT)
+			Query q = em.createQuery("SELECT DISTINCT c FROM Cita c,Paciente p, EstadoCita e WHERE c.citaPaciente.idPaciente=:idPaciente AND c.citaEstadoCita.idEstadoCita=:idEstadoCita");
+			q.setParameter("idPaciente", idPaciente);
+			q.setParameter("idEstadoCita", idEstadoCita);
+			result = q.getResultList();
+		}
+		catch(NoResultException e){
+			System.out.println("ERROR: "+e.getMessage());
+		}
+		return result;
+	}
+
 
 }

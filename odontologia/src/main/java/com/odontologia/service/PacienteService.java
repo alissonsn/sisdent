@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.odontologia.model.Apoderado;
 import com.odontologia.model.Paciente;
+import com.odontologia.model.Persona;
 
 public interface PacienteService {
 	
@@ -14,5 +15,6 @@ public interface PacienteService {
 	public List<Paciente> getPacientes();
 	public Paciente buscarPorId(int id);
 	public boolean registrarPacienteApoderado(Paciente paciente, Apoderado apoderado);
-
+    public Paciente buscarPorPersona(Persona persona);
+	
 }

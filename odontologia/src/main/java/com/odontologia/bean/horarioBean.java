@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
@@ -16,7 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.odontologia.model.Cita;
+import com.odontologia.model.Paciente;
+import com.odontologia.model.Persona;
 import com.odontologia.service.CitaService;
+import com.odontologia.service.PacienteService;
+import com.odontologia.util.StaticHelp;
 import com.odontologia.util.citaData;
 import com.odontologia.util.horarioAdapter;
 
@@ -25,10 +30,14 @@ public class horarioBean {
 
 	@Autowired
 	CitaService citaservice;
+	
+	@Autowired
+	PacienteService pacienteService;
 
 	private ScheduleModel eventModel;
 	private ScheduleEvent event = new DefaultScheduleEvent();
 	private List<Cita> citas;
+	private List<Cita> citasDePacienteEnEspera;
 	
 	private citaData dataSeleccionado;
 	
@@ -36,6 +45,7 @@ public class horarioBean {
 	
 	public horarioBean() {
 		citas = new ArrayList<>();
+		citasDePacienteEnEspera = new ArrayList<>();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -141,5 +151,20 @@ public class horarioBean {
 
 	public void setData(citaData data) {
 		this.dataSeleccionado = data;
+	}
+	
+
+	public List<Cita> getCitasDePacienteEnEspera() {
+		Persona persona = new Persona();
+		Paciente paciente = new Paciente();
+		HttpSession session = StaticHelp.getSession();
+		persona = (Persona) session.getAttribute("personaSesion");	
+		paciente = pacienteService.buscarPorPersona(persona);
+		citasDePacienteEnEspera = citaservice.getCitasPorPacientePorEstado(paciente.getIdPaciente(), 1);
+		return citasDePacienteEnEspera;
+	}
+
+	public void setCitasDePacienteEnEspera(List<Cita> citasDePacienteEnEspera) {
+		this.citasDePacienteEnEspera = citasDePacienteEnEspera;
 	}
 }

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.odontologia.model.Apoderado;
 import com.odontologia.model.Paciente;
+import com.odontologia.model.Persona;
 
 @Service
 public class PacienteServiceImpl implements PacienteService {
@@ -97,6 +98,21 @@ public class PacienteServiceImpl implements PacienteService {
 			resultado = false;
 		}		
 		return resultado;
+	}
+
+	@Transactional
+	public Paciente buscarPorPersona(Persona persona) {
+		Paciente paciente = new Paciente();
+		try{			
+			Query q = em.createQuery("SELECT p FROM Paciente p JOIN p.pacientePersona pp WHERE pp=:persona");
+			q.setParameter("persona", persona);
+			paciente = (Paciente) q.getSingleResult();		
+		}
+		catch(Exception e){
+			System.out.println("ERROR: "+e.getMessage());
+			paciente = null;
+		}
+		return paciente;
 	}
 
 }
