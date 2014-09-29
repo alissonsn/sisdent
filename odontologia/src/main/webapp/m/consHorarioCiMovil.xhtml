@@ -13,40 +13,65 @@
 </h:head>
 <h:body>
 	<pm:page id="wrapper">
-	<h:form>
-		<p
-			style="text-align: center; font-weight: bold; font-size: 1.2em; border-bottom: 1px solid #ddd; color: #25aae1; background-color: #e0e0e0; text-shadow: none; font-family: sans-serif;">Consultar
-			Horario Cita</p>
+		<h:form id="frmPrincipal">
+			<p
+				style="text-align: center; font-weight: bold; font-size: 1.2em; border-bottom: 1px solid #ddd; color: #25aae1; background-color: #e0e0e0; text-shadow: none; font-family: sans-serif;">Consultar
+				Horario Cita</p>
 
-		<h2>Citas</h2>
-		<p></p>
-		<p:dataList value="#{horarioBean.citasDePacienteEnEspera}" var="cit" emptyMessage="No hay citas registradas" style="height:900px;" >
-			<f:facet name="header">
-			</f:facet>
-			<h:outputLink value="" onclick="PF('dlg1').show();">
-				<!--    <p:graphicImage name="demo/images/car/#{car.brand}-big.gif" /> -->
-				<h2>#{cit.titulo}</h2>
-				<p:outputLabel value="#{cit.horaInicio}"></p:outputLabel>
-				<f:convertDateTime dateStyle="short"> </f:convertDateTime>
-				<p class="ui-li-aside">
-					<strong>#{cit.citaEstadoCita.nombre}</strong>
-				</p>
-				<p>#{cit.citaOdontologo.odontologoPersona.nombre}
-					#{cit.citaOdontologo.odontologoPersona.apellidoPaterno}
-					#{cit.citaOdontologo.odontologoPersona.apellidoMaterno}</p>
-					
-			</h:outputLink>
-			<p:dialog header="Header" widgetVar="dlg1" showEffect="pop">
-    		<h:outputText value="¿Desea eliminar esta cita?" />
-    		<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-            <p:commandButton value="No" type="button" styleClass="ui-icon-delete" icon="ui-icon-close" />
+			<p></p>
+			<p:dataList value="#{citaBean.citasDePacienteEnEspera}" var="cit"
+				emptyMessage="No hay citas registradas">
+				<f:facet name="header">Citas
+				</f:facet>
+				<p:commandLink onclick="PF('dlgCancelarW').show();">
+					<f:setPropertyActionListener value="#{cit}"
+						target="#{citaBean.cita}" />
+					<p:panelGrid columns="1">
+
+						<p:row>
+							<p:column colspan="2">
+								<h:outputText value="#{cit.titulo}" style="font-weight: bold;"></h:outputText>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column colspan="1">
+								<h:outputText value="#{cit.horaInicio}"></h:outputText>
+							</p:column>
+
+						</p:row>
+						<p:row>
+							<p:column colspan="1">
+								<h:outputText value="#{cit.horaFin}"></h:outputText>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column colspan="2">#{cit.citaOdontologo.odontologoPersona.nombre} #{cit.citaOdontologo.odontologoPersona.apellidoPaterno} #{cit.citaOdontologo.odontologoPersona.apellidoMaterno} </p:column>
+						</p:row>
+
+					</p:panelGrid>
+				</p:commandLink>
+			</p:dataList>
+
+			<p:panelGrid columns="2">
+				<p:commandButton value="Atras"
+					onclick="location.href='indexMovil.xhtml'" />
+			</p:panelGrid>
+
+
+			<p:dialog id="dlgCancelar" header="Cancelar" widgetVar="dlgCancelarW"
+				showEffect="pop">
+
+				<h:outputText value="¿Desea cancelar esta cita?" />
+				<p:commandButton value="Si"
+					actionListener="#{citaBean.cancelarCita}"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+					update="frmPrincipal" oncomplete="PF('dlgCancelarW').hide()" />
+				<p:commandButton value="No" styleClass="ui-icon-delete"
+					icon="ui-icon-close" oncomplete="PF('dlgCancelarW').hide()" />
+
 			</p:dialog>
-		</p:dataList>          
-		<p:panelGrid columns="2" style="margin-left:50px;">
-			<p:commandButton value="Atras" type="button" style="width:120px"
-				onclick="location.href='indexMovil.xhtml'" />
-		</p:panelGrid>
-</h:form>
+		</h:form>
 	</pm:page>
 </h:body>
 

@@ -37,15 +37,13 @@ public class horarioBean {
 	private ScheduleModel eventModel;
 	private ScheduleEvent event = new DefaultScheduleEvent();
 	private List<Cita> citas;
-	private List<Cita> citasDePacienteEnEspera;
 	
 	private citaData dataSeleccionado;
 	
 	private Cita citaSeleccionada;
 	
 	public horarioBean() {
-		citas = new ArrayList<>();
-		citasDePacienteEnEspera = new ArrayList<>();
+		citas = new ArrayList<>();		
 	}
 
 	@SuppressWarnings("deprecation")
@@ -152,19 +150,5 @@ public class horarioBean {
 	public void setData(citaData data) {
 		this.dataSeleccionado = data;
 	}
-	
 
-	public List<Cita> getCitasDePacienteEnEspera() {
-		Persona persona = new Persona();
-		Paciente paciente = new Paciente();
-		HttpSession session = StaticHelp.getSession();
-		persona = (Persona) session.getAttribute("personaSesion");	
-		paciente = pacienteService.buscarPorPersona(persona);
-		citasDePacienteEnEspera = citaservice.getCitasPorPacientePorEstado(paciente.getIdPaciente(), 1);
-		return citasDePacienteEnEspera;
-	}
-
-	public void setCitasDePacienteEnEspera(List<Cita> citasDePacienteEnEspera) {
-		this.citasDePacienteEnEspera = citasDePacienteEnEspera;
-	}
 }
