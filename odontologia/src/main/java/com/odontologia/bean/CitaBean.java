@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 
 import com.odontologia.model.Cita;
 import com.odontologia.model.EstadoCita;
+import com.odontologia.model.Odontologo;
 import com.odontologia.model.Paciente;
 import com.odontologia.model.Persona;
 import com.odontologia.service.CitaService;
@@ -34,7 +35,7 @@ public class CitaBean {
 	private Cita cita;
 	private List<Cita> citas;
 	private List<Cita> citasDePacienteEnEspera;
-	
+	private List<Cita> CitasDePacienteDeOdontologo;
 	private EstadoCita estadoCita;
 
 	public CitaBean() {
@@ -88,6 +89,20 @@ public class CitaBean {
 		return citasDePacienteEnEspera;		
 	}
 
+	
+    //Ver las citas(En estado espera) del paciente
+	public List<Cita> getCitasDePacienteDeOdontologo() {
+		Persona persona = new Persona();
+		Paciente paciente = new Paciente();
+		Odontologo odontologo = new Odontologo();
+		HttpSession session = StaticHelp.getSession();
+		persona = (Persona) session.getAttribute("personaSesion");	
+		paciente = pacienteService.buscarPorPersona(persona); 
+		//ID DE ESTAOD DE CITA = 1 (EN ESPERA)
+		CitasDePacienteDeOdontologo = citaService.getCitasDePacienteDeOdontologo(paciente.getIdPaciente(), odontologo.getIdOdontologo());
+		return CitasDePacienteDeOdontologo;		
+	}
+	
 	public void setCitasDePacienteEnEspera(List<Cita> citasDePacienteEnEspera) {
 		this.citasDePacienteEnEspera = citasDePacienteEnEspera;
 	}
@@ -98,6 +113,11 @@ public class CitaBean {
 
 	public void setEstadoCita(EstadoCita estadoCita) {
 		this.estadoCita = estadoCita;
+	}
+
+	public void setCitasDePacienteDeOdontologo(
+			List<Cita> citasDePacienteDeOdontologo) {
+		CitasDePacienteDeOdontologo = citasDePacienteDeOdontologo;
 	}
 
 }
