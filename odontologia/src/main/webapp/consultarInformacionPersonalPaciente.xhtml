@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="css/estilos.css" />
+
+</h:head>
+<h:body>
+	<ui:composition
+		template="/WEB-INF/facelets/templates/plantillaPaciente.xhtml">
+
+		<ui:define name="west">
+	INDEX
+	</ui:define>
+
+		<ui:define name="center">
+
+			<h:form id="frmDatos">
+
+
+				<p:panelGrid columns="4">
+
+					<p:outputLabel value="Nombre:"></p:outputLabel>
+					<p:inputText value="#{pacienteBean.persona.nombre}">
+					</p:inputText>
+
+					<p:outputLabel value="Apellido Paterno:"></p:outputLabel>
+					<p:inputText value="#{pacienteBean.persona.apellidoPaterno}">
+					</p:inputText>
+
+					<p:outputLabel value="Apellido Materno:"></p:outputLabel>
+					<p:inputText value="#{pacienteBean.persona.apellidoMaterno}">
+					</p:inputText>
+
+					<p:outputLabel value="Dni:"></p:outputLabel>
+					<p:inputText value="#{pacienteBean.personaApoderado.dni}"
+						required="true" requiredMessage="Se debe ingresar un Dni">
+					</p:inputText>
+
+					<p:outputLabel value="Fecha de Nacimiento:"></p:outputLabel>
+					<p:calendar value="#{pacienteBean.persona.fechaNacimiento}"
+						maxdate="#{pacienteBean.fechaHoy}" navigator="true">
+					</p:calendar>
+
+					<p:outputLabel value="Dirección:"></p:outputLabel>
+					<p:inputText value="#{pacienteBean.persona.direccion}">
+					</p:inputText>
+
+					<p:outputLabel value="Distrito:"></p:outputLabel>
+					<p:selectOneMenu value="#{pacienteBean.distrito.idDistrito}"
+						effect="drop">
+						<f:selectItem itemLabel="Seleccionar distrito" itemValue="" />
+						<f:selectItems value="#{pacienteBean.distritos}" var="distrito"
+							itemLabel="#{distrito.nombre}" itemValue="#{distrito.idDistrito}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Celular:"></p:outputLabel>
+					<p:inputText value="#{pacienteBean.persona.celular}">
+					</p:inputText>
+
+					<p:outputLabel value="Teléfono Fijo:"></p:outputLabel>
+					<p:inputText value="#{loginBean.persona.telefono}">
+					</p:inputText>
+
+					<p:outputLabel value="Correo Electrónico:"></p:outputLabel>
+					<p:inputText value="#{loginBean.persona.correoElectronico}">
+					</p:inputText>
+
+
+					<p:commandButton value="Editar" style="width:120px"
+						action="#{loginBean.habilitarCampo}" update="frmDatos"
+						rendered="#{loginBean.activar}" />
+					<p:commandButton id="btnguardar" value="Guardar"
+						style="width:120px" update="frmDatos"
+						rendered="#{!loginBean.activar}"
+						action="#{pacienteBean.actualizarPaciente}" />
+					<p:commandButton value="Atras" style="width:120px"
+						onclick="location.href='indexMovil.xhtml'"
+						action="#{loginBean.deshabilitarCampo}" update="frmDatos" />
+
+
+				</p:panelGrid>
+			</h:form>
+
+
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>
+
