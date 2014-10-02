@@ -10,15 +10,61 @@
 
 </h:head>
 <h:body>
-	<ui:composition template="/WEB-INF/facelets/templates/plantillaRecepcionista.xhtml">
-	
-	<ui:define name="west">
-	INDEX
-	</ui:define>
-	
-	<ui:define name="center">
-	ESTADO ACTUAL CITAS
-	</ui:define>
+	<ui:composition
+		template="/WEB-INF/facelets/templates/plantillaRecepcionista.xhtml">
+
+		<ui:define name="west">
+			<div align="center">
+				<p:clock />
+			</div>
+		</ui:define>
+
+		<ui:define name="center">
+
+			<h:form id="frmEstadoCitas">
+				<p:dataTable var="cita" value="#{citaBean.citas}"
+					sortMode="multiple" rowKey="#{cita.idCita}">
+					<f:facet name="header">
+            Estado de las Citas
+        </f:facet>
+					<p:column headerText="Título" sortBy="#{cita.titulo}">
+						<h:outputText value="#{cita.titulo}" />
+					</p:column>
+
+					<p:column headerText="Odontólogo"
+						sortBy="#{cita.citaOdontologo.odontologoPersona.nombre}">
+						<h:outputText
+							value="#{cita.citaOdontologo.odontologoPersona.nombre}" />
+					</p:column>
+
+					<p:column headerText="Paciente"
+						sortBy="#{cita.citaPaciente.pacientePersona.nombre}">
+						<h:outputText value="#{cita.citaPaciente.pacientePersona.nombre}" />
+					</p:column>
+
+					<p:column headerText="Hora Inicio" sortBy="#{cita.horaInicio}">
+						<h:outputText value="#{cita.horaInicio}">
+							<f:convertDateTime pattern="hh:mm"
+								timeZone="#{citaBean.timeZone}">
+							</f:convertDateTime>
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Hora Fin" sortBy="#{cita.horaFin}">
+						<h:outputText value="#{cita.horaFin}">
+							<f:convertDateTime pattern="hh:mm"
+								timeZone="#{citaBean.timeZone}">
+							</f:convertDateTime>
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Estado"
+						sortBy="#{cita.citaEstadoCita.nombre}">
+						<h:outputText value="#{cita.citaEstadoCita.nombre}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</ui:define>
 
 	</ui:composition>
 </h:body>

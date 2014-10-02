@@ -23,6 +23,10 @@ public class loginBean {
 
 	@Autowired
 	PersonaService personaService;
+	
+	public loginBean() {
+		persona = new Persona();
+	}
 
 	public String usuarioLogin() {
 		esLogueado = usuarioservice.login(usuario, password);

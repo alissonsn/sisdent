@@ -68,9 +68,9 @@
 						filterBy="#{pac.pacientePersona.celular}">
 						<h:outputText value="#{pac.pacientePersona.celular}" />
 					</p:column>
-
+					
 					<p:column headerText="Ver Apoderado" style="text-align:center;">
-						<p:commandButton icon="ui-icon-search">
+						<p:commandButton icon="ui-icon-search" rendered="#{pac.pacienteApoderado ne null}">
 						</p:commandButton>
 					</p:column>
 

@@ -15,7 +15,7 @@
 
 		<!-- LAYOUT FOR TOP -->
 		<p:layoutUnit position="north" size="350"
-			header="Bienvenido a SPADENT, #{loginBean.usuario}" resizable="true"
+			header="Bienvenido a SPADENT, #{loginBean.usuario} " resizable="true"
 			closable="false" collapsible="true">
 
 
@@ -26,8 +26,14 @@
 					<p:growl id="messages" />
 
 					<p:menubar>
+
+						<p:menuitem value="Inicio" url="indexRecepcionista.jsf">
+
+						</p:menuitem>
+
 						<p:submenu label="Perfil" icon="ui-icon-person">
-							<p:menuitem value="Datos Personales" url="consultarInformacionPersonal.jsf" />
+							<p:menuitem value="Datos Personales"
+								url="consultarInformacionPersonal.jsf" />
 						</p:submenu>
 
 						<p:submenu label="Administrar" icon="ui-icon-document">
@@ -37,13 +43,14 @@
 						</p:submenu>
 
 						<p:submenu label="Horario" icon="ui-icon-pencil">
-							<p:menuitem value="Administrar citas" url="reservarCita.jsf" />
+							<p:menuitem value="Administrar Horario" url="gestionCita.jsf" />
 						</p:submenu>
 
 						<p:submenu label="Contacto" icon="ui-icon-mail-closed">
 							<p:menuitem value="Mensajes" url="enviarMensaje.jsf" />
 						</p:submenu>
 						<f:facet name="options">
+							
 							<p:commandButton action="#{loginBean.cerrarSesion}"
 								value="Cerrar sesión" icon="ui-icon-extlink" />
 

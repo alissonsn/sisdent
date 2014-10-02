@@ -3,6 +3,7 @@ package com.odontologia.service;
 import java.util.List;
 
 import com.odontologia.model.Odontologo;
+import com.odontologia.model.Persona;
 
 public interface OdontologoService {
 
@@ -11,4 +12,5 @@ public interface OdontologoService {
 	public boolean actualizarOdontologo(Odontologo odontologo);
 	public boolean eliminarOdontologo(Odontologo odontologo);
 	public Odontologo buscarPorId(int id);	
+	public Odontologo buscarPorPersona(Persona persona);
 }

@@ -125,4 +125,34 @@ public class CitaServiceImpl implements CitaService{
 	public EstadoCita estadoCitaFromId(Integer idEstadoCita) {
 		return em.find(EstadoCita.class, idEstadoCita);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Cita> getCitasPorPaciente(Integer idPaciente) {
+		List<Cita> result = new ArrayList<>();
+		try{
+			Query q = em.createQuery("SELECT c FROM Cita c JOIN c.citaPaciente cp WHERE cp.idPaciente=:idPaciente");
+			q.setParameter("idPaciente", idPaciente);			
+			result = q.getResultList();
+		}
+		catch(NoResultException e){
+			System.out.println("ERROR: "+e.getMessage());
+		}
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Cita> getCitasPorOdontologo(Integer idOdontologo) {
+		List<Cita> result = new ArrayList<>();
+		try{
+			Query q = em.createQuery("SELECT c FROM Cita c JOIN c.citaOdontologo co WHERE co.idOdontologo=:idOdontologo");
+			q.setParameter("idOdontologo", idOdontologo);			
+			result = q.getResultList();
+		}
+		catch(NoResultException e){
+			System.out.println("ERROR: "+e.getMessage());
+		}
+		return result;
+	}
 }
