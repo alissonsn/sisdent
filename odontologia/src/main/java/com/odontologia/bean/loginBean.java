@@ -10,7 +10,6 @@ import com.odontologia.service.PersonaService;
 import com.odontologia.service.UsuarioService;
 import com.odontologia.util.StaticHelp;
 
-
 @Controller
 public class loginBean {
 
@@ -18,48 +17,55 @@ public class loginBean {
 	private String password;
 	private Boolean esLogueado;
 	private Persona persona;
-	private Boolean activar=true;
+	private Boolean activar = true;
 	@Autowired
 	UsuarioService usuarioservice;
-	
+
 	@Autowired
 	PersonaService personaService;
-	
-	public String usuarioLogin(){
-		esLogueado = usuarioservice.login(usuario, password);						
-		if(esLogueado){
+
+	public String usuarioLogin() {
+		esLogueado = usuarioservice.login(usuario, password);
+		if (esLogueado) {
 			HttpSession session = StaticHelp.getSession();
 			session.setAttribute("username", usuario);
-			
-			return "index";
+			persona = personaService.buscarPorUsuario(usuario);
+			session.setAttribute("personaSesion", persona);
+			if (persona.getPersonaOdontologo() != null) {
+				return "indexOdontologo";
+			} else if (persona.getPersonaPaciente() != null) {
+				return "indexPaciente";
+			} else {
+				return "indexRecepcionista";
+			}
 		}
 		return null;
-	}	
-	
-	public String usuarioLoginMovil(){
-		esLogueado = usuarioservice.login(usuario, password);						
-		if(esLogueado){
+	}
+
+	public String usuarioLoginMovil() {
+		esLogueado = usuarioservice.login(usuario, password);
+		if (esLogueado) {
 			HttpSession session = StaticHelp.getSession();
-			session.setAttribute("username", usuario);		
+			session.setAttribute("username", usuario);
 			persona = personaService.buscarPorUsuario(usuario);
-			session.setAttribute("personaSesion",persona);
+			session.setAttribute("personaSesion", persona);
 			return "indexMovil";
 		}
 		return null;
 	}
-		
-	public String cerrarSesion(){
+
+	public String cerrarSesion() {
 		HttpSession session = StaticHelp.getSession();
-		session.invalidate();		
+		session.invalidate();
 		return "login";
 	}
-	
-	public String cerrarSesionMovil(){
+
+	public String cerrarSesionMovil() {
 		HttpSession session = StaticHelp.getSession();
-		session.invalidate();		
+		session.invalidate();
 		return "loginMovil";
 	}
-	
+
 	public String getUsuario() {
 		return usuario;
 	}
@@ -99,12 +105,12 @@ public class loginBean {
 	public void setActivar(Boolean activar) {
 		this.activar = activar;
 	}
-	
-	public void habilitarCampo(){
-		activar=false;
+
+	public void habilitarCampo() {
+		activar = false;
 	}
-	
-	public void deshabilitarCampo(){
-		activar=true;
+
+	public void deshabilitarCampo() {
+		activar = true;
 	}
 }
