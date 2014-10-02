@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
@@ -18,9 +19,11 @@ import org.springframework.stereotype.Controller;
 import com.odontologia.model.Cita;
 import com.odontologia.model.Odontologo;
 import com.odontologia.model.Paciente;
+import com.odontologia.model.Persona;
 import com.odontologia.service.CitaService;
 import com.odontologia.service.OdontologoService;
 import com.odontologia.service.PacienteService;
+import com.odontologia.util.StaticHelp;
 import com.odontologia.util.citaData;
 import com.odontologia.util.horarioAdapter;
 
@@ -49,6 +52,8 @@ public class horarioBean {
 
 	private Paciente pacienteSeleccionado;
 	private Odontologo odontologoSeleccionado;
+	
+	private Cita cita;
 
 	public horarioBean() {
 		citas = new ArrayList<>();
@@ -56,6 +61,7 @@ public class horarioBean {
 		dataSeleccionado = new citaData();
 		dataInsert = new citaData();
 		odontologoSeleccionado = new Odontologo();
+		cita = new Cita();
 	}
 
 	@PostConstruct
@@ -133,6 +139,33 @@ public class horarioBean {
 		recargaHorario();
 		cita = new Cita();
 		event = new DefaultScheduleEvent();
+		dataInsert = new citaData();
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void insertarCitaMóvil(){		
+		Persona persona = new Persona();
+		Paciente paciente = new Paciente();
+		cita.setCitaOdontologo(odontologoSeleccionado);
+		HttpSession session = StaticHelp.getSession();
+		persona = (Persona) session.getAttribute("personaSesion");
+		paciente = pacienteservice.buscarPorPersona(persona);
+		cita.setCitaPaciente(paciente);
+		cita.setCitaEstadoCita(citaservice.estadoCitaFromId(1));
+		
+		Timestamp inicio = new Timestamp(2014 - 1900, dataInsert.getInicio()
+				.getMonth(), dataInsert.getInicio().getDate(),
+				dataInsert.getHoraInicio(), dataInsert.getMinInicio(), 0, 0);
+		
+		Timestamp fin = new Timestamp(2014 - 1900, dataInsert.getInicio()
+				.getMonth(), dataInsert.getInicio().getDate(), dataInsert
+				.getHoraFin(), dataInsert.getMinFin(), 0, 0);
+		
+		cita.setHoraInicio(inicio);
+		cita.setHoraFin(fin);
+		
+		citaservice.insertarCita(cita);
+		cita = new Cita();
 		dataInsert = new citaData();
 	}
 
@@ -251,5 +284,13 @@ public class horarioBean {
 			eventModel.addEvent(m);
 
 		}
+	}
+
+	public Cita getCita() {
+		return cita;
+	}
+
+	public void setCita(Cita cita) {
+		this.cita = cita;
 	}
 }
