@@ -25,62 +25,62 @@
 				<p:panelGrid columns="4">
 
 					<p:outputLabel value="Nombre:"></p:outputLabel>
-					<p:inputText value="#{pacienteBean.persona.nombre}">
+					<p:inputText value="#{loginBean.persona.nombre}" disabled="#{loginBean.activar}">
 					</p:inputText>
 
 					<p:outputLabel value="Apellido Paterno:"></p:outputLabel>
-					<p:inputText value="#{pacienteBean.persona.apellidoPaterno}">
+					<p:inputText value="#{loginBean.persona.apellidoPaterno}" disabled="#{loginBean.activar}">
 					</p:inputText>
 
 					<p:outputLabel value="Apellido Materno:"></p:outputLabel>
-					<p:inputText value="#{pacienteBean.persona.apellidoMaterno}">
+					<p:inputText value="#{loginBean.persona.apellidoMaterno}" disabled="#{loginBean.activar}">
 					</p:inputText>
 
 					<p:outputLabel value="Dni:"></p:outputLabel>
-					<p:inputText value="#{pacienteBean.personaApoderado.dni}"
-						required="true" requiredMessage="Se debe ingresar un Dni">
+					<p:inputText value="#{loginBean.persona.dni}"
+						required="true" requiredMessage="Se debe ingresar un Dni" disabled="#{loginBean.activar}">
 					</p:inputText>
 
 					<p:outputLabel value="Fecha de Nacimiento:"></p:outputLabel>
-					<p:calendar value="#{pacienteBean.persona.fechaNacimiento}"
-						maxdate="#{pacienteBean.fechaHoy}" navigator="true">
+					<p:calendar value="#{loginBean.persona.fechaNacimiento}"
+						maxdate="#{pacienteBean.fechaHoy}" navigator="true" disabled="#{loginBean.activar}">
 					</p:calendar>
 
 					<p:outputLabel value="Dirección:"></p:outputLabel>
-					<p:inputText value="#{pacienteBean.persona.direccion}">
+					<p:inputText value="#{loginBean.persona.direccion}" disabled="#{loginBean.activar}">
 					</p:inputText>
 
 					<p:outputLabel value="Distrito:"></p:outputLabel>
-					<p:selectOneMenu value="#{pacienteBean.distrito.idDistrito}"
+					<p:selectOneMenu value="#{loginBean.persona.personaDistrito.idDistrito}"
 						effect="drop">
-						<f:selectItem itemLabel="Seleccionar distrito" itemValue="" />
+						<f:selectItem itemLabel="Seleccionar distrito" itemValue="" itemDisabled="#{loginBean.activar}"/>
 						<f:selectItems value="#{pacienteBean.distritos}" var="distrito"
-							itemLabel="#{distrito.nombre}" itemValue="#{distrito.idDistrito}" />
+							itemLabel="#{distrito.nombre}" itemValue="#{distrito.idDistrito}" itemDisabled="#{loginBean.activar}" />
 					</p:selectOneMenu>
 
 					<p:outputLabel value="Celular:"></p:outputLabel>
-					<p:inputText value="#{pacienteBean.persona.celular}">
+					<p:inputText value="#{loginBean.persona.celular}" disabled="#{loginBean.activar}">
 					</p:inputText>
 
 					<p:outputLabel value="Teléfono Fijo:"></p:outputLabel>
-					<p:inputText value="#{loginBean.persona.telefono}">
+					<p:inputText value="#{loginBean.persona.telefono}" disabled="#{loginBean.activar}">
 					</p:inputText>
 
 					<p:outputLabel value="Correo Electrónico:"></p:outputLabel>
-					<p:inputText value="#{loginBean.persona.correoElectronico}">
+					<p:inputText value="#{loginBean.persona.correoElectronico}" disabled="#{loginBean.activar}">
 					</p:inputText>
 
 
 					<p:commandButton value="Editar" style="width:120px"
-						action="#{loginBean.habilitarCampo}" update="frmDatos"
+						action="#{loginBean.habilitarCampo}" update=":frmDatos"
 						rendered="#{loginBean.activar}" />
 					<p:commandButton id="btnguardar" value="Guardar"
-						style="width:120px" update="frmDatos"
+						style="width:120px" update=":frmDatos"
 						rendered="#{!loginBean.activar}"
-						action="#{pacienteBean.actualizarPaciente}" />
+						actionListener="#{personaBean.actualizarPersonaWeb(actionEvent)}" />
 					<p:commandButton value="Atras" style="width:120px"
-						onclick="location.href='indexMovil.xhtml'"
-						action="#{loginBean.deshabilitarCampo}" update="frmDatos" />
+						onclick="location.href='indexPaciente.xhtml'"
+						action="#{loginBean.deshabilitarCampo}" update=":frmDatos" />
 
 
 				</p:panelGrid>
