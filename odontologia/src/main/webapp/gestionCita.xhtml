@@ -6,21 +6,88 @@
 
 <h:head>
 	<title>Gestion de Citas - SPADENT</title>
-
+	<script src="resources/js/spanishSchedule.js" type="text/javascript" />
+	<link rel="stylesheet" type="text/css"
+		href="resources/css/schedule.css" />
 </h:head>
 
 <h:body>
-
+	
 	<h:form>
+		<p:commandButton value="Nuevo Evento" type="button" onclick="PF('dlg2').show();" />
+	</h:form>
+	<h:form>
+		<p:dialog header="Crear nuevo Evento" widgetVar="dlg2" modal="true">
+   			 
+   			 <h:panelGrid columns="2">
+			<h:outputLabel for="tituloInsert" value="Titulo:" />
+			<p:inputText id="tituloInsert" value="#{horarioBean.event.title}"
+				required="true" />
+
+			<h:outputLabel for="inicioInsert" value="Dia: " />
+			<p:calendar id="inicioInsert" pattern="dd-MM-yyyy"
+				value="#{horarioBean.dataInsert.inicio}" mask="true" />
+
+			<h:outputLabel for="horaInicioInsert" value="Hora de Inicio: " />
+			<h:panelGrid columns="2">
+				<pe:inputNumber id="horaInicioInsert" style="width: 50px;"
+					value="#{horarioBean.dataInsert.horaInicio}" minValue="0"
+					maxValue="23" />
+				<pe:inputNumber id="minInicioInsert" style="width: 50px;"
+					value="#{horarioBean.dataInsert.minInicio}" minValue="0"
+					maxValue="59" />
+			</h:panelGrid>
+
+			<h:outputLabel for="horaFinInsert" value="Hora de Fin: " />
+			<h:panelGrid columns="2">
+				<pe:inputNumber id="horaFinInsert" style="width: 50px;"
+					value="#{horarioBean.dataInsert.horaFin}" minValue="0"
+					maxValue="23" />
+				<pe:inputNumber id="minFinInsert" style="width: 50px;"
+					value="#{horarioBean.dataInsert.minFin}" minValue="0" maxValue="59" />
+			</h:panelGrid>
+
+			<h:outputLabel for="pacienteInsert" value="Paciente" />
+			<p:selectOneMenu id="pacienteInsert"
+				value="#{horarioBean.pacienteSeleccionado.idPaciente}"
+				required="true" requiredMessage="Debe seleccionar un Paciente">
+				<f:selectItem itemLabel="Elija un Paciente"></f:selectItem>
+				<f:selectItems value="#{horarioBean.pacientes}" var="paciente"
+					itemLabel="#{paciente.pacientePersona.nombre}"
+					itemValue="#{paciente.idPaciente}" />
+			</p:selectOneMenu>
+			<h:outputLabel for="odontologoInsert" value="Odontologo" />
+
+			<p:selectOneMenu id="odontologoInsert"
+				value="#{horarioBean.odontologoSeleccionado.idOdontologo}"
+				required="true" requiredMessage="Debe seleccionar un Odontologo">
+				<f:selectItem itemLabel="Elija un Odontologo"></f:selectItem>
+				<f:selectItems value="#{horarioBean.odontologos}" var="odontologo"
+					itemLabel="#{odontologo.odontologoPersona.nombre}"
+					itemValue="#{odontologo.idOdontologo}" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+
+		<h:panelGrid columns="2">
+			<p:commandButton actionListener="#{horarioBean.cancelar}"
+				value="Cancelar" oncomplete="PF('horario').update();" />
+
+			<p:commandButton actionListener="#{horarioBean.insertarEvento}"
+				value="Crear evento" oncomplete="PF('horario').update();PF('dlg2').hide();" />
+		</h:panelGrid>
+   			 
+		</p:dialog>   
+	</h:form>
+
+	<h:form id="formCita">
 		<p:growl id="messages" showDetail="true" />
 
 		<h:panelGrid columnClasses="value">
 
-			<p:schedule id="schedule" value="#{horarioBean.eventModel}"
-				widgetVar="horario" timeZone="GMT-5">
+			<p:schedule resizable="false" draggable="false" locale="es"
+				id="schedule" value="#{horarioBean.eventModel}" minTime="6"
+				maxTime="23" widgetVar="horario" allDaySlot="false" timeZone="GMT-5">
 
-				<p:ajax event="dateSelect" listener="#{horarioBean.onDateSelect}"
-					update="eventDetails" oncomplete="PF('eventDialog').show();" />
 				<p:ajax event="eventSelect" listener="#{horarioBean.onEventSelect}"
 					update="eventDetails" oncomplete="PF('eventDialog').show();" />
 
@@ -28,55 +95,74 @@
 
 		</h:panelGrid>
 
-		<p:dialog widgetVar="eventDialog" header="Detalles del evento"
-			showEffect="clip" hideEffect="clip">
+		<p:dialog widgetVar="eventDialog" id="dialogoModificar"
+			header="Modificar cita" showEffect="clip" hideEffect="clip">
 			<h:panelGrid id="eventDetails" columns="2">
 				<h:outputLabel for="titulo" value="Titulo:" />
-				<p:inputText id="titulo" value="#{horarioBean.data.titulo}"
+				<p:inputText id="titulo" value="#{horarioBean.event.title}"
 					required="true" />
 
-				<h:outputLabel for="inicio" value="Inicio:" />
-				<p:inputMask id="inicio" value="#{horarioBean.data.inicio}"
-					mask="99/99/9999">
-					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-5" />
-				</p:inputMask>
-				
-				<h:outputLabel for="horaInicio" value="Hora de Inicio: " />
-				<h:panelGrid columns="2">				
-				<pe:inputNumber id="horaInicio" style="width: 50px;"
-					value="#{horarioBean.data.horaInicio}" minValue="0" maxValue="23" />									
-				<pe:inputNumber id="minInicio" style="width: 50px;"
-					value="#{horarioBean.data.minInicio}" minValue="0" maxValue="59" />
-				</h:panelGrid>
-				
-				<h:outputLabel for="fin" value="Fin:" />
-				<p:inputMask id="fin" value="#{horarioBean.data.fin}"
-					mask="99/99/9999">
-					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-5" />
-				</p:inputMask>
-				
-				<h:outputLabel for="horaFin" value="Hora de Fin: " />
-				<h:panelGrid columns="2">				
-				<pe:inputNumber id="horaFin" style="width: 50px;"
-					value="#{horarioBean.data.horaFin}" minValue="0" maxValue="23" />									
-				<pe:inputNumber id="minFin" style="width: 50px;"
-					value="#{horarioBean.data.minFin}" minValue="0" maxValue="59" />
-				</h:panelGrid>				
+				<h:outputLabel for="inicio" value="Dia: " />
+				<p:calendar id="inicioInsert" pattern="dd-MM-yyyy"
+					value="#{horarioBean.dataSeleccionado.inicio}" mask="true" />
 
-				<p:commandButton type="reset" value="Reset" />
+				<h:outputLabel for="horaInicio" value="Hora de Inicio: " />
+				<h:panelGrid columns="2">
+					<pe:inputNumber id="horaInicio" style="width: 50px;"
+						value="#{horarioBean.dataSeleccionado.horaInicio}" minValue="0"
+						maxValue="23" />
+					<pe:inputNumber id="minInicio" style="width: 50px;"
+						value="#{horarioBean.dataSeleccionado.minInicio}" minValue="0"
+						maxValue="59" />
+				</h:panelGrid>
+
+				<h:outputLabel for="horaFin" value="Hora de Fin: " />
+				<h:panelGrid columns="2">
+					<pe:inputNumber id="horaFin" style="width: 50px;"
+						value="#{horarioBean.dataSeleccionado.horaFin}" minValue="0"
+						maxValue="23" />
+					<pe:inputNumber id="minFin" style="width: 50px;"
+						value="#{horarioBean.dataSeleccionado.minFin}" minValue="0"
+						maxValue="59" />
+				</h:panelGrid>
+
+				<h:outputLabel for="paciente" value="Paciente" />
+				<p:selectOneMenu id="paciente"
+					value="#{horarioBean.pacienteSeleccionado.idPaciente}"
+					required="true" requiredMessage="Debe seleccionar un Paciente">
+					<f:selectItem itemLabel="Elija un Paciente"></f:selectItem>
+					<f:selectItems value="#{horarioBean.pacientes}" var="paciente"
+						itemLabel="#{paciente.pacientePersona.nombre}"
+						itemValue="#{paciente.idPaciente}" />
+				</p:selectOneMenu>
+				<h:outputLabel for="odontologo" value="Odontologo" />
+
+				<p:selectOneMenu id="odontologo"
+					value="#{horarioBean.odontologoSeleccionado.idOdontologo}"
+					required="true" requiredMessage="Debe seleccionar un Odontologo">
+					<f:selectItem itemLabel="Elija un Odontologo"></f:selectItem>
+					<f:selectItems value="#{horarioBean.odontologos}" var="odontologo"
+						itemLabel="#{odontologo.odontologoPersona.nombre}"
+						itemValue="#{odontologo.idOdontologo}" />
+				</p:selectOneMenu>
+
+
+			</h:panelGrid>
+			<h:panelGrid columns="3">
+				<p:commandButton actionListener="#{horarioBean.eliminar}"
+					value="Eliminar Cita"
+					oncomplete="PF('horario').update();PF('eventDialog').hide();" />
+				<p:commandButton actionListener="#{horarioBean.cancelar}"
+					value="Cancelar"
+					oncomplete="PF('horario').update();PF('eventDialog').hide();" />
+
 				<p:commandButton id="addButton" value="Guardar"
-					actionListener="#{horarioBean.addEvent}"
+					actionListener="#{horarioBean.modificarEvento}"
 					oncomplete="PF('horario').update();PF('eventDialog').hide();" />
 			</h:panelGrid>
 		</p:dialog>
 
 	</h:form>
-
-	<style type="text/css">
-.value {
-	width: 1000px;
-}
-</style>
 </h:body>
 
 </html>

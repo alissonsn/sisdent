@@ -20,6 +20,10 @@ public class citaData {
 	private Integer minFin;
 	private String titulo;
 	
+	public citaData(){
+		
+	}
+	
 	public citaData(Odontologo odontologo, Paciente paciente,
 			EstadoCita estadocita, Integer idCita) {		
 		this.odontologo = odontologo;

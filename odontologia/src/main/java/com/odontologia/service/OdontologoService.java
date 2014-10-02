@@ -10,5 +10,5 @@ public interface OdontologoService {
 	public List<Odontologo> getOdontologos();
 	public boolean actualizarOdontologo(Odontologo odontologo);
 	public boolean eliminarOdontologo(Odontologo odontologo);
-	public Odontologo buscarPorId(int id);
+	public Odontologo buscarPorId(int id);	
 }

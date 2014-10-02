@@ -120,4 +120,9 @@ public class CitaServiceImpl implements CitaService{
 		}
 		return result;
 	}
+	
+	@Transactional
+	public EstadoCita estadoCitaFromId(Integer idEstadoCita) {
+		return em.find(EstadoCita.class, idEstadoCita);
+	}
 }
