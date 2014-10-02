@@ -8,20 +8,19 @@
 
 <h:head>
 	<link
-		href="http://localhost:8090/odontologia/resources/css/estilosM.css"
-		type="text/css" rel="stylesheet" />
+		href="http://localhost:8090/odontologia/resources/css/estilosConsHoraCiMovil.css" media="only screen" type="text/css" rel="stylesheet" />
 </h:head>
 <h:body>
-	<pm:page id="wrapper">
+	<pm:page id="wrapper" >
 		<h:form id="frmPrincipal">
 			<p
-				style="text-align: center; font-weight: bold; font-size: 1.2em; border-bottom: 1px solid #ddd; color: #25aae1; background-color: #e0e0e0; text-shadow: none; font-family: sans-serif;">Consultar
+				style="text-align: center; font-weight: bold; font-size: 1.7em; border-bottom: 1px solid #ddd; color: #2142EE; background-color: #FDE31E; text-shadow: none; font-family: Book Antiqua;">Consultar
 				Horario Cita</p>
 
 			<p></p>
-			<p:dataList value="#{citaBean.citasDePacienteEnEspera}" var="cit"
+			<p:dataList styleClass="ui-Datalist" value="#{citaBean.citasDePacienteEnEspera}" var="cit"
 				emptyMessage="No hay citas registradas">
-				<f:facet name="header">Citas
+				<f:facet  name="header">Citas
 				</f:facet>
 				<p:commandLink onclick="PF('dlgCancelarW').show();">
 					<f:setPropertyActionListener value="#{cit}"
@@ -53,7 +52,7 @@
 				</p:commandLink>
 			</p:dataList>
 
-			<p:panelGrid columns="2">
+			<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
 				<p:commandButton value="Atras"
 					onclick="location.href='indexMovil.xhtml'" />
 			</p:panelGrid>
