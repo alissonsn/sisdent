@@ -77,7 +77,7 @@
 					<p:commandButton id="btnguardar" value="Guardar"
 						style="width:120px" update=":frmDatos"
 						rendered="#{!loginBean.activar}"
-						actionListener="#{personaBean.actualizarPersonaWeb(actionEvent)}" />
+						actionListener="#{personaBean.actualizarPersonaWeb}" />
 					<p:commandButton value="Atras" style="width:120px"
 						onclick="location.href='indexPaciente.xhtml'"
 						action="#{loginBean.deshabilitarCampo}" update=":frmDatos" />

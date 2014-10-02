@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.odontologia.model.Distrito;
 import com.odontologia.model.Persona;
 import com.odontologia.service.PersonaService;
 import com.odontologia.service.UsuarioService;
@@ -17,6 +18,7 @@ public class loginBean {
 	private String password;
 	private Boolean esLogueado;
 	private Persona persona;
+	private Distrito distrito;
 	private Boolean activar = true;
 	@Autowired
 	UsuarioService usuarioservice;
@@ -26,6 +28,7 @@ public class loginBean {
 	
 	public loginBean() {
 		persona = new Persona();
+		setDistrito(new Distrito());
 	}
 
 	public String usuarioLogin() {
@@ -35,6 +38,7 @@ public class loginBean {
 			session.setAttribute("username", usuario);
 			persona = personaService.buscarPorUsuario(usuario);
 			session.setAttribute("personaSesion", persona);
+			distrito = persona.getPersonaDistrito();
 			if (persona.getPersonaOdontologo() != null) {
 				return "indexOdontologo";
 			} else if (persona.getPersonaPaciente() != null) {
@@ -53,6 +57,7 @@ public class loginBean {
 			session.setAttribute("username", usuario);
 			persona = personaService.buscarPorUsuario(usuario);
 			session.setAttribute("personaSesion", persona);
+			distrito = persona.getPersonaDistrito();
 			return "indexMovil";
 		}
 		return null;
@@ -116,5 +121,13 @@ public class loginBean {
 
 	public void deshabilitarCampo() {
 		activar = true;
+	}
+
+	public Distrito getDistrito() {
+		return distrito;
+	}
+
+	public void setDistrito(Distrito distrito) {
+		this.distrito = distrito;
 	}
 }

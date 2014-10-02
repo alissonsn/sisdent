@@ -73,13 +73,15 @@
 						<h:outputText value="#{odon.especialidad}" />
 					</p:column>
 
-					<p:column headerText="Acciones" style="width:300px; text-align:center;">
+					<p:column headerText="Acciones" style="width:400px; text-align:center;">
 						<p:commandButton update=":dlgEditar" value="Editar"
 							oncomplete="PF('dlgEditarW').show()" icon="ui-icon-pencil"
-							actionListener="#{odontologoBean.prepararAccion(odon.idOdontologo)}" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+							actionListener="#{odontologoBean.prepararAccion(odon.idOdontologo)}" />&nbsp;
 							<p:commandButton update=":dlgEliminar" value="Eliminar"
 							oncomplete="PF('dlgEliminarW').show()" icon="ui-icon-trash"
-							actionListener="#{odontologoBean.prepararAccion(odon.idOdontologo)}" />
+							actionListener="#{odontologoBean.prepararAccion(odon.idOdontologo)}" />&nbsp;
+							<p:commandButton update=":dlgDetalle" value="Detalles"
+							oncomplete="PF('dlgDetalleW').show()" icon="ui-icon-info" />
 
 					</p:column>
 
@@ -253,6 +255,33 @@
 						update=":frmAdmOdon" oncomplete="PF('dlgEliminarW').hide()" />
 				</h:form>
 			</p:confirmDialog>
+			
+			<!-- Diálogo de Detalle Odontólogo -->
+
+			<p:dialog id="dlgDetalle" header="Detalle Odontólogo" resizable="false"
+				widgetVar="dlgDetalleW" showEffect="fade" modal="true"
+				hideEffect="fade" position="center" appendTo="@(body)">
+				<h:form enctype="multipart/form-data">
+
+					<p:panelGrid columns="2">
+
+						<p:outputLabel value="Adjuntar CV:"></p:outputLabel>
+						<p:fileUpload mode="simple"/>
+
+
+					</p:panelGrid>
+
+					<p:separator></p:separator>
+
+					<p:commandButton value="Actualizar" update=":frmAdmOdon"
+						oncomplete="PF('dlgDetalleW').hide()"></p:commandButton>
+					<p:commandButton value="Cancelar" update=":frmAdmOdon"
+						oncomplete="PF('dlgDetalleW').hide()">
+					</p:commandButton>
+
+				</h:form>
+
+			</p:dialog>
 
 		</ui:define>
 
