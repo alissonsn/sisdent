@@ -15,7 +15,7 @@
 	<pm:page id="wrapper" title="Perfil Usuario #{username}">
 		<h:form id="formid">
 			<p
-				style="text-align: center; font-weight: bold; font-size: 1.2em; border-bottom: 1px solid #ddd; color: #25aae1; background-color: #e0e0e0; text-shadow: none; font-family: sans-serif;">Datos
+				style="text-align: center; font-weight: bold; font-size: 1.7em; border-bottom: 1px solid #ddd; color: #2142EE; background-color: #FDE31E; text-shadow: none; font-family: Book Antiqua;">Datos
 				Generales</p>
 			<p:graphicImage
 				url="http://localhost:8090/odontologia/resources/images/usuario.jpg"
@@ -26,7 +26,7 @@
 					styleClass="ui-field-contain > label" />
 				<p:inputText id="nombre"
 					styleClass="ui-field-contain > label ~ [class*='ui-']"
-					value="#{loginBean.persona.nombre}" disabled="#{loginBean.activar}" />
+					value="#{loginBean.persona.nombre}" disabled="#{loginBean.activar}"  required="true"/>
 			</pm:field>
 
 			<pm:field>
@@ -34,7 +34,7 @@
 					styleClass="ui-field-contain > label" />
 				<p:inputText id="apellidopat"
 					styleClass="ui-field-contain > label ~ [class*='ui-']"
-					value="#{loginBean.persona.apellidoPaterno}" disabled="#{loginBean.activar}" />
+					value="#{loginBean.persona.apellidoPaterno}" disabled="#{loginBean.activar}"  required="true"/>
 			</pm:field>
 
 			<pm:field>
@@ -42,7 +42,7 @@
 					styleClass="ui-field-contain > label" />
 				<p:inputText id="apellidomat"
 					styleClass="ui-field-contain > label ~ [class*='ui-']"
-					value="#{loginBean.persona.apellidoMaterno}" disabled="#{loginBean.activar}" />
+					value="#{loginBean.persona.apellidoMaterno}" disabled="#{loginBean.activar}" required="true"/>
 			</pm:field>
 
 			<pm:field>
@@ -50,7 +50,7 @@
 					styleClass="ui-field-contain > label" />
 				<p:inputText id="direccion"
 					styleClass="ui-field-contain > label ~ [class*='ui-']"
-					value="#{loginBean.persona.direccion}" disabled="#{loginBean.activar}" />
+					value="#{loginBean.persona.direccion}" disabled="#{loginBean.activar}" required="true" />
 			</pm:field>
 
 			<pm:field>
@@ -58,7 +58,7 @@
 					styleClass="ui-field-contain > label" />
 				<p:inputText id="telefono" value="#{loginBean.persona.telefono}"
 					styleClass="ui-field-contain > label ~ [class*='ui-']"
-					disabled="#{loginBean.activar}" />
+					disabled="#{loginBean.activar}" required="true"/>
 			</pm:field>
 
 			<pm:field>
@@ -67,7 +67,7 @@
 				<p:inputText id="email"
 					value="#{loginBean.persona.correoElectronico}"
 					styleClass="ui-field-contain > label ~ [class*='ui-']"
-					disabled="#{loginBean.activar}" />
+					disabled="#{loginBean.activar}" required="true"/>
 			</pm:field>
 
 

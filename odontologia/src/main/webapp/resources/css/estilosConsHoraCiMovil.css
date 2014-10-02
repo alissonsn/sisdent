@@ -1,0 +1,50 @@
+.ui-state-default .icon-agenda{	
+	 background-size: 18px 18px;
+}
+#wrapper {
+    width: 0 auto;
+    margin: 0 auto;
+    background-image: url("http://localhost:8090/odontologia/resources/images/fondo1.jpg");"
+}
+	/* Celular de 480x320*/
+@media only screen and (min-width: 320px) and (orientation : landscape){
+		.ui-Datalist{
+	margin-top: 20px;
+	}
+	.ui-btnPanelGrid{
+	 margin-left: 200px;
+     margin-top: 150px;
+	}
+}
+@media only screen and (min-width: 320px) and (max-width: 480px){
+			.ui-Datalist{
+	margin-top: 50px;
+	}
+	.ui-btnPanelGrid{
+	 margin-left: 140px;
+     margin-top: 320px;
+	}
+	
+}
+  /* ipad de 1024x768*/
+@media only screen and (min-width: 768px) and (orientation : landscape){
+		.ui-Datalist{
+	margin-top: 180px;
+	}
+	.ui-btnPanelGrid{
+	 margin-left: 450px;
+     margin-top: 500px;
+	}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px){
+	.ui-Datalist{
+	margin-top: 180px;
+	}
+	.ui-btnPanelGrid{
+	 margin-left: 350px;
+     margin-top: 500px;
+	}
+
+}
+
