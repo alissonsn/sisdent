@@ -16,9 +16,9 @@ xmlns:pm="http://primefaces.org/mobile" >
 <h:form>
 <pm:field  >
     <p:outputLabel for="selectOneMenu" value="Destinatario:" styleClass="ui-field-contain > label" />
-    <p:selectOneMenu id="selectOneMenu" styleClass="ui-field-contain > label ~ [class*='ui-']" >
-        <f:selectItem itemLabel="Seleccione" itemValue="" />
-        <f:selectItem  />
+    <p:selectOneMenu id="selectOneMenu" styleClass="ui-field-contain > label ~ [class*='ui-']" value="#{horarioBean.odontologoSeleccionado.idOdontologo}"  >
+        <f:selectItem itemLabel="Seleccione" itemValue=""  />
+        <f:selectItems  value="#{citaBean.citasPorPaciente}" var="cita" itemLabel="#{odontologo.odontologoPersona.nombre}" itemValue="#{odontologo.correoelectronico}"/>
     </p:selectOneMenu>
 </pm:field>
 
