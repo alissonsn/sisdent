@@ -1,28 +1,41 @@
 package com.odontologia.bean;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.odontologia.model.Cita;
+import com.odontologia.model.Mensaje;
 import com.odontologia.model.Odontologo;
 import com.odontologia.model.Paciente;
 import com.odontologia.model.Persona;
+import com.odontologia.model.Usuario;
 import com.odontologia.service.CitaService;
+import com.odontologia.service.MensajeService;
 import com.odontologia.service.PacienteService;
 import com.odontologia.util.StaticHelp;
+import com.odontologia.util.citaData;
 
 @Controller
 public class MensajeBean {
 
 	private Odontologo odontologo;
 	private Paciente paciente;
+	private Mensaje mensaje;	
+    
+	@Autowired
+	MensajeService mensajeservice;
 
 	private List<Odontologo> odontologos;
-	private List<Cita> CitasDePacienteDeOdontologo;
 
 	@Autowired
 	PacienteService pacienteService;
@@ -33,24 +46,38 @@ public class MensajeBean {
 	
 	public MensajeBean() {
 		odontologo = new Odontologo();
-
+        mensaje = new Mensaje();     
+        mensaje.setMensajeUsuarioReceptor(new Usuario());
+        paciente = new Paciente();
+        odontologos = new ArrayList<>();
+	}
+	
+	public Mensaje getMensaje() {
+		return mensaje;
 	}
 
-	/*public List<Odontologo> getCitasDePacienteDeOdontologo() {
+	public void setMensaje(Mensaje mensaje) {
+		this.mensaje = mensaje;
+	}
+	
+	
+	public void insertarMensaje(){		
 		Persona persona = new Persona();
-		Paciente paciente = new Paciente();
-		Odontologo odontologo = new Odontologo();
+		Usuario usuario = new Usuario();
 		HttpSession session = StaticHelp.getSession();
 		persona = (Persona) session.getAttribute("personaSesion");
-		paciente = pacienteService.buscarPorPersona(persona);
-		// ID DE ESTAOD DE CITA = 1 (EN ESPERA)
-		CitasDePacienteDeOdontologo = citaService
-				.getCitasDePacienteDeOdontologo(paciente.getIdPaciente(),
-						odontologo.getIdOdontologo());
-		return CitasDePacienteDeOdontologo;
+		usuario =(Usuario) persona.getPersonaUsuario();
+		Timestamp fecha= new Timestamp(System.currentTimeMillis());
+		mensaje.setMensajeUsuarioEmisor(usuario);	
+		mensaje.setFecha(fecha);
+		
+		if(mensajeservice.insertarMensaje(mensaje)){
+			StaticHelp.correctMessage("Se ha registrado con éxito el mensaje", "");
+			RequestContext.getCurrentInstance().update("frmNuevoo:growl");
+		}
+		
 	}
-	*/
-
+	
 	public Odontologo getOdontologo() {
 		return odontologo;
 	}
