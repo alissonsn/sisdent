@@ -1,7 +1,6 @@
 package com.odontologia.model;
 
 import java.sql.Timestamp;
-import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 
 @Entity
@@ -30,23 +28,8 @@ public class Tratamiento {
 	@Column(name="costototal", nullable=true)
 	private Double costoTotal;
 	
-	@ManyToOne @JoinColumn(name="idhistoriaclinica", nullable=false)
-	private HistoriaClinica tratamientoHistoriaClinica;
-	
-	@ManyToOne @JoinColumn(name="idodontologo", nullable=false)
-	private Odontologo tratamientoOdontologo;
-	
-	@OneToMany(mappedBy="insumoTratamientoTratamiento")
-	private Collection<InsumoTratamiento> tratamientoInsumoTratamientos;
-
-	public Collection<InsumoTratamiento> getTratamientoInsumoTratamientos() {
-		return tratamientoInsumoTratamientos;
-	}
-
-	public void setTratamientoInsumoTratamientos(
-			Collection<InsumoTratamiento> tratamientoInsumoTratamientos) {
-		this.tratamientoInsumoTratamientos = tratamientoInsumoTratamientos;
-	}
+	@ManyToOne @JoinColumn(name="iddienteodontograma", nullable=true)
+	private DienteOdontograma tratamientoDienteOdontograma;
 
 	public Integer getIdTratamiento() {
 		return idTratamiento;
@@ -88,26 +71,13 @@ public class Tratamiento {
 		this.costoTotal = costoTotal;
 	}
 
-	public HistoriaClinica getTratamientoHistoriaClinica() {
-		return tratamientoHistoriaClinica;
+	public DienteOdontograma getTratamientoDientoOdontograma() {
+		return tratamientoDienteOdontograma;
 	}
 
-	public void setTratamientoHistoriaClinica(
-			HistoriaClinica tratamientoHistoriaClinica) {
-		this.tratamientoHistoriaClinica = tratamientoHistoriaClinica;
+	public void setTratamientoDientoOdontograma(
+			DienteOdontograma tratamientoDientoOdontograma) {
+		this.tratamientoDienteOdontograma = tratamientoDientoOdontograma;
 	}
-
-	public Odontologo getTratamientoOdontologo() {
-		return tratamientoOdontologo;
-	}
-
-	public void setTratamientoOdontologo(Odontologo tratamientoOdontologo) {
-		this.tratamientoOdontologo = tratamientoOdontologo;
-	}
-	
-	
-	
-	
-	
 	
 }

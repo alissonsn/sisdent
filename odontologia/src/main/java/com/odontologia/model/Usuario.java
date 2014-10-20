@@ -30,10 +30,15 @@ public class Usuario {
 	
 	@Column(name="esactivo", nullable=true)
 	private Boolean esActivo;
-	
+
 	@OneToOne(mappedBy="personaUsuario")
-	private Persona usuarioPersona;
+	private Persona usuarioPersona;	
+
+	@OneToMany(mappedBy="odontogramaLogUsuario")
+	private Collection<OdontogramaLog> usuarioOdontogramaLogs;
 	
+	@OneToMany(mappedBy="citaLogUsuario")
+	private Collection<CitaLog> usuarioCitaLogs;
 	
 	@OneToMany(mappedBy="mensajeUsuarioEmisor")
 	private Collection<Mensaje> usuarioMensajeEmisores;
@@ -113,7 +118,22 @@ public class Usuario {
 	public void setUsuarioPersona(Persona usuarioPersona) {
 		this.usuarioPersona = usuarioPersona;
 	}
-	
-	
+
+	public Collection<OdontogramaLog> getUsuarioOdontogramaLogs() {
+		return usuarioOdontogramaLogs;
+	}
+
+	public void setUsuarioOdontogramaLogs(
+			Collection<OdontogramaLog> usuarioOdontogramaLogs) {
+		this.usuarioOdontogramaLogs = usuarioOdontogramaLogs;
+	}
+
+	public Collection<CitaLog> getUsuarioCitaLogs() {
+		return usuarioCitaLogs;
+	}
+
+	public void setUsuarioCitaLogs(Collection<CitaLog> usuarioCitaLogs) {
+		this.usuarioCitaLogs = usuarioCitaLogs;
+	}		
 	
 }

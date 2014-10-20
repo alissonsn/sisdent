@@ -9,7 +9,7 @@ import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.odontologia.model.Apoderado;
+import com.odontologia.model.Archivo;
 import com.odontologia.model.Distrito;
 import com.odontologia.model.Odontologo;
 import com.odontologia.model.Persona;
@@ -32,8 +32,7 @@ public class OdontologoBean{
 	private Odontologo odontologo;
 	private Persona persona;
 	private Usuario usuario;
-	private Distrito distrito;
-
+	private Distrito distrito;	
 	
 	private List<Odontologo> odontologos;	
 	private List<Distrito> distritos;
@@ -45,12 +44,12 @@ public class OdontologoBean{
 		persona = new Persona();
 		usuario = new Usuario();
 		distrito = new Distrito();
-		odontologos = new ArrayList<>();
+		odontologos = new ArrayList<>();		
 	}
 	
 	public void registrarOdontologo(ActionEvent actionEvent){
 		persona.setPersonaDistrito(distrito);
-		persona.setPersonaUsuario(usuario);
+		persona.setPersonaUsuario(usuario);	
 		odontologo.setOdontologoPersona(persona);
 		if(odontologoService.registrarOdontologo(odontologo)){
 			StaticHelp.correctMessage("Se ha registrado con éxito el odontólogo", "");

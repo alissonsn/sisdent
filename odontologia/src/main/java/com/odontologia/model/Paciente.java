@@ -18,6 +18,9 @@ public class Paciente {
 	@Id @GeneratedValue @Column(name="idpaciente", nullable=false)
 	private Integer idPaciente; 
 	
+	@Column(name="esasegurado", nullable=true)
+	private boolean esAsegurado;	
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idpersona", nullable = false)
 	private Persona pacientePersona;
@@ -25,19 +28,11 @@ public class Paciente {
 	@OneToMany(mappedBy="citaPaciente")
 	private Collection<Cita> pacienteCitas;
 	
-	@OneToOne(mappedBy="historiaClinicaPaciente")
-	private HistoriaClinica pacienteHistoriaClinica;
+	@OneToOne(mappedBy="fichaOdontologicaPaciente")
+	private FichaOdontologica pacienteFichaOdontologica;
 	
 	@ManyToOne @JoinColumn(name="idapoderado", nullable=true)
 	private Apoderado pacienteApoderado;
-
-	public HistoriaClinica getPacienteHistoriaClinica() {
-		return pacienteHistoriaClinica;
-	}
-
-	public void setPacienteHistoriaClinica(HistoriaClinica pacienteHistoriaClinica) {
-		this.pacienteHistoriaClinica = pacienteHistoriaClinica;
-	}
 
 	public Collection<Cita> getPacienteCitas() {
 		return pacienteCitas;
@@ -69,6 +64,25 @@ public class Paciente {
 
 	public void setPacienteApoderado(Apoderado pacienteApoderado) {
 		this.pacienteApoderado = pacienteApoderado;
+	}
+
+	public boolean isEsAsegurado() {
+		return esAsegurado;
+	}
+
+	public void setEsAsegurado(boolean esAsegurado) {
+		this.esAsegurado = esAsegurado;
+	}
+
+	public FichaOdontologica getPacienteFichaOdontologica() {
+		return pacienteFichaOdontologica;
+	}
+
+	public void setPacienteFichaOdontologica(
+			FichaOdontologica pacienteFichaOdontologica) {
+		this.pacienteFichaOdontologica = pacienteFichaOdontologica;
 	}	
+	
+	
 	
 }
