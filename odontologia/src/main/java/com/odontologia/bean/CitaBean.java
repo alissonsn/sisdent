@@ -40,7 +40,7 @@ public class CitaBean {
 	private Cita cita;
 	private List<Cita> citas;
 	private List<Cita> citasDePacienteEnEspera;
-	private List<Cita> CitasDePacienteDeOdontologo;
+	private List<Cita> citasDePacienteOdontologo;
 	private List<Cita> citasPorPaciente;
 	private List<Cita> citasPorOdontologo;
 	private EstadoCita estadoCita;
@@ -52,7 +52,7 @@ public class CitaBean {
 		citasDePacienteEnEspera = new ArrayList<>();
 		citasPorPaciente = new ArrayList<>();
 		citasPorOdontologo = new ArrayList<>();
-
+		citasDePacienteOdontologo = new ArrayList<>();
 	}
 
 	public Cita getCita() {
@@ -102,18 +102,15 @@ public class CitaBean {
 	}
 
 	// Ver las citas(En estado espera) del paciente
-	public List<Cita> getCitasDePacienteDeOdontologo() {
+	public List<Cita> getCitasDePacienteOdontologo() {
 		Persona persona = new Persona();
 		Paciente paciente = new Paciente();
-		Odontologo odontologo = new Odontologo();
 		HttpSession session = StaticHelp.getSession();
 		persona = (Persona) session.getAttribute("personaSesion");
 		paciente = pacienteService.buscarPorPersona(persona);
 		// ID DE ESTAOD DE CITA = 1 (EN ESPERA)
-		CitasDePacienteDeOdontologo = citaService
-				.getCitasDePacienteDeOdontologo(paciente.getIdPaciente(),
-						odontologo.getIdOdontologo());
-		return CitasDePacienteDeOdontologo;
+		citasDePacienteOdontologo = citaService.getCitasListaOdontologoSinRepetir(paciente.getIdPaciente(), 1);
+		return citasDePacienteOdontologo;
 	}
 
 	public void setCitasDePacienteEnEspera(List<Cita> citasDePacienteEnEspera) {
@@ -128,9 +125,8 @@ public class CitaBean {
 		this.estadoCita = estadoCita;
 	}
 
-	public void setCitasDePacienteDeOdontologo(
-			List<Cita> citasDePacienteDeOdontologo) {
-		CitasDePacienteDeOdontologo = citasDePacienteDeOdontologo;
+	public void setCitasDePacienteOdontologo(List<Cita> citasDePacienteOdontologo) {
+		this.citasDePacienteOdontologo = citasDePacienteOdontologo;
 	}
 
 	public List<Cita> getCitasPorPaciente() {

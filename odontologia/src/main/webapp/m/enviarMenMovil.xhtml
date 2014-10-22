@@ -22,7 +22,7 @@ xmlns:pm="http://primefaces.org/mobile" >
 					value="#{mensajeBean.mensaje.mensajeUsuarioReceptor.idUsuario}"
 					required="true" requiredMessage="Debe seleccionar un Receptor">
 					<f:selectItem itemLabel="Elija un Receptor"></f:selectItem>
-					<f:selectItems value="#{citaBean.citasPorPaciente}" var="cita"
+					<f:selectItems value="#{citaBean.citasDePacienteOdontologo}" var="cita"
 						itemLabel="#{cita.citaOdontologo.odontologoPersona.nombre} #{cita.citaOdontologo.odontologoPersona.apellidoPaterno}" 
 						itemValue="#{cita.citaOdontologo.odontologoPersona.personaUsuario.idUsuario}" />
 				</p:selectOneMenu>

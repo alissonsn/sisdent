@@ -104,15 +104,15 @@ public class CitaServiceImpl implements CitaService{
 
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<Cita> getCitasDePacienteDeOdontologo(Integer idPaciente,
-			Integer idOdontologo) {
+	public List<Cita> getCitasListaOdontologoSinRepetir(Integer idPaciente,
+			Integer idEstadoCita) {
 		List<Cita> result = new ArrayList<>();
 		try{
 			
 			//Arreglar método (SIN DISTINCT)
-			Query q = em.createQuery("SELECT DISTINCT c FROM Cita c,Paciente p, Odontologo e WHERE c.citaPaciente.idPaciente=:idPaciente AND c.citaOdontologo.idOdontologo=:idOdontologo");
+			Query q = em.createQuery("SELECT DISTINCT c FROM Cita c,Paciente p, EstadoCita e JOIN c.citaOdontologo co WHERE c.citaPaciente.idPaciente=:idPaciente AND c.citaEstadoCita.idEstadoCita=:idEstadoCita group by co.idOdontologo");
 			q.setParameter("idPaciente", idPaciente);
-			q.setParameter("idOdontologo", idOdontologo);
+			q.setParameter("idEstadoCita", idEstadoCita);
 			result = q.getResultList();
 		}
 		catch(NoResultException e){
