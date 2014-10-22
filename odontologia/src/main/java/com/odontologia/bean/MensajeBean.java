@@ -36,7 +36,8 @@ public class MensajeBean {
 	MensajeService mensajeservice;
 
 	private List<Odontologo> odontologos;
-
+	private List<Mensaje> mensajeReceptor;
+	
 	@Autowired
 	PacienteService pacienteService;
 	
@@ -50,6 +51,7 @@ public class MensajeBean {
         mensaje.setMensajeUsuarioReceptor(new Usuario());
         paciente = new Paciente();
         odontologos = new ArrayList<>();
+        mensajeReceptor = new ArrayList<>();
 	}
 	
 	public Mensaje getMensaje() {
@@ -78,6 +80,14 @@ public class MensajeBean {
 		
 	}
 	
+	public List<Mensaje> getMensajeReceptor() {
+		Persona persona = new Persona();
+		HttpSession session = StaticHelp.getSession();
+		persona = (Persona) session.getAttribute("personaSesion");
+		mensajeReceptor = mensajeservice.getMensajesEmisorReceptor(persona.getIdPersona());
+		return mensajeReceptor;
+	}
+	
 	public Odontologo getOdontologo() {
 		return odontologo;
 	}
@@ -101,5 +111,8 @@ public class MensajeBean {
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
-
+	
+	public void setMensajeReceptor(List<Mensaje> mensajeReceptor) {
+		this.mensajeReceptor = mensajeReceptor;
+	}
 }
