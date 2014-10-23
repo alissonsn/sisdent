@@ -105,14 +105,14 @@ public class CitaServiceImpl implements CitaService{
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public List<Cita> getCitasListaOdontologoSinRepetir(Integer idPaciente,
-			Integer idEstadoCita) {
+			 String nombreEstadoCita) {
 		List<Cita> result = new ArrayList<>();
 		try{
 			
 			//Arreglar método (SIN DISTINCT)
-			Query q = em.createQuery("SELECT DISTINCT c FROM Cita c,Paciente p, EstadoCita e JOIN c.citaOdontologo co WHERE c.citaPaciente.idPaciente=:idPaciente AND c.citaEstadoCita.idEstadoCita=:idEstadoCita group by co.idOdontologo");
+			Query q = em.createQuery("SELECT DISTINCT c FROM Cita c,Paciente p, EstadoCita e JOIN c.citaOdontologo co WHERE c.citaPaciente.idPaciente=:idPaciente AND c.citaEstadoCita.nombre=:nombreEstadoCita group by co.idOdontologo");
 			q.setParameter("idPaciente", idPaciente);
-			q.setParameter("idEstadoCita", idEstadoCita);
+			q.setParameter("nombreEstadoCita", nombreEstadoCita);
 			result = q.getResultList();
 		}
 		catch(NoResultException e){
@@ -154,5 +154,22 @@ public class CitaServiceImpl implements CitaService{
 			System.out.println("ERROR: "+e.getMessage());
 		}
 		return result;
+	}
+
+	@Transactional
+	public EstadoCita estadoCitaFromNombre(String nombre) {
+		EstadoCita estadoCita = new EstadoCita();
+		try{
+			Query q = em.createQuery("SELECT ec FROM EstadoCita ec WHERE ec.nombre=:nombre");
+			q.setParameter("nombre", nombre);
+			estadoCita = (EstadoCita) q.getSingleResult();
+		}
+		catch(NoResultException e){
+			System.out.println("ERROR:"+e.getMessage());
+			
+		}
+		return estadoCita;
+
+
 	}
 }

@@ -531,7 +531,7 @@
 					<p:commandButton value="Actualizar" update=":frmAdmPac"
 						oncomplete="PF('dlgDetalleW').hide()"></p:commandButton>
 					<p:commandButton value="Cancelar" update=":frmAdmPac"
-						oncomplete="PF('dlgDetalleW').hide()">
+						oncomplete="PF('dlgDetalleW').hide()" actionListener="#{pacienteBean.cancelar(actionEvent)}">
 					</p:commandButton>
 
 				</h:form>
@@ -547,11 +547,11 @@
                  <h:form>
 					<h:panelGrid columns="2">
 						<p:commandButton value="Sí" icon="ui-icon-circle-check"
-							update=":frmNuevo"
+							update=":frmNuevo" actionListener="#{pacienteBean.prepararInsertar(actionEvent)}"
 							oncomplete="PF('dlgAgregarW').show();PF('dlgMenorW').hide();"></p:commandButton>
 
 						<p:commandButton value="No" icon="ui-icon-circle-close"
-							update=":frmNuevoM"
+							update=":frmNuevoM" actionListener="#{pacienteBean.prepararInsertar(actionEvent)}"
 							oncomplete="PF('dlgAgregarWM').show();PF('dlgMenorW').hide()"></p:commandButton>
 					</h:panelGrid>
 				</h:form>

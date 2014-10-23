@@ -54,7 +54,7 @@ public class MensajeServiceImpl implements MensajeService {
 	public List<Mensaje> getMensajesEmisorReceptor(Integer idPersona) {
 		List<Mensaje> result = new ArrayList<>();
 		try{
-			Query q = em.createQuery("SELECT m FROM Mensaje m, Usuario o JOIN m.mensajeUsuarioReceptor mu  JOIN o.usuarioPersona up WHERE mu.idreceptor=:idusuario and up.personaUsuario=:idPersona");
+			Query q = em.createQuery("SELECT m FROM Mensaje m JOIN m.mensajeUsuarioReceptor mu JOIN mu.usuarioPersona up WHERE up.idPersona=:idPersona");
 			q.setParameter("idPersona", idPersona);			
 			result = q.getResultList();
 		}

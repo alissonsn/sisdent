@@ -52,6 +52,10 @@ public class PacienteBean {
 		personaApoderado = new Persona();
 		pacientes = new ArrayList<>();
 	}
+	
+	public void prepararInsertar(ActionEvent actionEvent){
+		cancelar(actionEvent);
+	}
 
 	public void registrarPaciente(ActionEvent actionEvent) {
 		//Registrar un paciente sin apoderado

@@ -119,7 +119,7 @@ public class horarioBean {
 		String titulo = event.getTitle();
 		cita.setCitaOdontologo(odontologoSeleccionado);
 		cita.setCitaPaciente(pacienteSeleccionado);
-		cita.setCitaEstadoCita(citaservice.estadoCitaFromId(1));
+		cita.setCitaEstadoCita(citaservice.estadoCitaFromNombre("EN ESPERA"));
 
 		Timestamp inicio = new Timestamp(2014 - 1900, dataInsert.getInicio()
 				.getMonth(), dataInsert.getInicio().getDate(),
@@ -151,7 +151,7 @@ public class horarioBean {
 		persona = (Persona) session.getAttribute("personaSesion");
 		paciente = pacienteservice.buscarPorPersona(persona);
 		cita.setCitaPaciente(paciente);
-		cita.setCitaEstadoCita(citaservice.estadoCitaFromId(1));
+		cita.setCitaEstadoCita(citaservice.estadoCitaFromNombre("EN ESPERA"));
 		
 		Timestamp inicio = new Timestamp(2014 - 1900, dataInsert.getInicio()
 				.getMonth(), dataInsert.getInicio().getDate(),

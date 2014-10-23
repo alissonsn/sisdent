@@ -109,7 +109,7 @@ public class CitaBean {
 		persona = (Persona) session.getAttribute("personaSesion");
 		paciente = pacienteService.buscarPorPersona(persona);
 		// ID DE ESTAOD DE CITA = 1 (EN ESPERA)
-		citasDePacienteOdontologo = citaService.getCitasListaOdontologoSinRepetir(paciente.getIdPaciente(), 1);
+		citasDePacienteOdontologo = citaService.getCitasListaOdontologoSinRepetir(paciente.getIdPaciente(), "EN ESPERA");
 		return citasDePacienteOdontologo;
 	}
 

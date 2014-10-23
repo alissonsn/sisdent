@@ -20,12 +20,14 @@ public interface CitaService {
 	
 	public List<Cita> getCitasPorPacientePorEstado(Integer idPaciente, Integer idEstadoCita);
 	
-	public List<Cita> getCitasListaOdontologoSinRepetir(Integer idPaciente,Integer idEstadoCita); 
+	public List<Cita> getCitasListaOdontologoSinRepetir(Integer idPaciente,String nombreEstadoCita); 
 
 	public EstadoCita estadoCitaFromId(Integer idEstadoCita);
 	
 	public List<Cita> getCitasPorPaciente(Integer idPaciente);
 	
 	public List<Cita> getCitasPorOdontologo (Integer idOdontologo);
+	
+	public EstadoCita estadoCitaFromNombre(String nombre);
 	
 }
