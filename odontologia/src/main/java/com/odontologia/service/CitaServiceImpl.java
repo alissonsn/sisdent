@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.odontologia.model.Cita;
 import com.odontologia.model.EstadoCita;
+import com.odontologia.model.Odontologo;
 import com.odontologia.model.Paciente;
 
 @Service
@@ -112,6 +113,25 @@ public class CitaServiceImpl implements CitaService{
 			//Arreglar método (SIN DISTINCT)
 			Query q = em.createQuery("SELECT DISTINCT c FROM Cita c,Paciente p, EstadoCita e JOIN c.citaOdontologo co WHERE c.citaPaciente.idPaciente=:idPaciente AND c.citaEstadoCita.nombre=:nombreEstadoCita group by co.idOdontologo");
 			q.setParameter("idPaciente", idPaciente);
+			q.setParameter("nombreEstadoCita", nombreEstadoCita);
+			result = q.getResultList();
+		}
+		catch(NoResultException e){
+			System.out.println("ERROR: "+e.getMessage());
+		}
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Cita> getCitasListaPacienteSinRepetir(Integer idOdontologo,
+			 String nombreEstadoCita) {
+		List<Cita> result = new ArrayList<>();
+		try{
+			
+			//Arreglar método (SIN DISTINCT)
+			Query q = em.createQuery("SELECT DISTINCT c FROM Cita c,Odontologo  o, EstadoCita e JOIN c.citaPaciente cp WHERE c.citaOdontologo.idodontologo=:idodontologo AND c.citaEstadoCita.nombre=:nombreEstadoCita group by cp.idpaciente");
+			q.setParameter("idOdontologo", idOdontologo);
 			q.setParameter("nombreEstadoCita", nombreEstadoCita);
 			result = q.getResultList();
 		}

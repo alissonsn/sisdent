@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+xmlns:pm="http://primefaces.org/mobile" >
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+
+<h:head>
+<link href="http://localhost:8090/odontologia/resources/css/estilosEnviarMenMovil.css" media="only screen" type="text/css" rel="stylesheet"/>
+</h:head>
+
+<h:body  >
+<pm:page id="wrapper">
+ <p style="text-align: center; font-weight: bold; font-size: 1.7em; border-bottom: 1px solid #ddd; color: #2142EE; background-color: #FDE31E; text-shadow: none; font-family: Book Antiqua;">Enviar Mensaje</p>
+ <p:tabMenu>
+ <p:menuitem value="Enviar Mensaje" icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-navigation" url="enviarMenMovil.xhtml" iconPos="top"/>
+  <p:menuitem value="Bandeja Mensaje" icon="ui-btn ui-icon-mail ui-btn-icon-left ui-shadow ui-corner-all" url="bandejaMenMovil.xhtml" iconPos="top"/>
+</p:tabMenu>
+<h:form>
+	<pm:field>
+				<h:outputLabel for="odontologoSelectMenu" value="Odontologo" />
+
+				<p:selectOneMenu id="odontologoSelectMenu"
+					value="#{mensajeBean.mensaje.mensajeUsuarioReceptor.idUsuario}"
+					required="true" requiredMessage="Debe seleccionar un Receptor">
+					<f:selectItem itemLabel="Elija un Receptor"></f:selectItem>
+					<f:selectItems value="#{citaBean.citasDeOdontologoPaciente}" var="cita"
+						itemLabel="#{cita.citaOdontologo.odontologoPersona.nombre} #{cita.citaOdontologo.odontologoPersona.apellidoPaterno}" 
+						itemValue="#{cita.citaOdontologo.odontologoPersona.personaUsuario.idUsuario}" />
+				</p:selectOneMenu>
+			</pm:field>
+
+
+
+<pm:field>
+    <p:outputLabel for="asunto" value="Asunto:" styleClass="ui-field-contain > label" />
+    <p:inputText id="asunto" styleClass="ui-field-contain > label ~ [class*='ui-']" value="#{mensajeBean.mensaje.titulo}"/>
+</pm:field>
+
+<pm:field>
+    <p:outputLabel for="textarea" value="Mensaje" styleClass="ui-field-contain > label"/>
+    <p:inputTextarea id="textarea" styleClass="ui-field-contain > label ~ [class*='ui-']" value="#{mensajeBean.mensaje.texto}"/>
+</pm:field>
+
+ <p:panelGrid columns="2"  styleClass="ui-btnPanelGrid">
+    <p:commandButton value="Enviar"  style="width:120px" actionListener="#{mensajeBean.insertarMensaje}" />
+    
+    <p:commandButton value="Atras" style="width:120px" onclick="location.href='indexMovil.xhtml'" />
+</p:panelGrid>
+</h:form>
+</pm:page>
+</h:body>
+</html>

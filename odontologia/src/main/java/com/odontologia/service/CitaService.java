@@ -21,6 +21,8 @@ public interface CitaService {
 	public List<Cita> getCitasPorPacientePorEstado(Integer idPaciente, Integer idEstadoCita);
 	
 	public List<Cita> getCitasListaOdontologoSinRepetir(Integer idPaciente,String nombreEstadoCita); 
+	
+	public List<Cita> getCitasListaPacienteSinRepetir(Integer idOdontologo,String nombreEstadoCita); 
 
 	public EstadoCita estadoCitaFromId(Integer idEstadoCita);
 	

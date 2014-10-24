@@ -41,6 +41,7 @@ public class CitaBean {
 	private List<Cita> citas;
 	private List<Cita> citasDePacienteEnEspera;
 	private List<Cita> citasDePacienteOdontologo;
+	private List<Cita> citasDeOdontologoPaciente;
 	private List<Cita> citasPorPaciente;
 	private List<Cita> citasPorOdontologo;
 	private EstadoCita estadoCita;
@@ -53,6 +54,7 @@ public class CitaBean {
 		citasPorPaciente = new ArrayList<>();
 		citasPorOdontologo = new ArrayList<>();
 		citasDePacienteOdontologo = new ArrayList<>();
+		citasDeOdontologoPaciente = new ArrayList<>();
 	}
 
 	public Cita getCita() {
@@ -165,6 +167,22 @@ public class CitaBean {
 	public TimeZone getTimeZone() {
 		TimeZone timeZone = TimeZone.getDefault();
 		return timeZone;
+	}
+
+	public List<Cita> getCitasDeOdontologoPaciente() {
+		Persona persona = new Persona();
+		Odontologo odontologo = new Odontologo();
+		HttpSession session = StaticHelp.getSession();
+		persona = (Persona) session.getAttribute("personaSesion");
+		odontologo = odontologoService.buscarPorPersona(persona);
+		// ID DE ESTAOD DE CITA = 1 (EN ESPERA)
+		citasDePacienteOdontologo = citaService.getCitasListaPacienteSinRepetir(odontologo.getIdOdontologo(), "EN ESPERA");
+		return citasDeOdontologoPaciente;
+	}
+
+	public void setCitasDeOdontologoPaciente(
+			List<Cita> citasDeOdontologoPaciente) {
+		this.citasDeOdontologoPaciente = citasDeOdontologoPaciente;
 	}
 
 }
