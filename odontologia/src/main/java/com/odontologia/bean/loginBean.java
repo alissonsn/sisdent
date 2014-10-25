@@ -57,8 +57,12 @@ public class loginBean {
 			session.setAttribute("username", usuario);
 			persona = personaService.buscarPorUsuario(usuario);
 			session.setAttribute("personaSesion", persona);
-			distrito = persona.getPersonaDistrito();
-			return "indexMovil";
+			distrito = persona.getPersonaDistrito();		
+			if (persona.getPersonaOdontologo() != null) {
+				return "indexOdontologoMovil";
+			}else {
+				return "indexPacienteMovil";
+			}
 		}
 		return null;
 	}

@@ -17,6 +17,9 @@ public class redirectBean {
 	public String fromIndextoMensajes(){
 		return "enviarMenMovil.xhtml";
 	}
+	public String fromIndextoMensajesOdontologo(){
+		return "enviarMenMovilOdon.xhtml";
+	}
 	public String fromIndextoSalir(){
 		return "loginMovil.xhtml";
 	}

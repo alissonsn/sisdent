@@ -130,7 +130,7 @@ public class CitaServiceImpl implements CitaService{
 		try{
 			
 			//Arreglar método (SIN DISTINCT)
-			Query q = em.createQuery("SELECT DISTINCT c FROM Cita c,Odontologo  o, EstadoCita e JOIN c.citaPaciente cp WHERE c.citaOdontologo.idodontologo=:idodontologo AND c.citaEstadoCita.nombre=:nombreEstadoCita group by cp.idpaciente");
+			Query q = em.createQuery("SELECT c FROM Cita c,Odontologo  o, EstadoCita e JOIN c.citaPaciente cp WHERE c.citaOdontologo.idOdontologo=:idOdontologo AND c.citaEstadoCita.nombre=:nombreEstadoCita group by cp.idPaciente");
 			q.setParameter("idOdontologo", idOdontologo);
 			q.setParameter("nombreEstadoCita", nombreEstadoCita);
 			result = q.getResultList();
