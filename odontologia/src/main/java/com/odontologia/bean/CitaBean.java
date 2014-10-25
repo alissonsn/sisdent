@@ -40,6 +40,7 @@ public class CitaBean {
 	private Cita cita;
 	private List<Cita> citas;
 	private List<Cita> citasDePacienteEnEspera;
+	private List<Cita> citasDeOdontologoEnEspera;
 	private List<Cita> citasDePacienteOdontologo;
 	private List<Cita> citasDeOdontologoPaciente;
 	private List<Cita> citasPorPaciente;
@@ -51,6 +52,7 @@ public class CitaBean {
 		estadoCita = new EstadoCita();
 		citas = new ArrayList<>();
 		citasDePacienteEnEspera = new ArrayList<>();
+		citasDeOdontologoEnEspera = new ArrayList<>();
 		citasPorPaciente = new ArrayList<>();
 		citasPorOdontologo = new ArrayList<>();
 		citasDePacienteOdontologo = new ArrayList<>();
@@ -98,11 +100,21 @@ public class CitaBean {
 		persona = (Persona) session.getAttribute("personaSesion");
 		paciente = pacienteService.buscarPorPersona(persona);
 		// ID DE ESTAOD DE CITA = 1 (EN ESPERA)
-		citasDePacienteEnEspera = citaService.getCitasPorPacientePorEstado(
-				paciente.getIdPaciente(), 1);
+		citasDePacienteEnEspera = citaService.getCitasPorPacientePorEstado(paciente.getIdPaciente(), 1);
 		return citasDePacienteEnEspera;
 	}
 
+	public List<Cita> getCitasDeOdontologoEnEspera() {
+		Persona persona = new Persona();
+		Odontologo odontologo = new Odontologo();
+		HttpSession session = StaticHelp.getSession();
+		persona = (Persona) session.getAttribute("personaSesion");
+		odontologo = odontologoService.buscarPorPersona(persona);;
+		// ID DE ESTAOD DE CITA = 1 (EN ESPERA)
+		citasDeOdontologoEnEspera = citaService.getCitasPorOdontologoPorEstado(odontologo.getIdOdontologo(), 1);
+		return citasDeOdontologoEnEspera;
+	}
+	
 	// Ver las citas(En estado espera) del paciente
 	public List<Cita> getCitasDePacienteOdontologo() {
 		Persona persona = new Persona();
@@ -176,13 +188,18 @@ public class CitaBean {
 		persona = (Persona) session.getAttribute("personaSesion");
 		odontologo = odontologoService.buscarPorPersona(persona);
 		// ID DE ESTAOD DE CITA = 1 (EN ESPERA)
-		citasDePacienteOdontologo = citaService.getCitasListaPacienteSinRepetir(odontologo.getIdOdontologo(), "EN ESPERA");
+		citasDeOdontologoPaciente = citaService.getCitasListaPacienteSinRepetir(odontologo.getIdOdontologo(), "EN ESPERA");
 		return citasDeOdontologoPaciente;
 	}
 
 	public void setCitasDeOdontologoPaciente(
 			List<Cita> citasDeOdontologoPaciente) {
 		this.citasDeOdontologoPaciente = citasDeOdontologoPaciente;
+	}
+
+	public void setCitasDeOdontologoEnEspera(
+			List<Cita> citasDeOdontologoEnEspera) {
+		this.citasDeOdontologoEnEspera = citasDeOdontologoEnEspera;
 	}
 
 }

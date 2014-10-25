@@ -18,7 +18,7 @@
 				Horario Cita</p>
 
 			<p></p>
-			<p:dataList styleClass="ui-Datalist" value="#{citaBean.citasDePacienteEnEspera}" var="cit"
+			<p:dataList styleClass="ui-Datalist" value="#{citaBean.citasDeOdontologoEnEspera}" var="cit"
 				emptyMessage="No hay citas registradas">
 				<f:facet  name="header">Citas
 				</f:facet>
@@ -45,7 +45,7 @@
 							</p:column>
 						</p:row>
 						<p:row>
-							<p:column colspan="2">#{cit.citaOdontologo.odontologoPersona.nombre} #{cit.citaOdontologo.odontologoPersona.apellidoPaterno} #{cit.citaOdontologo.odontologoPersona.apellidoMaterno} </p:column>
+							<p:column colspan="2">#{cit.citaPaciente.pacientePersona.nombre} #{cit.citaPaciente.pacientePersona.apellidoPaterno} #{cit.citaPaciente.pacientePersona.apellidoMaterno} </p:column>
 						</p:row>
 
 					</p:panelGrid>
@@ -54,7 +54,7 @@
 
 			<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
 				<p:commandButton value="Atras"
-					onclick="location.href='indexPacienteMovil.xhtml'" />
+					onclick="location.href='indexOdontologoMovil.xhtml'" />
 			</p:panelGrid>
 
 

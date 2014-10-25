@@ -7,19 +7,19 @@ xmlns:pm="http://primefaces.org/mobile" >
 <f:view renderKitId="PRIMEFACES_MOBILE" />
   
 <h:head>
-<link href="http://localhost:8090/odontologia/resources/css/estilosIndexMovil.css" media="only screen" type="text/css" rel="stylesheet"/>
+<link href="http://localhost:8080/odontologia/resources/css/estilosIndexMovil.css" media="only screen" type="text/css" rel="stylesheet"/>
 </h:head>
 
 <h:body >
 
 <pm:page id="wrapper">
  <pm:header title="Weather" swatch="b">
-                <p:button value="Settings" icon="ui-icon-gear" outcome="bandejaMenMovil.xhtml"  />
+                <p:button value="Bienvenido a SPADENT, #{loginBean.persona.nombre}" icon="ui-btn ui-icon-mail ui-btn-icon-left ui-shadow ui-corner-all" outcome="bandejaMenMovilOdon.xhtml"  />
  </pm:header>
    <h:form styleClass="ui-form">
-   <p:commandButton value="Consultar Horario de Citas" icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-search" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{redirectBean.fromIndextoConsulHoraCit}"/> 
+   <p:commandButton value="Consultar Horario de Citas" icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-search" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{redirectBean.fromIndextoConsulHoraCitOdontologo}"/> 
    <p:commandButton value="Horario de Citas" icon="ui-btn ui-icon-edit ui-btn-icon-left ui-shadow ui-corner-all" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{redirectBean.fromIndextoHoraCit}" rendered="false" /> 
-   <p:commandButton value="Perfil"  icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user"  iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{redirectBean.fromIndextoPerfil}"/> 
+   <p:commandButton value="Perfil"  icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user"  iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{redirectBean.fromIndextoPerfilOdontologo}"/> 
    <p:commandButton value="Mensajes" icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-navigation" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{redirectBean.fromIndextoMensajesOdontologo}"/>    
    <p:commandButton value="Salir" icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-forward" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{loginBean.cerrarSesionMovil}"/>
    </h:form> 

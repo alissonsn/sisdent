@@ -7,13 +7,16 @@ xmlns:pm="http://primefaces.org/mobile" >
 <f:view renderKitId="PRIMEFACES_MOBILE" />
 
 <h:head>
-<link href="http://localhost:8090/odontologia/resources/css/estilosEnviarMenMovil.css" media="only screen" type="text/css" rel="stylesheet"/>
+<link href="http://localhost:8080/odontologia/resources/css/estilosEnviarMenMovil.css" media="only screen" type="text/css" rel="stylesheet"/>
 </h:head>
 
 <h:body  >
 <pm:page id="wrapper">
  <p style="text-align: center; font-weight: bold; font-size: 1.7em; border-bottom: 1px solid #ddd; color: #2142EE; background-color: #FDE31E; text-shadow: none; font-family: Book Antiqua;">Enviar Mensaje</p>
-
+<p:tabMenu>
+ <p:menuitem value="Enviar Mensaje" icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-navigation" url="enviarMenMovilOdon.xhtml" iconPos="top"/>
+  <p:menuitem value="Bandeja Mensaje" icon="ui-btn ui-icon-mail ui-btn-icon-left ui-shadow ui-corner-all" url="bandejaMenMovilOdon.xhtml" iconPos="top"/>
+</p:tabMenu>
 <h:form>
 	<pm:field>
 				<h:outputLabel for="pacienteSelectMenu" value="Pacientes" />

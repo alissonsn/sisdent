@@ -105,6 +105,23 @@ public class CitaServiceImpl implements CitaService{
 
 	@SuppressWarnings("unchecked")
 	@Transactional
+	public List<Cita> getCitasPorOdontologoPorEstado(Integer idOdontologo,
+			Integer idEstadoCita) {
+		List<Cita> result = new ArrayList<>();
+		try{
+			Query q = em.createQuery("SELECT DISTINCT c FROM Cita c,Odontologo o, EstadoCita e WHERE c.citaOdontologo.idOdontologo=:idOdontologo AND c.citaEstadoCita.idEstadoCita=:idEstadoCita");
+			q.setParameter("idOdontologo", idOdontologo);
+			q.setParameter("idEstadoCita", idEstadoCita);
+			result = q.getResultList();
+		}
+		catch(NoResultException e){
+			System.out.println("ERROR: "+e.getMessage());
+		}
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
 	public List<Cita> getCitasListaOdontologoSinRepetir(Integer idPaciente,
 			 String nombreEstadoCita) {
 		List<Cita> result = new ArrayList<>();
@@ -130,7 +147,7 @@ public class CitaServiceImpl implements CitaService{
 		try{
 			
 			//Arreglar método (SIN DISTINCT)
-			Query q = em.createQuery("SELECT c FROM Cita c,Odontologo  o, EstadoCita e JOIN c.citaPaciente cp WHERE c.citaOdontologo.idOdontologo=:idOdontologo AND c.citaEstadoCita.nombre=:nombreEstadoCita group by cp.idPaciente");
+			Query q = em.createQuery("SELECT DISTINCT c FROM Cita c,Odontologo  o, EstadoCita e JOIN c.citaPaciente cp WHERE c.citaOdontologo.idOdontologo=:idOdontologo AND c.citaEstadoCita.nombre=:nombreEstadoCita group by cp.idPaciente");
 			q.setParameter("idOdontologo", idOdontologo);
 			q.setParameter("nombreEstadoCita", nombreEstadoCita);
 			result = q.getResultList();

@@ -60,7 +60,7 @@ public class loginBean {
 			distrito = persona.getPersonaDistrito();		
 			if (persona.getPersonaOdontologo() != null) {
 				return "indexOdontologoMovil";
-			}else {
+			}else if(persona.getPersonaPaciente() != null){
 				return "indexPacienteMovil";
 			}
 		}
