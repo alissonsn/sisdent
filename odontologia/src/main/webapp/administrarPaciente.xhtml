@@ -30,7 +30,7 @@
 				<br></br>
 				<br></br>
 
-				<p:dataTable var="pac" resizableColumns="true" widgetVar="tPac"
+				<p:dataTable id="tablaPacientes" var="pac" resizableColumns="true" widgetVar="tPac"
 					emptyMessage="No hay Pacientes registrados" paginatorPosition="top"
 					rowKey="#{pac.idPaciente}" value="#{pacienteBean.pacientes}"
 					paginator="true" rows="10"
@@ -89,6 +89,11 @@
 					</p:column>
 
 				</p:dataTable>
+
+				<p:blockUI block="tablaPacientes" trigger="tablaPacientes">
+        Cargando ...<br />
+					<p:graphicImage name="/resources/images/loading.gif" />
+				</p:blockUI>
 
 			</h:form>
 
@@ -508,19 +513,23 @@
 					<p:panelGrid columns="2">
 
 						<p:outputLabel value="¿Ha estado Bajo atención médica?"></p:outputLabel>
-						<p:inputTextarea >
+						<p:inputTextarea value="#{pacienteBean.fichaOdontologica.bajoAtencion}">
 						</p:inputTextarea>
 
 						<p:outputLabel value="¿Padece alguna enfermedad grave?"></p:outputLabel>
-						<p:inputTextarea >
+						<p:inputTextarea value="#{pacienteBean.fichaOdontologica.padeceEnfermedad}">
 						</p:inputTextarea>
 
 						<p:outputLabel value="¿Toma alguna medicación?"></p:outputLabel>
-						<p:inputTextarea >
+						<p:inputTextarea value="#{pacienteBean.fichaOdontologica.tomaMedicacion}">
 						</p:inputTextarea>
+						
+						<p:outputLabel value="¿Cuál es su tipo de sangre?"></p:outputLabel>
+						<p:inputTextarea value="#{pacienteBean.fichaOdontologica.tipoSangre}">
+						</p:inputTextarea>		
 
 						<p:outputLabel value="¿Es alérgico?"></p:outputLabel>
-						<p:inputTextarea >
+						<p:inputTextarea value="#{pacienteBean.fichaOdontologica.esAlergico}">
 						</p:inputTextarea>
 
 
@@ -529,9 +538,11 @@
 					<p:separator></p:separator>
 
 					<p:commandButton value="Actualizar" update=":frmAdmPac"
-						oncomplete="PF('dlgDetalleW').hide()"></p:commandButton>
+						oncomplete="PF('dlgDetalleW').hide()"
+					    actionListener="#{pacienteBean.registrarDatosFicha(actionEvent)}"></p:commandButton>
 					<p:commandButton value="Cancelar" update=":frmAdmPac"
-						oncomplete="PF('dlgDetalleW').hide()" actionListener="#{pacienteBean.cancelar(actionEvent)}">
+						oncomplete="PF('dlgDetalleW').hide()"
+						actionListener="#{pacienteBean.cancelar(actionEvent)}">
 					</p:commandButton>
 
 				</h:form>
@@ -547,11 +558,13 @@
                  <h:form>
 					<h:panelGrid columns="2">
 						<p:commandButton value="Sí" icon="ui-icon-circle-check"
-							update=":frmNuevo" actionListener="#{pacienteBean.prepararInsertar(actionEvent)}"
+							update=":frmNuevo"
+							actionListener="#{pacienteBean.prepararInsertar(actionEvent)}"
 							oncomplete="PF('dlgAgregarW').show();PF('dlgMenorW').hide();"></p:commandButton>
 
 						<p:commandButton value="No" icon="ui-icon-circle-close"
-							update=":frmNuevoM" actionListener="#{pacienteBean.prepararInsertar(actionEvent)}"
+							update=":frmNuevoM"
+							actionListener="#{pacienteBean.prepararInsertar(actionEvent)}"
 							oncomplete="PF('dlgAgregarWM').show();PF('dlgMenorW').hide()"></p:commandButton>
 					</h:panelGrid>
 				</h:form>

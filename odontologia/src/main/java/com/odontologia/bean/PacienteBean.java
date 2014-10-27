@@ -13,10 +13,12 @@ import org.springframework.stereotype.Controller;
 
 import com.odontologia.model.Apoderado;
 import com.odontologia.model.Distrito;
+import com.odontologia.model.FichaOdontologica;
 import com.odontologia.model.Paciente;
 import com.odontologia.model.Persona;
 import com.odontologia.model.Usuario;
 import com.odontologia.service.DistritoService;
+import com.odontologia.service.FichaOdontologicaService;
 import com.odontologia.service.PacienteService;
 import com.odontologia.util.StaticHelp;
 
@@ -28,6 +30,9 @@ public class PacienteBean {
 
 	@Autowired
 	DistritoService distritoService;
+	
+	@Autowired
+	FichaOdontologicaService fichaService;
 
 	private Paciente paciente;
 	private Persona persona;
@@ -35,6 +40,7 @@ public class PacienteBean {
 	private Distrito distrito;
 	private Apoderado apoderado;
 	private Persona personaApoderado;
+	private FichaOdontologica fichaOdontologica;
 
 	private List<Paciente> pacientes;
 	private List<Distrito> distritos;
@@ -50,6 +56,7 @@ public class PacienteBean {
 		distrito = new Distrito();
 		apoderado = new Apoderado();
 		personaApoderado = new Persona();
+		setFichaOdontologica(new FichaOdontologica());
 		pacientes = new ArrayList<>();
 	}
 	
@@ -145,6 +152,14 @@ public class PacienteBean {
 		personaApoderado = new Persona();
 		apoderado = new Apoderado();
 	}
+	
+	public void registrarDatosFicha(ActionEvent actionEvent){
+		fichaOdontologica.setFichaOdontologicaPaciente(paciente);
+		fichaService.registrarFichaOdontologica(fichaOdontologica);
+		cancelar(actionEvent);
+		
+		
+	}
 
 	public void cancelar(ActionEvent actionEvent) {
 		paciente = new Paciente();
@@ -153,6 +168,7 @@ public class PacienteBean {
 		distrito = new Distrito();
 		personaApoderado = new Persona();
 		apoderado = new Apoderado();
+		fichaOdontologica = new FichaOdontologica();
 	}
 
 	public Paciente getPaciente() {
@@ -232,6 +248,14 @@ public class PacienteBean {
 
 	public void setFechaHoy(Date fechaHoy) {
 		this.fechaHoy = fechaHoy;
+	}
+
+	public FichaOdontologica getFichaOdontologica() {
+		return fichaOdontologica;
+	}
+
+	public void setFichaOdontologica(FichaOdontologica fichaOdontologica) {
+		this.fichaOdontologica = fichaOdontologica;
 	}
 
 

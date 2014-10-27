@@ -19,17 +19,20 @@ public class FichaOdontologica {
 	@Id @GeneratedValue @Column(name="idfichaodontologica", nullable=false)
 	private Integer idFichaOdontologica; 
 	
-	@Column(name="esalergico", nullable=true)
-	private boolean esAlergico;	
+	@Column(name="esalergico", length=500, nullable=true)
+	private String esAlergico;	
 	
-	@Column(name="tomamedicacion", nullable=true)
-	private boolean tomaMedicacion;	
+	@Column(name="tomamedicacion",length=500, nullable=true)
+	private String tomaMedicacion;	
 	
-	@Column(name="bajoatencion", nullable=true)
-	private boolean bajoAtencion;	
+	@Column(name="bajoatencion",length=500, nullable=true)
+	private String bajoAtencion;	
+	
+	@Column(name="tiposangre",length=500, nullable=true)
+	private String tipoSangre;
 
-	@Column(name="padeceenfermedad", nullable=true)
-	private boolean padeceEnfermedad;	
+	@Column(name="padeceenfermedad",length=500, nullable=true)
+	private String padeceEnfermedad;	
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="idpaciente", nullable=false)
@@ -49,36 +52,44 @@ public class FichaOdontologica {
 		this.idFichaOdontologica = idFichaOdontologica;
 	}
 
-	public boolean isEsAlergico() {
+	public String isEsAlergico() {
 		return esAlergico;
 	}
 
-	public void setEsAlergico(boolean esAlergico) {
+	public void setEsAlergico(String esAlergico) {
 		this.esAlergico = esAlergico;
 	}
 
-	public boolean isTomaMedicacion() {
+	public String isTomaMedicacion() {
 		return tomaMedicacion;
 	}
 
-	public void setTomaMedicacion(boolean tomaMedicacion) {
+	public void setTomaMedicacion(String tomaMedicacion) {
 		this.tomaMedicacion = tomaMedicacion;
 	}
 
-	public boolean isBajoAtencion() {
+	public String isBajoAtencion() {
 		return bajoAtencion;
 	}
 
-	public void setBajoAtencion(boolean bajoAtencion) {
+	public void setBajoAtencion(String bajoAtencion) {
 		this.bajoAtencion = bajoAtencion;
 	}
 
-	public boolean isPadeceEnfermedad() {
+	public String isPadeceEnfermedad() {
 		return padeceEnfermedad;
 	}
 
-	public void setPadeceEnfermedad(boolean padeceEnfermedad) {
+	public void setPadeceEnfermedad(String padeceEnfermedad) {
 		this.padeceEnfermedad = padeceEnfermedad;
+	}
+
+	public String getTipoSangre() {
+		return tipoSangre;
+	}
+
+	public void setTipoSangre(String tipoSangre) {
+		this.tipoSangre = tipoSangre;
 	}
 
 	public Paciente getFichaOdontologicaPaciente() {

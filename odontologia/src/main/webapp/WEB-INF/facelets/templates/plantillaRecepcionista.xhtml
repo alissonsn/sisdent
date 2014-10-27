@@ -7,7 +7,9 @@
 
 <h:head>
 	<h:outputStylesheet name="css/estilos.css" />
-
+	<script src="resources/js/spanishSchedule.js" type="text/javascript" />
+	<link rel="stylesheet" type="text/css"
+		href="resources/css/schedule.css" />
 </h:head>
 <h:body>
 
@@ -43,14 +45,14 @@
 						</p:submenu>
 
 						<p:submenu label="Horario" icon="ui-icon-pencil">
-							<p:menuitem value="Administrar Horario" url="gestionCita.jsf" />
+							<p:menuitem value="Administrar Horario" url="reservarCita.jsf" />
 						</p:submenu>
 
 						<p:submenu label="Contacto" icon="ui-icon-mail-closed">
 							<p:menuitem value="Mensajes" url="enviarMensaje.jsf" />
 						</p:submenu>
 						<f:facet name="options">
-							
+
 							<p:commandButton action="#{loginBean.cerrarSesion}"
 								value="Cerrar sesión" icon="ui-icon-extlink" />
 
@@ -63,7 +65,7 @@
 		<!-- END LAYOUT FOR TOP -->
 
 		<!-- LAYOUT FOR WEST -->
-		<p:layoutUnit position="west" size="200" header="Left"
+		<p:layoutUnit position="west" size="200" header="Opciones"
 			resizable="true" closable="false" collapsible="true">
 			<ui:insert name="west">
 			No se usa porque varía
