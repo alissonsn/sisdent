@@ -14,7 +14,8 @@ xmlns:pm="http://primefaces.org/mobile" >
 
 <pm:page id="wrapper">
  <pm:header title="Weather" swatch="b">
-                <p:button value="Bienvenido a SPADENT, #{loginBean.persona.nombre}" icon="ui-btn ui-icon-mail ui-btn-icon-left ui-shadow ui-corner-all" outcome="bandejaMenMovilOdon.xhtml"  />
+                <p:button value="Bienvenido a SPADENT, #{loginBean.persona.nombre}"   />
+                <p:button icon="ui-btn ui-icon-mail ui-btn-icon-left ui-shadow ui-corner-all" outcome="bandejaMenMovilOdon.xhtml" rendered="true" />
  </pm:header>
    <h:form styleClass="ui-form">
    <p:commandButton value="Consultar Horario de Citas" icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-search" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" action="#{redirectBean.fromIndextoConsulHoraCitOdontologo}"/> 

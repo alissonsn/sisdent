@@ -20,7 +20,8 @@
 			<p:graphicImage
 				url="http://localhost:8090/odontologia/resources/images/usuario.jpg"
 				styleClass="ui-imagen"></p:graphicImage>
-
+			<p:growl showDetail="true"/>
+   		 	<p:fileUpload value="#{loginBean.persona.personaUsuario.urlFoto}" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" mode="simple" disabled="#{loginBean.activar}" />
 			<pm:field>
 				<p:outputLabel for="nombre" value="Nombre:"
 					styleClass="ui-field-contain > label" />

@@ -13,8 +13,9 @@ xmlns:pm="http://primefaces.org/mobile" >
 <h:body >
 
 <pm:page id="wrapper">
- <pm:header title="Weather" swatch="b">
-                <p:button value="Bienvenido a SPADENT, #{loginBean.persona.nombre}" icon="ui-btn ui-icon-mail ui-btn-icon-left ui-shadow ui-corner-all" outcome="bandejaMenMovil.xhtml" />
+ <pm:header title="Weather" swatch="b"  >
+                <p:button value="Bienvenido a SPADENT, #{loginBean.persona.nombre}"  />
+                <p:button icon="ui-btn ui-icon-mail ui-btn-icon-left ui-shadow ui-corner-all" outcome="bandejaMenMovil.xhtml"  rendered="true" />
  </pm:header>
  <p:graphicImage url="/resources/images/logo.jpg" styleClass="ui-imagen" ></p:graphicImage>
    <h:form styleClass="ui-form">

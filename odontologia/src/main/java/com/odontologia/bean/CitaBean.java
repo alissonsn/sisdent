@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
@@ -45,6 +46,8 @@ public class CitaBean {
 	private List<Cita> citasDeOdontologoPaciente;
 	private List<Cita> citasPorPaciente;
 	private List<Cita> citasPorOdontologo;
+	private List<Cita> citasListasHorInic;
+	private List<String> notificarPacientes;
 	private EstadoCita estadoCita;
 
 	public CitaBean() {
@@ -57,6 +60,8 @@ public class CitaBean {
 		citasPorOdontologo = new ArrayList<>();
 		citasDePacienteOdontologo = new ArrayList<>();
 		citasDeOdontologoPaciente = new ArrayList<>();
+		citasListasHorInic = new ArrayList<>();
+		notificarPacientes = new ArrayList<>();
 	}
 
 	public Cita getCita() {
@@ -202,4 +207,26 @@ public class CitaBean {
 		this.citasDeOdontologoEnEspera = citasDeOdontologoEnEspera;
 	}
 
+	public List<Cita> getCitasListasHorInic() {
+		citasListasHorInic = citaService.getCitasList();
+		return citasListasHorInic;
+	}
+
+	public void setCitasListasHorInic(List<Cita> citasListasHorInic) {
+		this.citasListasHorInic = citasListasHorInic;
+	}
+	
+	public List<String> getNotificarPacientes(HttpServletRequest request, HttpSession session) {
+		session = request.getSession();
+		String[] idCitaList = request.getParameter("idCitas").toString().split("_");
+		
+		if(idCitaList[0].length() > 0){
+			notificarPacientes = citaService.notificarCitasPacientes(idCitaList);
+		}
+		return notificarPacientes;
+	}
+
+	public void setNotificarPacientes(List<String> notificarPacientes) {
+		this.notificarPacientes = notificarPacientes;
+	}
 }

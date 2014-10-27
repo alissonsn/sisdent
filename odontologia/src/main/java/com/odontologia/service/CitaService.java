@@ -1,10 +1,8 @@
 package com.odontologia.service;
 
 import java.util.List;
-
 import com.odontologia.model.Cita;
 import com.odontologia.model.EstadoCita;
-import com.odontologia.model.Paciente;
 
 public interface CitaService {
 
@@ -33,5 +31,9 @@ public interface CitaService {
 	public List<Cita> getCitasPorOdontologo (Integer idOdontologo);
 	
 	public EstadoCita estadoCitaFromNombre(String nombre);
+	
+	public List<Cita> getCitasList();
+	
+	public List<String> notificarCitasPacientes(String[] ids);
 	
 }

@@ -1,6 +1,7 @@
 package com.odontologia.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,6 +9,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +17,14 @@ import com.odontologia.model.Cita;
 import com.odontologia.model.EstadoCita;
 import com.odontologia.model.Odontologo;
 import com.odontologia.model.Paciente;
+import com.odontologia.model.Persona;
 
 @Service
 public class CitaServiceImpl implements CitaService{
 
+	@Autowired
+	MensajeService emailService;
+	
 	@PersistenceContext
 	EntityManager em;	
 	
@@ -208,5 +214,36 @@ public class CitaServiceImpl implements CitaService{
 		return estadoCita;
 
 
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Cita> getCitasList() {
+		List<Cita> result = new ArrayList<>();
+		try{
+			Query q = em.createQuery("SELECT c FROM Cita c WHERE c.horaInicio<=CURRENT_DATE()");			
+			result = q.getResultList();
+		}
+		catch(NoResultException e){
+			System.out.println("ERROR: "+e.getMessage());
+		}
+		return result;
+	}
+	
+	@Transactional
+	public List<String> notificarCitasPacientes(String[] ids) {
+		List<String> enviados = new ArrayList<String>();
+		try {
+			for (int i = 0; i < ids.length; i++) {		
+				Cita cit = em.find(Cita.class, Integer.parseInt(ids[i]));				
+				Persona per = cit.getCitaPaciente().getPacientePersona();
+				enviados.add( per.getNombre()+" "+per.getApellidoPaterno()+" "+per.getApellidoMaterno());
+				//Metodo para enviar correo
+				emailService.NotificarCitasUsuario(Integer.parseInt(ids[i]), per.getPersonaUsuario().getIdUsuario());
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return enviados;
 	}
 }
