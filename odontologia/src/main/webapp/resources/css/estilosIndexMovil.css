@@ -4,14 +4,15 @@
 #wrapper {
     width: 0 auto;
     margin: 0 auto;
-    background-image: url("http://localhost:8090/odontologia/resources/images/fondo1.jpg");"
+    background-image: url("/odontologia/resources/images/FondoNeutral.jpg");"
 }
 	/* Celular de 480x320*/
 @media only screen and (min-width: 320px) and (orientation : landscape){
     .ui-imagen {
-    style="width:80%; 
-    max-width:300px;
-     margin-left:150px; 
+    style="width:100%;
+    
+     max-width:100%;
+     margin-left:0px; 
      margin-top:50px"
     }
       .ui-form {
@@ -19,18 +20,23 @@
      margin-bottom:40px;
     }
 }
-@media only screen and (min-width: 320px) and (max-width: 480px){
-	.ui-imagen {
-    style="width:70%; 
-    max-width:300px;
-     margin-left:40px; 
+
+@media only screen  and (orientation : Portrait){
+    .ui-imagen {
+    
+    style="width:100%;
+    
+    max-width:100%;
+     margin-left:0%; 
      margin-top:50px"
     }
       .ui-form {
-     margin-top:50px;
+   margin-top:50px;
      margin-bottom:40px;
     }
 }
+
+
   /* ipad de 1024x768*/
 @media only screen and (min-width: 768px) and (orientation : landscape){
 	.ui-imagen {
@@ -44,12 +50,11 @@
     }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1024px){
+@media only screen and (min-width: 1024px) and (orientation : Portrait){
 .ui-imagen {
     style="width:80%; 
     max-width:350px;
      margin-left:290px; 
-
     }
     .ui-form {
      margin-top:80px;

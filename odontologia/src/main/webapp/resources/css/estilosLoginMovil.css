@@ -4,7 +4,7 @@
 #wrapper {
     width: 0 auto;
     margin: 0 auto;
-    background-image: url("http://localhost:8090/odontologia/resources/images/fondo1.jpg");"
+    background-image: url("/odontologia/resources/images/FondoNeutral.jpg");"
 }
 	/* Celular de 480x320*/
 @media only screen and (min-width: 320px) and (orientation : landscape){
