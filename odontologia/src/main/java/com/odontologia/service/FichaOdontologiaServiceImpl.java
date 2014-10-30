@@ -19,7 +19,7 @@ public class FichaOdontologiaServiceImpl implements FichaOdontologicaService {
 		boolean resultado=false;
 		try{
 										
-			em.persist(fichaO);
+			em.merge(fichaO);
 			resultado = true;
 		}
 		catch(Exception e){

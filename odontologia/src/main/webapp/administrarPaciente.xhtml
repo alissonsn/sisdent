@@ -30,10 +30,10 @@
 				<br></br>
 				<br></br>
 
-				<p:dataTable id="tablaPacientes" var="pac" resizableColumns="true" widgetVar="tPac"
-					emptyMessage="No hay Pacientes registrados" paginatorPosition="top"
-					rowKey="#{pac.idPaciente}" value="#{pacienteBean.pacientes}"
-					paginator="true" rows="10"
+				<p:dataTable id="tablaPacientes" var="pac" resizableColumns="true"
+					widgetVar="tPac" emptyMessage="No hay Pacientes registrados"
+					paginatorPosition="top" rowKey="#{pac.idPaciente}"
+					value="#{pacienteBean.pacientes}" paginator="true" rows="10"
 					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 					rowsPerPageTemplate="5,10,15">
 
@@ -84,7 +84,9 @@
 							oncomplete="PF('dlgEliminarW').show()" icon="ui-icon-trash"
 							actionListener="#{pacienteBean.prepararAccion(pac.idPaciente)}" />&nbsp;
 						<p:commandButton update=":dlgDetalle" value="Detalles"
-							oncomplete="PF('dlgDetalleW').show()" icon="ui-icon-info" />
+							oncomplete="PF('dlgDetalleW').show()"
+							actionListener="#{pacienteBean.prepararAccion(pac.idPaciente)}"
+							icon="ui-icon-info" />
 
 					</p:column>
 
@@ -92,7 +94,7 @@
 
 				<p:blockUI block="tablaPacientes" trigger="tablaPacientes">
         Cargando ...<br />
-					<p:graphicImage name="/resources/images/loading.gif" />
+					<p:graphicImage value="/resources/images/loading.gif" />
 				</p:blockUI>
 
 			</h:form>
@@ -512,25 +514,31 @@
 
 					<p:panelGrid columns="2">
 
-						<p:outputLabel value="¿Ha estado Bajo atención médica?"></p:outputLabel>
-						<p:inputTextarea value="#{pacienteBean.fichaOdontologica.bajoAtencion}">
-						</p:inputTextarea>
-
-						<p:outputLabel value="¿Padece alguna enfermedad grave?"></p:outputLabel>
-						<p:inputTextarea value="#{pacienteBean.fichaOdontologica.padeceEnfermedad}">
-						</p:inputTextarea>
-
 						<p:outputLabel value="¿Toma alguna medicación?"></p:outputLabel>
-						<p:inputTextarea value="#{pacienteBean.fichaOdontologica.tomaMedicacion}">
+						<p:inputTextarea
+							value="#{pacienteBean.fichaOdontologica.tomaMedicacion}">
 						</p:inputTextarea>
-						
-						<p:outputLabel value="¿Cuál es su tipo de sangre?"></p:outputLabel>
-						<p:inputTextarea value="#{pacienteBean.fichaOdontologica.tipoSangre}">
-						</p:inputTextarea>		
 
-						<p:outputLabel value="¿Es alérgico?"></p:outputLabel>
-						<p:inputTextarea value="#{pacienteBean.fichaOdontologica.esAlergico}">
+						<p:outputLabel value="¿Ha estado últimamente bajo atención?"></p:outputLabel>
+						<p:inputTextarea
+							value="#{pacienteBean.fichaOdontologica.bajoAtencion}">
 						</p:inputTextarea>
+
+						<p:outputLabel value="¿Padece de algunua enfermedad?"></p:outputLabel>
+						<p:inputTextarea
+							value="#{pacienteBean.fichaOdontologica.padeceEnfermedad}">
+						</p:inputTextarea>
+
+						<p:outputLabel value="¿Tiene alguna alergia?"></p:outputLabel>
+						<p:inputTextarea
+							value="#{pacienteBean.fichaOdontologica.esAlergico}">
+						</p:inputTextarea>
+
+						<p:outputLabel value="¿Cuál es su tipo de sangre?"></p:outputLabel>
+						<p:inputTextarea
+							value="#{pacienteBean.fichaOdontologica.tipoSangre}">
+						</p:inputTextarea>
+
 
 
 					</p:panelGrid>
@@ -539,7 +547,7 @@
 
 					<p:commandButton value="Actualizar" update=":frmAdmPac"
 						oncomplete="PF('dlgDetalleW').hide()"
-					    actionListener="#{pacienteBean.registrarDatosFicha(actionEvent)}"></p:commandButton>
+						actionListener="#{pacienteBean.registrarDatosFicha(actionEvent)}"></p:commandButton>
 					<p:commandButton value="Cancelar" update=":frmAdmPac"
 						oncomplete="PF('dlgDetalleW').hide()"
 						actionListener="#{pacienteBean.cancelar(actionEvent)}">

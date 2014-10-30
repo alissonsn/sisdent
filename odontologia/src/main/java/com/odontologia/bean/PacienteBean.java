@@ -56,7 +56,7 @@ public class PacienteBean {
 		distrito = new Distrito();
 		apoderado = new Apoderado();
 		personaApoderado = new Persona();
-		setFichaOdontologica(new FichaOdontologica());
+		fichaOdontologica = new FichaOdontologica();
 		pacientes = new ArrayList<>();
 	}
 	
@@ -104,6 +104,7 @@ public class PacienteBean {
 		persona = paciente.getPacientePersona();
 		usuario = paciente.getPacientePersona().getPersonaUsuario();
 		distrito = paciente.getPacientePersona().getPersonaDistrito();
+		fichaOdontologica = paciente.getPacienteFichaOdontologica();
 
 	}
 
@@ -153,11 +154,15 @@ public class PacienteBean {
 		apoderado = new Apoderado();
 	}
 	
-	public void registrarDatosFicha(ActionEvent actionEvent){
+	public void registrarDatosFicha(ActionEvent actionEvent){		
 		fichaOdontologica.setFichaOdontologicaPaciente(paciente);
-		fichaService.registrarFichaOdontologica(fichaOdontologica);
-		cancelar(actionEvent);
-		
+		if(fichaService.registrarFichaOdontologica(fichaOdontologica)){
+			StaticHelp.correctMessage("Se ha insertado con éxito los detalles del paciente",
+					"");
+			RequestContext.getCurrentInstance().update("frmNuevoo:growl");
+			
+		}
+		cancelar(actionEvent);		
 		
 	}
 
@@ -237,6 +242,15 @@ public class PacienteBean {
 		this.distritos = distritos;
 	}
 	
+
+	public FichaOdontologica getFichaOdontologica() {
+		return fichaOdontologica;
+	}
+
+	public void setFichaOdontologica(FichaOdontologica fichaOdontologica) {
+		this.fichaOdontologica = fichaOdontologica;
+	}
+	
 	
 	
 	//Métodos para atributos dinámicos
@@ -250,13 +264,6 @@ public class PacienteBean {
 		this.fechaHoy = fechaHoy;
 	}
 
-	public FichaOdontologica getFichaOdontologica() {
-		return fichaOdontologica;
-	}
-
-	public void setFichaOdontologica(FichaOdontologica fichaOdontologica) {
-		this.fichaOdontologica = fichaOdontologica;
-	}
 
 
 }
