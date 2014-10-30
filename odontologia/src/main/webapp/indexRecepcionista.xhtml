@@ -22,8 +22,11 @@
 		<ui:define name="center">
 
 			<h:form id="frmEstadoCitas">
-				<p:dataTable var="cita" value="#{citaBean.citas}"
-					sortMode="multiple" rowKey="#{cita.idCita}">
+				<p:dataTable id="tablaCitas" var="cita" value="#{citaBean.citas}" rows="8"
+					paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" sortMode="multiple"
+					rowKey="#{cita.idCita}">
 					<f:facet name="header">
             Estado de las Citas
         </f:facet>
@@ -40,6 +43,14 @@
 					<p:column headerText="Paciente"
 						sortBy="#{cita.citaPaciente.pacientePersona.nombre}">
 						<h:outputText value="#{cita.citaPaciente.pacientePersona.nombre}" />
+					</p:column>
+
+					<p:column headerText="Fecha" sortBy="#{cita.horaInicio}">
+						<h:outputText value="#{cita.horaInicio}">
+							<f:convertDateTime pattern="dd/MM"
+								timeZone="#{citaBean.timeZone}">
+							</f:convertDateTime>
+						</h:outputText>
 					</p:column>
 
 					<p:column headerText="Hora Inicio" sortBy="#{cita.horaInicio}">
@@ -63,6 +74,13 @@
 						<h:outputText value="#{cita.citaEstadoCita.nombre}" />
 					</p:column>
 				</p:dataTable>
+
+				<!-- Imagen de Loading -->
+				<p:blockUI block="tablaCitas" trigger="tablaCitas">
+        Cargando ...<br />
+					<p:graphicImage value="/resources/images/loading.gif" />
+				</p:blockUI>
+				<!-- Imagen de Loading -->
 			</h:form>
 		</ui:define>
 

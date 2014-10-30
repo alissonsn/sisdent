@@ -33,7 +33,7 @@
 				<p:dataTable id="tablaPacientes" var="pac" resizableColumns="true"
 					widgetVar="tPac" emptyMessage="No hay Pacientes registrados"
 					paginatorPosition="top" rowKey="#{pac.idPaciente}"
-					value="#{pacienteBean.pacientes}" paginator="true" rows="10"
+					value="#{pacienteBean.pacientes}" paginator="true" rows="8"
 					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 					rowsPerPageTemplate="5,10,15">
 
@@ -92,11 +92,12 @@
 
 				</p:dataTable>
 
+				<!-- Imagen de Loading -->
 				<p:blockUI block="tablaPacientes" trigger="tablaPacientes">
         Cargando ...<br />
 					<p:graphicImage value="/resources/images/loading.gif" />
 				</p:blockUI>
-
+				<!-- Imagen de Loading -->
 			</h:form>
 
 			<!-- Diálogo de agregar paciente menor de edad -->
