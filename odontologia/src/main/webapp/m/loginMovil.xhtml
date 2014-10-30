@@ -8,38 +8,45 @@
 
 
 <h:head>
-	<link
-		href="/odontologia/resources/css/estilosLoginMovil.css"
+	<link href="/odontologia/resources/css/estilosLoginMovil.css"
 		media="only screen" type="text/css" rel="stylesheet" />
 </h:head>
 <h:body>
 	<pm:page id="wrapper">
-		<h:form>
-		<p
-			style="text-align: center; font-weight: bold; font-size: 1.7em; border-bottom: 1px solid #ddd; color: #2142EE; background-color: #FDE31E; text-shadow: none; font-family: Book Antiqua;">BIENVENIDO
-			AL SISTEMA DE CONTROL DE PACIENTES PARA CONSULTORIOS ODONTOLÓGICOS</p>
-		<pm:field>
-			<p:outputLabel for="usuario" value="Usuario:"
-				styleClass="ui-field-contain > label" />
-			<p:inputText id="usuario"
-				styleClass="ui-field-contain>label  ~ [class*='ui-'] "
-				value="#{loginBean.usuario}" />
-		</pm:field>
 
-		<pm:field>
-			<p:outputLabel for="constrasena" value="Contraseña:"
-				styleClass="ui-field-contain > label" />
-			<p:password id="constrasena"
-				styleClass="ui-field-contain>label  ~ [class*='ui-'] "
-				value="#{loginBean.password}" />
-		</pm:field>
+		<h:form id="frmLoginMovil">
+			<p:growl id="growl" sticky="true" showDetail="true" />
 
-			<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
-				<p:commandButton value="Cancelar" style="width:140px" />
+			<p
+				style="text-align: center; font-weight: bold; font-size: 1.7em; border-bottom: 1px solid #ddd; color: #2142EE; background-color: #FDE31E; text-shadow: none; font-family: Book Antiqua;">BIENVENIDO
+				AL SISTEMA DE CONTROL DE PACIENTES PARA CONSULTORIOS ODONTOLÓGICOS</p>
+			<p:panel header="Inicio de Sesión">
+				<p:messages />
+				<pm:field>
+					<p:outputLabel for="usuario" value="Usuario:"
+						styleClass="ui-field-contain > label" />
+					<p:inputText id="usuario"
+						styleClass="ui-field-contain>label  ~ [class*='ui-'] "
+						value="#{loginBean.usuario}" required="true"
+						requiredMessage="Se requiere un usuario" />
+				</pm:field>
 
-				<p:commandButton value="Aceptar" style="width:140px"
-					action="#{loginBean.usuarioLoginMovil}" />
-			</p:panelGrid>
+				<pm:field>
+					<p:outputLabel for="constrasena" value="Contraseña:"
+						styleClass="ui-field-contain > label" />
+					<p:password id="constrasena"
+						styleClass="ui-field-contain>label  ~ [class*='ui-'] "
+						value="#{loginBean.password}" required="true"
+						requiredMessage="Se requiere un contraseña" />
+				</pm:field>
+
+				<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
+					<p:commandButton value="Cancelar" style="width:140px" />
+
+					<p:commandButton value="Aceptar" style="width:140px"
+						action="#{loginBean.usuarioLoginMovil}" update="frmLoginMovil" />
+				</p:panelGrid>
+			</p:panel>
 		</h:form>
 	</pm:page>
 </h:body>
