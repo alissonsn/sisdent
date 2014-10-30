@@ -13,21 +13,23 @@
 </h:head>
 <h:body>
 	<pm:page id="wrapper" title="Perfil Usuario #{username}">
-		<h:form id="formid">
+		<h:form id="formidPerfil">
+		<p:growl id="growl" sticky="true" showDetail="true" />		
 			<p
 				style="text-align: center; font-weight: bold; font-size: 1.7em; border-bottom: 1px solid #ddd; color: #2142EE; background-color: #FDE31E; text-shadow: none; font-family: Book Antiqua;">Datos
 				Generales</p>
+			<p:panel header="Informacion:">
+			<p:messages />
 			<p:graphicImage
 				url="/resources/images/usuario.jpg"
 				styleClass="ui-imagen"></p:graphicImage>
-			<p:growl showDetail="true"/>
-   		 	<p:fileUpload value="#{loginBean.persona.personaUsuario.urlFoto}" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" mode="simple" disabled="#{loginBean.activar}" />
+   		 	
 			<pm:field>
 				<p:outputLabel for="nombre" value="Nombre:"
 					styleClass="ui-field-contain > label" />
 				<p:inputText id="nombre"
 					styleClass="ui-field-contain > label ~ [class*='ui-']"
-					value="#{loginBean.persona.nombre}" disabled="#{loginBean.activar}"  required="true"/>
+					value="#{loginBean.persona.nombre}" disabled="#{loginBean.activar}"  required="true" requiredMessage="Se requiere un nombre"/>
 			</pm:field>
 
 			<pm:field>
@@ -35,7 +37,7 @@
 					styleClass="ui-field-contain > label" />
 				<p:inputText id="apellidopat"
 					styleClass="ui-field-contain > label ~ [class*='ui-']"
-					value="#{loginBean.persona.apellidoPaterno}" disabled="#{loginBean.activar}"  required="true"/>
+					value="#{loginBean.persona.apellidoPaterno}" disabled="#{loginBean.activar}"  required="true" requiredMessage="Se requiere un apellido paterno"/>
 			</pm:field>
 
 			<pm:field>
@@ -43,7 +45,7 @@
 					styleClass="ui-field-contain > label" />
 				<p:inputText id="apellidomat"
 					styleClass="ui-field-contain > label ~ [class*='ui-']"
-					value="#{loginBean.persona.apellidoMaterno}" disabled="#{loginBean.activar}" required="true"/>
+					value="#{loginBean.persona.apellidoMaterno}" disabled="#{loginBean.activar}" required="true" requiredMessage="Se requiere un apellido materno"/>
 			</pm:field>
 
 			<pm:field>
@@ -51,7 +53,7 @@
 					styleClass="ui-field-contain > label" />
 				<p:inputText id="direccion"
 					styleClass="ui-field-contain > label ~ [class*='ui-']"
-					value="#{loginBean.persona.direccion}" disabled="#{loginBean.activar}" required="true" />
+					value="#{loginBean.persona.direccion}" disabled="#{loginBean.activar}" required="true" requiredMessage="Se requiere una direccion"/>
 			</pm:field>
 
 			<pm:field>
@@ -59,7 +61,7 @@
 					styleClass="ui-field-contain > label" />
 				<p:inputText id="telefono" value="#{loginBean.persona.telefono}"
 					styleClass="ui-field-contain > label ~ [class*='ui-']"
-					disabled="#{loginBean.activar}" required="true"/>
+					disabled="#{loginBean.activar}" required="true" requiredMessage="Se requiere un telefono"/>
 			</pm:field>
 
 			<pm:field>
@@ -68,7 +70,7 @@
 				<p:inputText id="email"
 					value="#{loginBean.persona.correoElectronico}"
 					styleClass="ui-field-contain > label ~ [class*='ui-']"
-					disabled="#{loginBean.activar}" required="true"/>
+					disabled="#{loginBean.activar}" required="true" requiredMessage="Se requiere un email"/>
 			</pm:field>
 
 
@@ -76,14 +78,14 @@
 
 			<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
 				<p:commandButton value="Editar" style="width:120px"
-					action="#{loginBean.habilitarCampo}" update="formid"  rendered="#{loginBean.activar}"/>
-				<p:commandButton id="btnguardar" value="Guardar" style="width:120px" update="formid"
+					action="#{loginBean.habilitarCampo}" update="formidPerfil,growl"  rendered="#{loginBean.activar}"/>
+				<p:commandButton id="btnguardar" value="Guardar" style="width:120px" update="formidPerfil,growl"
 					rendered="#{!loginBean.activar}" action="#{personaBean.actualizarPersonaMovil}" />
 				<p:commandButton value="Atras" style="width:120px"
 					onclick="location.href='indexPacienteMovil.xhtml'"
-					action="#{loginBean.deshabilitarCampo}" update="formid" />
+					action="#{loginBean.deshabilitarCampo}" update="formidPerfil" />
 			</p:panelGrid>
-
+      </p:panel>
 		</h:form>
 
 	</pm:page>

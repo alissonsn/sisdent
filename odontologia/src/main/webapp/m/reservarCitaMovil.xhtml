@@ -16,10 +16,12 @@
 <h:body>
 	<pm:page id="wrapper">
 		<h:form id="frmReservarCita">
+		<p:growl id="growl" sticky="true" showDetail="true" />	
 			<p
 				style="text-align: center; font-weight: bold; font-size: 1.7em; border-bottom: 1px solid #ddd; color: #2142EE; background-color: #FDE31E; text-shadow: none; font-family: Book Antiqua;">Reserva
 				de Citas</p>
-				
+			<p:panel header="Ingrese su cita:">
+			<p:messages />
 			<!-- <pm:field>
 				<p:outputLabel for="selectOneMenu" value="Especialidad"
 					styleClass="ui-field-contain > label" />
@@ -35,14 +37,14 @@
 			<pm:field>				
 					<h:outputLabel for="tituloInsert" value="Titulo:" />
 					<p:inputText id="tituloInsert" value="#{horarioBean.cita.titulo}"
-						required="true" />
+						required="true" requiredMessage="Se requiere un titulo"/>
 			</pm:field>
 
 			<pm:field>
 				<h:outputLabel for="inicioInsert" value="Dia: " />
 				<p:calendar id="inicioInsert" pattern="dd-MM-yyyy"
 					value="#{horarioBean.dataInsert.inicio}" mask="true"
-					styleClass="ui-datepicker  ui-marginCalendar" />
+					styleClass="ui-datepicker  ui-marginCalendar" required="true" requiredMessage="Se requiere una fecha" />
 			</pm:field>
 
 			<pm:field>
@@ -50,10 +52,10 @@
 				<h:panelGrid columns="2">
 					<pe:inputNumber id="horaInicioInsert" style="width: 50px;"
 						value="#{horarioBean.dataInsert.horaInicio}" minValue="0"
-						maxValue="23" />
+						maxValue="23" required="true"  requiredMessage="requiere que ingrese una hora"/>
 					<pe:inputNumber id="minInicioInsert" style="width: 50px;"
 						value="#{horarioBean.dataInsert.minInicio}" minValue="0"
-						maxValue="59" />
+						maxValue="59" required="true"  requiredMessage="requiere que ingrese un minuto"/>
 				</h:panelGrid>
 			</pm:field>
 
@@ -62,10 +64,10 @@
 				<h:panelGrid columns="2">
 					<pe:inputNumber id="horaFinInsert" style="width: 50px;"
 						value="#{horarioBean.dataInsert.horaFin}" minValue="0"
-						maxValue="23" />
+						maxValue="23"  required="true"  requiredMessage="requiere que ingrese una hora"/>
 					<pe:inputNumber id="minFinInsert" style="width: 50px;"
 						value="#{horarioBean.dataInsert.minFin}" minValue="0"
-						maxValue="59" />
+						maxValue="59" required="true"  requiredMessage="requiere que ingrese una hora"/>
 				</h:panelGrid>
 			</pm:field>
 			
@@ -85,11 +87,12 @@
 			<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
 				<p:commandButton value="Reservar" style="width:120px"
 				     actionListener="#{horarioBean.insertarCitaMóvil}"
-				     update="frmReservarCita" />
+				     update="frmReservarCita,growl" />
 
 				<p:commandButton value="Atras" style="width:120px" update="frmReservarCita"
-					onclick="location.href='indexPacienteMovil.xhtml'" />
+					onclick="location.href='indexPacienteMovil.xhtml'"/>
 			</p:panelGrid>
+			</p:panel>
 		</h:form>
 	</pm:page>
 </h:body>
