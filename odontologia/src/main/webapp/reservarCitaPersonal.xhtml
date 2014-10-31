@@ -3,7 +3,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
 <h:head>
 	<h:outputStylesheet name="css/estilos.css" />
@@ -18,7 +19,72 @@
 	</ui:define>
 
 		<ui:define name="center">
-RESERVAR CITA PERSONAL
+			<h:form id="frmReservarCita">
+				<p:growl id="growl" sticky="true" />
+				<p:panel header="Ingrese su cita:">
+					<p:messages />
+
+					<h:panelGrid columns="2">
+						<h:outputLabel for="tituloInsert" value="Titulo:" />
+						<p:inputText id="tituloInsert" value="#{horarioBean.cita.titulo}"
+							required="true" requiredMessage="Se requiere un titulo" />
+					
+
+			
+						<h:outputLabel for="inicioInsert" value="Dia: " />
+						<p:calendar id="inicioInsert" pattern="dd-MM-yyyy"
+							value="#{horarioBean.dataInsert.inicio}" mask="true" required="true"
+							requiredMessage="Se requiere una fecha" />
+				
+
+					
+						<h:outputLabel for="horaInicioInsert" value="Hora de Inicio: " />
+						<h:panelGrid columns="2">
+							<pe:inputNumber id="horaInicioInsert" style="width: 50px;"
+								value="#{horarioBean.dataInsert.horaInicio}" minValue="0"
+								maxValue="23" required="true"
+								requiredMessage="requiere que ingrese una hora" />
+							<pe:inputNumber id="minInicioInsert" style="width: 50px;"
+								value="#{horarioBean.dataInsert.minInicio}" minValue="0"
+								maxValue="59" required="true"
+								requiredMessage="requiere que ingrese un minuto" />
+						</h:panelGrid>
+					
+
+				
+						<h:outputLabel for="horaFinInsert" value="Hora de Fin: " />
+						<h:panelGrid columns="2">
+							<pe:inputNumber id="horaFinInsert" style="width: 50px;"
+								value="#{horarioBean.dataInsert.horaFin}" minValue="0"
+								maxValue="23" required="true"
+								requiredMessage="requiere que ingrese una hora" />
+							<pe:inputNumber id="minFinInsert" style="width: 50px;"
+								value="#{horarioBean.dataInsert.minFin}" minValue="0"
+								maxValue="59" required="true"
+								requiredMessage="requiere que ingrese una hora" />
+						</h:panelGrid>
+					
+
+						<h:outputLabel for="odontologoInsert" value="Odontologo" />
+
+						<p:selectOneMenu id="odontologoInsert"
+							value="#{horarioBean.odontologoSeleccionado.idOdontologo}"
+							required="true" requiredMessage="Debe seleccionar un Odontologo">
+							<f:selectItem itemLabel="Elija un Odontologo"></f:selectItem>
+							<f:selectItems value="#{horarioBean.odontologos}"
+								var="odontologo"
+								itemLabel="#{odontologo.odontologoPersona.nombre} #{odontologo.odontologoPersona.apellidoPaterno} - #{odontologo.especialidad}"
+								itemValue="#{odontologo.idOdontologo}" />
+						</p:selectOneMenu>
+				</h:panelGrid>
+
+					<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
+						<p:commandButton value="Reservar" style="width:120px"
+							actionListener="#{horarioBean.insertarCitaMóvil}"
+							update="frmReservarCita,growl" />
+					</p:panelGrid>
+				</p:panel>
+			</h:form>
 
 		</ui:define>
 

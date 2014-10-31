@@ -20,66 +20,72 @@
 
 		<ui:define name="center">
 
-			<h:form id="frmDatos">
-
-
+			<h:form id="frmPerfilPaciente">
+				<p:growl id="growl" sticky="true" />
+					<p:messages />
 				<p:panelGrid columns="4">
 
 					<p:outputLabel value="Nombre:"></p:outputLabel>
-					<p:inputText value="#{loginBean.persona.nombre}" disabled="#{loginBean.activar}">
+					<p:inputText value="#{loginBean.persona.nombre}" disabled="#{loginBean.activar}"
+					 required="true" requiredMessage="se requiere un nombre">
 					</p:inputText>
 
 					<p:outputLabel value="Apellido Paterno:"></p:outputLabel>
-					<p:inputText value="#{loginBean.persona.apellidoPaterno}" disabled="#{loginBean.activar}">
+					<p:inputText value="#{loginBean.persona.apellidoPaterno}" disabled="#{loginBean.activar}"
+					 required="true" requiredMessage="se requiere un apellido paterno">
 					</p:inputText>
 
 					<p:outputLabel value="Apellido Materno:"></p:outputLabel>
-					<p:inputText value="#{loginBean.persona.apellidoMaterno}" disabled="#{loginBean.activar}">
+					<p:inputText value="#{loginBean.persona.apellidoMaterno}" disabled="#{loginBean.activar}"
+					required="true" requiredMessage="se requiere un apellido materno">
 					</p:inputText>
 
 					<p:outputLabel value="Dni:"></p:outputLabel>
-					<p:inputText value="#{loginBean.persona.dni}"
-						required="true" requiredMessage="Se debe ingresar un Dni" disabled="#{loginBean.activar}">
+					<p:inputText value="#{loginBean.persona.dni}" disabled="#{loginBean.activar}"
+				    required="true" requiredMessage="Se debe ingresar un dni" >
 					</p:inputText>
 
 					<p:outputLabel value="Fecha de Nacimiento:"></p:outputLabel>
 					<p:calendar value="#{loginBean.persona.fechaNacimiento}"
-						maxdate="#{pacienteBean.fechaHoy}" navigator="true" disabled="#{loginBean.activar}">
+					maxdate="#{pacienteBean.fechaHoy}" navigator="true" disabled="#{loginBean.activar}"
+					required="true" requiredMessage="Se requiere una fecha de nacimiento">
 					</p:calendar>
 
 					<p:outputLabel value="Dirección:"></p:outputLabel>
-					<p:inputText value="#{loginBean.persona.direccion}" disabled="#{loginBean.activar}">
+					<p:inputText value="#{loginBean.persona.direccion}" disabled="#{loginBean.activar}"
+					required="true" requiredMessage="Se requiere una direccion">
 					</p:inputText>
 
 					<p:outputLabel value="Distrito:"></p:outputLabel>
 					<p:selectOneMenu value="#{loginBean.persona.personaDistrito.idDistrito}"
-						effect="drop">
-						<f:selectItem itemLabel="Seleccionar distrito" itemValue="" itemDisabled="#{loginBean.activar}"/>
+						effect="drop" required="true" requiredMessage="Se requiere un numero de telefono">
+						<f:selectItem itemLabel="Seleccionar distrito"  itemDisabled="#{loginBean.activar}"/>
 						<f:selectItems value="#{pacienteBean.distritos}" var="distrito"
-							itemLabel="#{distrito.nombre}" itemValue="#{distrito.idDistrito}" itemDisabled="#{loginBean.activar}" />
+							itemLabel="#{distrito.nombre}" itemValue="#{distrito.idDistrito}" />
 					</p:selectOneMenu>
 
 					<p:outputLabel value="Celular:"></p:outputLabel>
-					<p:inputText value="#{loginBean.persona.celular}" disabled="#{loginBean.activar}">
+					<p:inputText value="#{loginBean.persona.celular}" disabled="#{loginBean.activar}"
+					required="true" requiredMessage="Se requiere un numero de celular">
 					</p:inputText>
 
 					<p:outputLabel value="Teléfono Fijo:"></p:outputLabel>
-					<p:inputText value="#{loginBean.persona.telefono}" disabled="#{loginBean.activar}">
+					<p:inputText value="#{loginBean.persona.telefono}" disabled="#{loginBean.activar}"
+					required="true" requiredMessage="Se requiere un numero de telefono">
 					</p:inputText>
 
 					<p:outputLabel value="Correo Electrónico:"></p:outputLabel>
-					<p:inputText value="#{loginBean.persona.correoElectronico}" disabled="#{loginBean.activar}">
+					<p:inputText value="#{loginBean.persona.correoElectronico}" disabled="#{loginBean.activar}"
+					required="true" requiredMessage="Se requiere un correo electrónico">
 					</p:inputText>
 
 
 					<p:commandButton value="Editar" style="width:120px"
-						action="#{loginBean.habilitarCampo}" update=":frmDatos"
+						action="#{loginBean.habilitarCampo}" update="frmPerfilPaciente"
 						rendered="#{loginBean.activar}" />
-					<p:commandButton id="btnguardar" value="Guardar"
-						style="width:120px" update=":frmDatos"
-						rendered="#{!loginBean.activar}"
-						actionListener="#{personaBean.actualizarPersonaWeb}" 
-						action="#{loginBean.deshabilitarCampo}" />
+					<p:commandButton id="btnguardar" value="Guardar" style="width:120px" rendered="#{!loginBean.activar}" 
+					    actionListener="#{personaBean.actualizarPersonaWeb}" 
+						action="#{loginBean.deshabilitarCampo}" update="frmPerfilPaciente,growl" />
 				</p:panelGrid>
 			</h:form>
 
