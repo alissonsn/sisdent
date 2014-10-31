@@ -50,13 +50,14 @@ public class PacienteBean {
 	
 
 	public PacienteBean() {
+		System.out.println("GRRRRRRRRRRRGRGRGR");
+		fichaOdontologica = new FichaOdontologica();
 		paciente = new Paciente();
 		persona = new Persona();
 		usuario = new Usuario();
 		distrito = new Distrito();
 		apoderado = new Apoderado();
-		personaApoderado = new Persona();
-		fichaOdontologica = new FichaOdontologica();
+		personaApoderado = new Persona();		
 		pacientes = new ArrayList<>();
 	}
 	
@@ -155,6 +156,8 @@ public class PacienteBean {
 	}
 	
 	public void registrarDatosFicha(ActionEvent actionEvent){		
+		
+		System.out.println("GRGRGRGRG");
 		fichaOdontologica.setFichaOdontologicaPaciente(paciente);
 		if(fichaService.registrarFichaOdontologica(fichaOdontologica)){
 			StaticHelp.correctMessage("Se ha insertado con éxito los detalles del paciente",
