@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+	<h:outputStylesheet name="css/estilos.css" />
+
+</h:head>
+<h:body>
+	<ui:composition
+		template="/WEB-INF/facelets/templates/plantillaOdontologo.xhtml">
+
+		<ui:define name="west">
+	FILTRAR POR PACIENTE
+	</ui:define>
+
+		<ui:define name="center">
+		
+			<h:form id="formCita">
+				<p:growl id="messages" showDetail="true" />
+
+				<h:panelGrid columnClasses="value">
+
+					<p:schedule resizable="false" draggable="false" locale="es"
+						id="schedule" value="#{horarioBean.eventModel}" minTime="6"
+						maxTime="23" widgetVar="horario" allDaySlot="false"
+						timeZone="GMT-5">
+
+						<p:ajax event="eventSelect"
+							listener="#{horarioBean.onEventSelect}" update=":eventDetails"
+							oncomplete="PF('eventDialog').show();" />
+
+					</p:schedule>
+
+				</h:panelGrid>
+			</h:form>
+			
+			<p:dialog widgetVar="eventDialog" id="dialogoModificar"
+				header="Modificar cita" showEffect="clip" hideEffect="clip"
+				appendTo="@(body)">
+				<h:form id="eventDetails">
+					<h:panelGrid columns="2">
+						<h:outputLabel for="titulo" value="Titulo:" />
+						<p:inputText id="titulo" value="#{horarioBean.event.title}"
+							required="true" />
+
+						<h:outputLabel for="inicio" value="Dia: " />
+						<p:calendar id="inicioInsert" pattern="dd-MM-yyyy"
+							value="#{horarioBean.dataSeleccionado.inicio}" mask="true" />
+
+						<h:outputLabel for="horaInicio" value="Hora de Inicio: " />
+						<h:panelGrid columns="2">
+							<pe:inputNumber id="horaInicio" style="width: 50px;"
+								value="#{horarioBean.dataSeleccionado.horaInicio}" minValue="0"
+								maxValue="23" />
+							<pe:inputNumber id="minInicio" style="width: 50px;"
+								value="#{horarioBean.dataSeleccionado.minInicio}" minValue="0"
+								maxValue="59" />
+						</h:panelGrid>
+
+						<h:outputLabel for="horaFin" value="Hora de Fin: " />
+						<h:panelGrid columns="2">
+							<pe:inputNumber id="horaFin" style="width: 50px;"
+								value="#{horarioBean.dataSeleccionado.horaFin}" minValue="0"
+								maxValue="23" />
+							<pe:inputNumber id="minFin" style="width: 50px;"
+								value="#{horarioBean.dataSeleccionado.minFin}" minValue="0"
+								maxValue="59" />
+						</h:panelGrid>
+
+						<h:outputLabel for="paciente" value="Paciente" />
+						<p:selectOneMenu id="paciente"
+							value="#{horarioBean.pacienteSeleccionado.idPaciente}"
+							required="true" requiredMessage="Debe seleccionar un Paciente">
+							<f:selectItem itemLabel="Elija un Paciente"></f:selectItem>
+							<f:selectItems value="#{horarioBean.pacientes}" var="paciente"
+								itemLabel="#{paciente.pacientePersona.nombre}"
+								itemValue="#{paciente.idPaciente}" />
+						</p:selectOneMenu>
+						<h:outputLabel for="odontologo" value="Odontologo" />
+
+						<p:selectOneMenu id="odontologo"
+							value="#{horarioBean.odontologoSeleccionado.idOdontologo}"
+							required="true" requiredMessage="Debe seleccionar un Odontologo">
+							<f:selectItem itemLabel="Elija un Odontologo"></f:selectItem>
+							<f:selectItems value="#{horarioBean.odontologos}"
+								var="odontologo"
+								itemLabel="#{odontologo.odontologoPersona.nombre}"
+								itemValue="#{odontologo.idOdontologo}" />
+						</p:selectOneMenu>
+
+
+					</h:panelGrid>
+					<h:panelGrid columns="3">
+						<p:commandButton actionListener="#{horarioBean.eliminar}"
+							value="Eliminar Cita"
+							oncomplete="PF('horario').update();PF('eventDialog').hide();" />
+						<p:commandButton actionListener="#{horarioBean.cancelar}"
+							value="Cancelar"
+							oncomplete="PF('horario').update();PF('eventDialog').hide();" />
+
+						<p:commandButton id="addButton" value="Guardar"
+							actionListener="#{horarioBean.modificarEvento}"
+							oncomplete="PF('horario').update();PF('eventDialog').hide();" />
+					</h:panelGrid>
+				</h:form>
+			</p:dialog>
+
+
+
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

@@ -31,10 +31,10 @@ import com.odontologia.util.horarioAdapter;
 public class horarioBean {
 
 	@Autowired
-	CitaService citaservice;
+	CitaService citaService;
 
 	@Autowired
-	OdontologoService odontologoservice;
+	OdontologoService odontologoService;
 
 	@Autowired
 	PacienteService pacienteservice;
@@ -42,6 +42,7 @@ public class horarioBean {
 	private ScheduleModel eventModel;
 	private ScheduleEvent event = new DefaultScheduleEvent();
 	private List<Cita> citas;
+	private List<Cita> citasDeOdontologo;
 
 	private citaData dataSeleccionado;
 	private Cita citaSeleccionada;
@@ -62,15 +63,18 @@ public class horarioBean {
 		dataInsert = new citaData();
 		odontologoSeleccionado = new Odontologo();
 		cita = new Cita();
+		citasDeOdontologo = new ArrayList<>();
 	}
 
 	@PostConstruct
 	public void init() {
 		recargaHorario();
+		
+		
 	}
 
 	public List<Cita> getCitas() {
-		citas = citaservice.getCitas();
+		citas = citaService.getCitas();
 		return citas;
 	}
 
@@ -98,7 +102,7 @@ public class horarioBean {
 		if (event.getId() != null) {
 			actualizaEventoCita();
 			eventModel.updateEvent(event);
-			citaservice.modificarCita(citaSeleccionada);
+			citaService.modificarCita(citaSeleccionada);
 		}
 		event = new DefaultScheduleEvent();
 		pacienteSeleccionado = new Paciente();
@@ -119,7 +123,7 @@ public class horarioBean {
 		String titulo = event.getTitle();
 		cita.setCitaOdontologo(odontologoSeleccionado);
 		cita.setCitaPaciente(pacienteSeleccionado);
-		cita.setCitaEstadoCita(citaservice.estadoCitaFromNombre("EN ESPERA"));
+		cita.setCitaEstadoCita(citaService.estadoCitaFromNombre("EN ESPERA"));
 
 		Timestamp inicio = new Timestamp(2014 - 1900, dataInsert.getInicio()
 				.getMonth(), dataInsert.getInicio().getDate(),
@@ -135,7 +139,7 @@ public class horarioBean {
 
 		event = new DefaultScheduleEvent(titulo, inicio, fin, dataInsert);
 		eventModel.addEvent(event);
-		citaservice.insertarCita(cita);
+		citaService.insertarCita(cita);
 		recargaHorario();
 		cita = new Cita();
 		event = new DefaultScheduleEvent();
@@ -151,7 +155,7 @@ public class horarioBean {
 		persona = (Persona) session.getAttribute("personaSesion");
 		paciente = pacienteservice.buscarPorPersona(persona);
 		cita.setCitaPaciente(paciente);
-		cita.setCitaEstadoCita(citaservice.estadoCitaFromNombre("EN ESPERA"));
+		cita.setCitaEstadoCita(citaService.estadoCitaFromNombre("EN ESPERA"));
 		
 		Timestamp inicio = new Timestamp(2014 - 1900, dataInsert.getInicio()
 				.getMonth(), dataInsert.getInicio().getDate(),
@@ -164,7 +168,7 @@ public class horarioBean {
 		cita.setHoraInicio(inicio);
 		cita.setHoraFin(fin);
 		
-		citaservice.insertarCita(cita);
+		citaService.insertarCita(cita);
 		cita = new Cita();
 		dataInsert = new citaData();
 	}
@@ -176,7 +180,7 @@ public class horarioBean {
 	}
 
 	public void eliminar() {
-		citaservice.eliminarCita(citaSeleccionada);
+		citaService.eliminarCita(citaSeleccionada);
 		event = new DefaultScheduleEvent();
 		pacienteSeleccionado = new Paciente();
 		odontologoSeleccionado = new Odontologo();
@@ -186,7 +190,7 @@ public class horarioBean {
 	public void onEventSelect(SelectEvent selectEvent) {
 		event = (ScheduleEvent) selectEvent.getObject();
 		dataSeleccionado = (citaData) event.getData();
-		citaSeleccionada = citaservice.citaFromId(dataSeleccionado.getIdCita());
+		citaSeleccionada = citaService.citaFromId(dataSeleccionado.getIdCita());
 		pacienteSeleccionado = citaSeleccionada.getCitaPaciente();
 		odontologoSeleccionado = citaSeleccionada.getCitaOdontologo();
 	}
@@ -240,7 +244,7 @@ public class horarioBean {
 	}
 
 	public List<Odontologo> getOdontologos() {
-		odontologos = odontologoservice.getOdontologos();
+		odontologos = odontologoService.getOdontologos();
 		return odontologos;
 	}
 
@@ -264,10 +268,34 @@ public class horarioBean {
 		this.odontologoSeleccionado = odontologoSeleccionado;
 	}
 
+	//HORARIO PARA EL RECEPCIONISTA
 	@SuppressWarnings("deprecation")
 	public void recargaHorario() {
 		eventModel = new DefaultScheduleModel();
 		for (Cita c : getCitas()) {
+			citaData data = new citaData(c.getCitaOdontologo(),
+					c.getCitaPaciente(), c.getCitaEstadoCita(), c.getIdCita());
+			data.setTitulo(c.getTitulo());
+			data.setHoraInicio(c.getHoraInicio().getHours());
+			data.setMinInicio(c.getHoraInicio().getMinutes());
+			data.setHoraFin(c.getHoraFin().getHours());
+			data.setMinFin(c.getHoraFin().getMinutes());
+			data.setInicio(horarioAdapter.fromSqlToDate(c.getHoraInicio()));
+			data.setFin(horarioAdapter.fromSqlToDate(c.getHoraFin()));
+			ScheduleEvent m = new DefaultScheduleEvent(c.getTitulo(),
+					horarioAdapter.fromSqlToDate(c.getHoraInicio()),
+					horarioAdapter.fromSqlToDate(c.getHoraFin()), data);
+
+			eventModel.addEvent(m);
+
+		}
+	}
+	
+	//HORARIO PARA EL ODONTÓLOGO
+	@SuppressWarnings("deprecation")
+	public void recargaHorarioOdontologo(){
+		eventModel = new DefaultScheduleModel();
+		for (Cita c : getCitasDeOdontologo()) {
 			citaData data = new citaData(c.getCitaOdontologo(),
 					c.getCitaPaciente(), c.getCitaEstadoCita(), c.getIdCita());
 			data.setTitulo(c.getTitulo());
@@ -292,5 +320,20 @@ public class horarioBean {
 
 	public void setCita(Cita cita) {
 		this.cita = cita;
+	}
+
+	public List<Cita> getCitasDeOdontologo() {
+		Persona persona = new Persona();
+		Odontologo odontologo = new Odontologo();
+		HttpSession session = StaticHelp.getSession();
+		persona = (Persona) session.getAttribute("personaSesion");
+		odontologo = odontologoService.buscarPorPersona(persona);
+		citasDeOdontologo = citaService.getCitasPorOdontologo(odontologo
+				.getIdOdontologo());
+		return citasDeOdontologo;		
+	}
+
+	public void setCitasDeOdontologo(List<Cita> citasDeOdontologo) {
+		this.citasDeOdontologo = citasDeOdontologo;
 	}
 }

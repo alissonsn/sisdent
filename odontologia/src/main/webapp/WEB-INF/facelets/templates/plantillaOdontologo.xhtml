@@ -7,7 +7,9 @@
 
 <h:head>
 	<h:outputStylesheet name="css/estilos.css" />
-
+	<script src="resources/js/spanishSchedule.js" type="text/javascript" />
+	<link rel="stylesheet" type="text/css"
+		href="resources/css/schedule.css" />
 </h:head>
 <h:body>
 
@@ -27,20 +29,25 @@
 
 					<p:menubar>
 						<p:submenu label="Perfil" icon="ui-icon-person">
-							<p:menuitem value="Datos Personales" url="consultarInformacionPersonalPaciente.jsf" />
+							<p:menuitem value="Datos Personales"
+								url="consultarInformacionPersonalPaciente.jsf" />
 						</p:submenu>
 
-						<p:submenu label="Citas" icon="ui-icon-pencil">							
-							<p:menuitem value="Consultar cita" url="consultarCitaOdontologo.jsf" />
+						<p:submenu label="Citas" icon="ui-icon-pencil">
+							<p:menuitem value="Horario Citas" url="horarioCitaOdontologo.jsf" />
+							<p:menuitem value="Consultar cita"
+								url="consultarCitaOdontologo.jsf" />
 						</p:submenu>
-						
+
 						<p:submenu label="Pacientes" icon="ui-icon-clipboard">
-							<p:menuitem value="Consultar Pacientes" url="consultarPacientes.jsf" />							
+
+							<p:menuitem value="Consultar Pacientes"
+								url="consultarPacientes.jsf" />
 						</p:submenu>
 
 						<p:submenu label="Contacto" icon="ui-icon-mail-closed">
 							<p:menuitem value="Mensajes" url="enviarMensajeOdontologo.jsf" />
-						     <p:menuitem value="Bandeja" url="bandejaMensajeOdontologo.jsf" />
+							<p:menuitem value="Bandeja" url="bandejaMensajeOdontologo.jsf" />
 						</p:submenu>
 						<f:facet name="options">
 							<p:commandButton action="#{loginBean.cerrarSesion}"
