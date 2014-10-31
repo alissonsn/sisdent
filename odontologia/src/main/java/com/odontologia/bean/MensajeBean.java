@@ -78,6 +78,11 @@ public class MensajeBean {
 			RequestContext.getCurrentInstance().update("frmNuevoo:growl");
 		}
 		
+		odontologo = new Odontologo();
+        mensaje = new Mensaje();     
+        mensaje.setMensajeUsuarioReceptor(new Usuario());
+        paciente = new Paciente();
+		
 	}
 	
 	public List<Mensaje> getMensajeReceptor() {

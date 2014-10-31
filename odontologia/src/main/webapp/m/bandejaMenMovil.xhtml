@@ -19,7 +19,7 @@ xmlns:pm="http://primefaces.org/mobile" >
 </p:tabMenu>
    <h:form>
    <p:accordionPanel dynamic="true" value="#{mensajeBean.mensajeReceptor}" var="men">
-    <p:tab title="#{men.titulo}">
+    <p:tab title="#{men.titulo} - #{men.mensajeUsuarioEmisor.usuarioPersona.nombre} #{men.mensajeUsuarioEmisor.usuarioPersona.apellidoPaterno}">
         <h:outputText value="#{men.texto}" />
     </p:tab>
 </p:accordionPanel>
