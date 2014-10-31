@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -12,7 +11,7 @@
 </h:head>
 <h:body>
 	<ui:composition
-		template="/WEB-INF/facelets/templates/plantillaPaciente.xhtml">
+		template="/WEB-INF/facelets/templates/plantillaOdontologo.xhtml">
 
 		<ui:define name="west">
 	INDEX
@@ -79,7 +78,7 @@
 						style="width:120px" update=":frmDatos"
 						rendered="#{!loginBean.activar}"
 						actionListener="#{personaBean.actualizarPersonaWeb}" 
-						action="#{loginBean.deshabilitarCampo}" />
+					action="#{loginBean.deshabilitarCampo}" />
 				</p:panelGrid>
 			</h:form>
 
@@ -89,3 +88,4 @@
 	</ui:composition>
 </h:body>
 </html>
+
