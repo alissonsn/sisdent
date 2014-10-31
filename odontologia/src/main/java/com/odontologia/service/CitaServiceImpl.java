@@ -221,7 +221,7 @@ public class CitaServiceImpl implements CitaService{
 	public List<Cita> getCitasList() {
 		List<Cita> result = new ArrayList<>();
 		try{
-			Query q = em.createQuery("SELECT c FROM Cita c WHERE c.horaInicio<=CURRENT_DATE()");			
+			Query q = em.createQuery("SELECT c FROM Cita c WHERE c.horaInicio>=CURRENT_DATE()");			
 			result = q.getResultList();
 		}
 		catch(NoResultException e){
