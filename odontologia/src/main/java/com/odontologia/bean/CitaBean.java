@@ -72,7 +72,7 @@ public class CitaBean {
 		this.cita = cita;
 	}
 
-	public List<Cita> getCitas() {
+	public List<Cita> getCitas() {		
 		// Para no estar consultando a la BD cada rato al reordenar con "SORTBY"
 		if (citas.size() == 0) {
 			citas = citaService.getCitas();

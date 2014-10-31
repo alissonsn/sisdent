@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="css/estilos.css" />
+
+</h:head>
+<h:body>
+<ui:composition
+		template="/WEB-INF/facelets/templates/plantillaRecepcionista.xhtml">
+
+		<ui:define name="west">
+	INDEX
+	</ui:define>
+
+		<ui:define name="center">
+	<h:form id="formid">
+  
+     <p:dataTable id="checkboxDT" var="cita" value="#{citaBean.citasListasHorInic}" selection="#{citaBean.citasListasHorInic}" rowKey="#{cita.idCita}" style="margin-bottom:0">
+        <f:facet name="header">
+            Proximos Citas Odontologicas
+        </f:facet>
+        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+        <p:column headerText="Id">
+            <h:outputText value="#{cita.idCita}" />
+        </p:column>
+        <p:column headerText="Hora Inicio">
+            <h:outputText value="#{cita.horaInicio}" />
+        </p:column>
+        <p:column headerText="Hora Fin">
+            <h:outputText value="#{cita.horaFin}" />
+        </p:column>
+        <p:column headerText="Titulo">
+            <h:outputText value="#{cita.titulo}" />
+        </p:column>
+        <p:column headerText="Odontologo">
+            <h:outputText value="#{cita.citaOdontologo.odontologoPersona.nombre} #{cita.citaOdontologo.odontologoPersona.apellidoPaterno}" />
+        </p:column>
+        <p:column headerText="Paciente">
+            <h:outputText value="#{cita.citaPaciente.pacientePersona.nombre} #{cita.citaPaciente.pacientePersona.apellidoPaterno}" />
+        </p:column>
+      
+    </p:dataTable>
+     
+  <p:commandButton process="checkboxDT" id="multicita" value="Enviar" update=":formid:multicita" 
+						oncomplete="PF('dlgDetalleW').hide()" actionListener="#{citaBean.notificarPacientes}"></p:commandButton>
+					<p:commandButton value="Cancelar" update=":formid"
+						oncomplete="PF('dlgDetalleW').hide()" >
+ </p:commandButton>
+</h:form>
+	</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>
