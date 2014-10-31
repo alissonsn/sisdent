@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="css/estilos.css" />
+
+</h:head>
+<h:body>
+	<ui:composition
+		template="/WEB-INF/facelets/templates/plantillaRecepcionista.xhtml">
+
+		<ui:define name="west">
+	INDEX
+	</ui:define>
+
+		<ui:define name="center">
+			<h:form id="frmEnviarMen">
+				<p:growl id="growl" sticky="true" />
+				<p:messages />
+				<h:panelGrid header="Ingrese su mensaje" columns="2" cellpadding="2">
+
+
+					<h:outputLabel for="odontologoSelectMenu" value="Odontologo" />
+
+					<p:selectOneMenu id="pacienteSelectMenu"
+					value="#{mensajeBean.mensaje.mensajeUsuarioReceptor.idUsuario}"
+					required="true" requiredMessage="Debe seleccionar un Receptor">
+					<f:selectItem itemLabel="Elija un Receptor"></f:selectItem>
+					<f:selectItems value="#{citaBean.citasDeOdontologoPaciente}" var="cita"
+						itemLabel="#{cita.citaPaciente.pacientePersona.nombre} #{cita.citaPaciente.pacientePersona.apellidoPaterno}" 
+						itemValue="#{cita.citaPaciente.pacientePersona.personaUsuario.idUsuario}" />
+				</p:selectOneMenu>
+
+
+
+					<p:outputLabel for="asunto" value="Asunto:"
+						styleClass="ui-field-contain > label" />
+					<p:inputText id="asunto"
+						styleClass="ui-field-contain > label ~ [class*='ui-']"
+						value="#{mensajeBean.mensaje.titulo}" required="true"
+						requiredMessage="Se requiere un asunto" />
+
+
+
+					<p:outputLabel for="textarea" value="Mensaje"
+						styleClass="ui-field-contain > label" />
+					<p:inputTextarea id="textarea"
+						styleClass="ui-field-contain > label ~ [class*='ui-']"
+						value="#{mensajeBean.mensaje.texto}" required="true"
+						requiredMessage="Se requiere un texto " />
+
+					<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
+						<p:commandButton value="Enviar" style="width:120px"
+							actionListener="#{mensajeBean.insertarMensaje}"
+							update="frmEnviarMen,growl" />
+					</p:panelGrid>
+				</h:panelGrid>
+
+
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>
