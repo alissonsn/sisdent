@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -49,7 +52,8 @@ public class CitaBean {
 	private List<Cita> citasListasHorInic;
 	private List<String> notificarPacientes;
 	private EstadoCita estadoCita;
-
+	private Cita selectedCita;
+	
 	public CitaBean() {
 		cita = new Cita();
 		estadoCita = new EstadoCita();
@@ -62,6 +66,7 @@ public class CitaBean {
 		citasDeOdontologoPaciente = new ArrayList<>();
 		citasListasHorInic = new ArrayList<>();
 		notificarPacientes = new ArrayList<>();
+		
 	}
 
 	public Cita getCita() {
@@ -229,4 +234,18 @@ public class CitaBean {
 	public void setNotificarPacientes(List<String> notificarPacientes) {
 		this.notificarPacientes = notificarPacientes;
 	}
+
+	public Cita getSelectedCita() {
+		return selectedCita;
+	}
+
+	public void setSelectedCita(Cita selectedCita) {
+		this.selectedCita = selectedCita;
+	}
+	
+	 public void onRowSelect(SelectEvent event) {
+	        FacesMessage msg = new FacesMessage("Cita selectedCita", ((Cita) event.getObject()).getIdCita().toString());
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	    }
+	 
 }
