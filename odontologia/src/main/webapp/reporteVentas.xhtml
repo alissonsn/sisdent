@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="css/estilos.css" />
+
+</h:head>
+<h:body>
+	<ui:composition
+		template="/WEB-INF/facelets/templates/plantillaRecepcionista.xhtml">
+
+		<ui:define name="west">
+
+	INDEX
+	</ui:define>
+
+		<ui:define name="center">
+
+	<h:form id="form">
+    <p:dataTable id="tbl" var="pac" value="#{pacienteBean.listaPacientes}" 
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                 paginator="true" rows="10" style="margin-bottom:20px">
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Id" />
+            </f:facet>
+            <h:outputText value="#{pac.idPaciente}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Nombre"/>
+            </f:facet>
+            <h:outputText value="#{pac.pacientePersona.nombre}" />
+        </p:column>
+      
+        <p:column style="width:32px;text-align: center" >
+             
+          <p:commandButton update=":form"  icon="ui-icon-search" title="View">
+                <f:setPropertyActionListener value="#{pac}" target="#{reporteBean}" />
+            </p:commandButton>
+        </p:column>
+    </p:dataTable>
+  
+ 
+</h:form>
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>
+
