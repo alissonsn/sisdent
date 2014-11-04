@@ -53,6 +53,7 @@ public class CitaBean {
 	private List<String> notificarPacientes;
 	private EstadoCita estadoCita;
 	private Cita selectedCita;
+	private List<Cita> elegidos;
 	
 	public CitaBean() {
 		cita = new Cita();
@@ -66,6 +67,7 @@ public class CitaBean {
 		citasDeOdontologoPaciente = new ArrayList<>();
 		citasListasHorInic = new ArrayList<>();
 		notificarPacientes = new ArrayList<>();
+		elegidos=new ArrayList<>();
 		
 	}
 
@@ -79,9 +81,9 @@ public class CitaBean {
 
 	public List<Cita> getCitas() {		
 		// Para no estar consultando a la BD cada rato al reordenar con "SORTBY"
-		if (citas.size() == 0) {
+		//if (citas.size() == 0) {
 			citas = citaService.getCitas();
-		}
+	//	}
 		return citas;
 	}
 
@@ -221,15 +223,7 @@ public class CitaBean {
 		this.citasListasHorInic = citasListasHorInic;
 	}
 	
-	public List<String> getNotificarPacientes(HttpServletRequest request, HttpSession session) {
-		session = request.getSession();
-		String[] idCitaList = request.getParameter("idCitas").toString().split("_");
-		
-		if(idCitaList[0].length() > 0){
-			notificarPacientes = citaService.notificarCitasPacientes(idCitaList);
-		}
-		return notificarPacientes;
-	}
+
 
 	public void setNotificarPacientes(List<String> notificarPacientes) {
 		this.notificarPacientes = notificarPacientes;
@@ -247,5 +241,23 @@ public class CitaBean {
 	        FacesMessage msg = new FacesMessage("Cita selectedCita", ((Cita) event.getObject()).getIdCita().toString());
 	        FacesContext.getCurrentInstance().addMessage(null, msg);
 	    }
+
+	public List<Cita> getElegidos() {
+		return elegidos;
+	}
+
+	public void setElegidos(List<Cita> elegidos) {
+		this.elegidos = elegidos;
+	}
 	 
+	
+	public String enviaremail(){
+		for(Cita cita : elegidos){
+			citaService.enviarEmail(cita.getCitaPaciente().getPacientePersona().getCorreoElectronico());
+			
+		}
+		elegidos = new ArrayList<>();
+		return null;
+		
+	}
 }
