@@ -126,8 +126,8 @@ public class MensajeServiceImpl implements MensajeService {
 		emailProperties.put("mail.smtp.starttls.enable", "true");
 		mailSession = Session.getDefaultInstance(emailProperties, null);
 		setFromUser("atflorest@gmail.com");
-		setFromUserEmailPassword("#clave");
-		setEmailHost("eg1pt022");
+		setFromUserEmailPassword("#eg1pt022");
+		setEmailHost("smtp.gmail.com");
 	}
 
 	@Override
