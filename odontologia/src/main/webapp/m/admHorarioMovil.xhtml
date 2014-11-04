@@ -7,17 +7,17 @@ xmlns:pm="http://primefaces.org/mobile" >
 <f:view renderKitId="PRIMEFACES_MOBILE" />
 
 <h:head>
-  <link href="http://localhost:8090//odontologia/resources/css/estilosAdmHorarioMovil.css" type="text/css" rel="stylesheet"/>
+  <link href="/odontologia/resources/css/estilosAdmHorarioMovil.css" type="text/css" rel="stylesheet"/>
 </h:head>
 
 <h:body  >
 <pm:page id="wrapper">
- <p style="text-align:center; font-weight: bold;font-size:1.2em ; border-bottom: 1px solid #ddd ; color: #25aae1 ;background-color: #e0e0e0 ; text-shadow: none; font-family:sans-serif;">Horario Opcional</p>
+ <p style="text-align:center; font-weight: bold;font-size:1.2em ; border-bottom: 1px solid #ddd ; color: Whitesmoke ;background-color: Darkslateblue ; text-shadow: none; font-family:sans-serif;">Horario Opcional</p>
 
 <pm:field>
     <p:outputLabel for="selectCheckboxMenu" value="Especialidad"  styleClass="ui-field-contain > label"/>
     <p:selectCheckboxMenu id="selectCheckboxMenu" styleClass="ui-field-contain > label ~ [class*='ui-']">
-        <f:selectItem itemLabel="Escoja las especilidades" itemValue="" />
+        <f:selectItem itemLabel="Escoja las especilidad" itemValue="" />
         <f:selectItem itemLabel="Ortodancia" itemValue="1" />
         <f:selectItem itemLabel="Dentista Estetico" itemValue="2" />
         <f:selectItem itemLabel="Cirujano Dental" itemValue="3" />
@@ -62,8 +62,8 @@ xmlns:pm="http://primefaces.org/mobile" >
 </pm:field>  
  
  <p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
-    <p:commandButton value="Guardar" type="button" style="width:120px"/>
-    <p:commandButton value="Atras" style="width:120px" onclick="location.href='indexMovil.xhtml'"/>
+    <p:commandButton value="Guardar" type="button" style="width:120px;background-color:DarkSlateblue!important; color:whitesmoke!important"/>
+    <p:commandButton value="Atras" style="width:120px;background-color:DarkSlateblue!important;color:whitesmoke!important" onclick="location.href='indexMovil.xhtml'"/>
 </p:panelGrid>
 </pm:page>
 </h:body>

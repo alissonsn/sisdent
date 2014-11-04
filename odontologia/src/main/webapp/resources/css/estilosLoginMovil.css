@@ -1,27 +1,41 @@
 .ui-state-default .icon-agenda{	
 	 background-size: 18px 18px;
 }
+.ui-panel-m .ui-panel-m-content {
+background : initial!important;
+}
+.ui-input-search.ui-input-has-clear .ui-btn.ui-input-clear, .ui-input-text.ui-input-has-clear .ui-btn.ui-input-clear {
+position: static;
+right: 0;
+top: 5%;
+margin: -14px .3125em 0;
+border: 0;
+background-color: transparent;
+}
+
 #wrapper {
     width: 0 auto;
     margin: 0 auto;
     background-image: url("/odontologia/resources/images/FondoNeutral.jpg");"
 }
 	/* Celular de 480x320*/
-@media only screen and (min-width: 320px) and (orientation : landscape){
+@media only screen and (orientation: Portrait) {
 	
 	.ui-btnPanelGrid{
-		margin-left:70px;
-		margin-top: 20px;
+		width: 100%;
+		margin-left:0%;;
+		margin-top: 12%;
 	}
 	/* label*/
 	.ui-field-contain > label {
-		margin-left: 15px;
+		margin-left: 5%;
 		width: 20%;
 	}
 	.ui-field-contain>label  ~ [class*='ui-'] {
-		width: 96%;
-		margin-left: 15px;
+		width: 84%;
+		margin-left: 2%;
 	}
+	
 }
 @media only screen and (min-width: 320px) and (max-width: 480px){
 	
@@ -39,6 +53,11 @@
 		margin-left: 15px;
 	}
 }
+
+
+
+
+
   /* ipad de 1024x768*/
 @media only screen and (min-width: 768px) and (orientation : landscape){
 	

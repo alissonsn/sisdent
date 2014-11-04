@@ -1,6 +1,18 @@
 .ui-state-default .icon-agenda{	
 	 background-size: 18px 18px;
 }
+
+.ui-panel-m .ui-panel-m-content {
+background: inherit!important;
+}
+
+.ui-input-text input, .ui-input-search input {
+color: black!important;
+font-weight: bold!important;
+}
+
+
+
 #wrapper {
     width: 0 auto;
     margin: 0 auto;
@@ -11,34 +23,39 @@
 @media only screen and (orientation : Portrait){
 
 	.ui-btnPanelGrid {
-		margin-left: 130px;
+		width:100%;
+		margin-left: 2%;
 	}
 	.ui-imagen {
-		width: 100%;
+		width: 80%;
 		max-width: 350px;
-		margin-left: 0px;
+		margin-left: 12%;
 		margin-top: 0px
 	}
 	.ui-field-contain>label  ~ [class*='ui-'] {
-		width: 80%;
-		margin-left: 15px;
+		width: 85%;
+		margin-left: 0%;
 	}
 	.ui-field-contain>label {
-		margin-left: 15px;
+		margin-left: 0%;
 	}
 }
 
-@media only screen and (min-width: 320px) and (max-width: 480px){
+@media only screen and (orientation: Landscape){
 
 	.ui-btnPanelGrid{
-		margin-left: 50px;
-		margin-top: 20px;
+		width: 100%;
+		margin-left: 12%;
+		margin-top: 5%;
 	}
 	.ui-imagen {
 		width: 100%;
-		max-width: 350px;
+		max-width: 80%;
 		margin-left: 12%;
-		margin-top: 50px
+		margin-top: 0%;
+	}
+	.ui-field-contain>label {
+		margin-left: 0%;
 	}
 
 	
