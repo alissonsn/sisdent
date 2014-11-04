@@ -34,8 +34,6 @@ public interface CitaService {
 	
 	public List<Cita> getCitasList();
 	
-	public List<String> notificarCitasPacientes(String[] ids);
-	
-	public void enviarEmail(String email);
+	public void enviarEmail(String email,Integer idcita);
 	
 }

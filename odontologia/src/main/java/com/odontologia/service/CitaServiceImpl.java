@@ -1,7 +1,6 @@
 package com.odontologia.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -21,9 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.odontologia.model.Cita;
 import com.odontologia.model.EstadoCita;
-import com.odontologia.model.Odontologo;
-import com.odontologia.model.Paciente;
-import com.odontologia.model.Persona;
+
 
 @Service
 public class CitaServiceImpl implements CitaService{
@@ -244,16 +241,23 @@ public class CitaServiceImpl implements CitaService{
 		return result;
 	}
 
-	@Override
-	public List<String> notificarCitasPacientes(String[] ids) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Transactional
-	public void enviarEmail(String email) {
+	public void enviarEmail(String email,Integer idcita) {
+		Cita ci = em.find(Cita.class, idcita);
+		
+		String asunto ="Notificacion de cita odontologica de la clinica SPADENT";
+		String body = "Se le notifica que su cita odontologica se aproxima : <br/>"+"<br />"+
+		              "Codigo de paciente :"+ci.getCitaPaciente().getIdPaciente()+"<br />"+
+					  "Sr. o Sra. : "+ci.getCitaPaciente().getPacientePersona().getNombre()+" "+ci.getCitaPaciente().getPacientePersona().getApellidoPaterno()+" "+ci.getCitaPaciente().getPacientePersona().getApellidoMaterno()+"<br />"+
+					  "Estado de su cita: "+ci.getCitaEstadoCita().getNombre()+"<br />"+
+					  "Fecha y hora de la cita : "+ci.getHoraFin()+"<br />"+"<br />"+				  
+					  "Agradecemos su preferencia por confiar en clinica odontologica SPADENT"+"<br/>";
+		
+		
+		
+		
 		propiedades();
-		preparaEnviar(email, cabeceraEmail(), mensajeEmail());
+		preparaEnviar(email, asunto, body);
 	}
 	
 	public void propiedades() {
@@ -262,8 +266,8 @@ public class CitaServiceImpl implements CitaService{
 		emailProperties.put("mail.smtp.auth", "true");
 		emailProperties.put("mail.smtp.starttls.enable", "true");
 		mailSession = Session.getDefaultInstance(emailProperties, null);
-		setFromUser("");
-		setFromUserEmailPassword("");
+		setFromUser("odontologospadent@gmail.com");
+		setFromUserEmailPassword("tp2014jp");
 		setEmailHost("smtp.gmail.com");
 	}
 
@@ -325,14 +329,6 @@ public class CitaServiceImpl implements CitaService{
 			System.out.println(e.getMessage());
 		}
 
-	}
-	
-	public String mensajeEmail() {
-		return "Mensaje";
-	}
-
-	public String cabeceraEmail() {
-		return "Asunto";
 	}
 	
 }

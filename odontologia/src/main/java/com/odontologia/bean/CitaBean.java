@@ -50,7 +50,6 @@ public class CitaBean {
 	private List<Cita> citasPorPaciente;
 	private List<Cita> citasPorOdontologo;
 	private List<Cita> citasListasHorInic;
-	private List<String> notificarPacientes;
 	private EstadoCita estadoCita;
 	private Cita selectedCita;
 	private List<Cita> elegidos;
@@ -66,7 +65,6 @@ public class CitaBean {
 		citasDePacienteOdontologo = new ArrayList<>();
 		citasDeOdontologoPaciente = new ArrayList<>();
 		citasListasHorInic = new ArrayList<>();
-		notificarPacientes = new ArrayList<>();
 		elegidos=new ArrayList<>();
 		
 	}
@@ -223,12 +221,6 @@ public class CitaBean {
 		this.citasListasHorInic = citasListasHorInic;
 	}
 	
-
-
-	public void setNotificarPacientes(List<String> notificarPacientes) {
-		this.notificarPacientes = notificarPacientes;
-	}
-
 	public Cita getSelectedCita() {
 		return selectedCita;
 	}
@@ -253,8 +245,7 @@ public class CitaBean {
 	
 	public String enviaremail(){
 		for(Cita cita : elegidos){
-			citaService.enviarEmail(cita.getCitaPaciente().getPacientePersona().getCorreoElectronico());
-			
+			citaService.enviarEmail(cita.getCitaPaciente().getPacientePersona().getCorreoElectronico(),cita.getIdCita());
 		}
 		elegidos = new ArrayList<>();
 		return null;
