@@ -36,4 +36,8 @@ public interface CitaService {
 	
 	public void enviarEmail(String email,Integer idcita);
 	
+	public void enviarEmailModifCitaPaciente(Cita cita);
+	
+	public void enviarEmailModifCitaOdontologo(Cita cita);
+	
 }

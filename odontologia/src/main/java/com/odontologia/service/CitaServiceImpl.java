@@ -260,6 +260,46 @@ public class CitaServiceImpl implements CitaService{
 		preparaEnviar(email, asunto, body);
 	}
 	
+	
+	public void enviarEmailModifCitaPaciente(Cita cita){
+		
+		String email= cita.getCitaPaciente().getPacientePersona().getCorreoElectronico();
+		
+		String asunto ="Notificacion de cita odontologica actualizada de la clinica SPADENT";
+		String body = "Se le notifica que su cita odontologica ha sido actualizada : <br/>"+"<br />"+
+		              "Codigo Paciente :"+cita.getCitaPaciente().getIdPaciente()+"<br />"+
+					  "Sr. o Sra. : "+cita.getCitaPaciente().getPacientePersona().getNombre()+" "+cita.getCitaPaciente().getPacientePersona().getApellidoPaterno()+" "+cita.getCitaPaciente().getPacientePersona().getApellidoMaterno()+"<br />"+
+					  "Estado de su cita: "+cita.getCitaEstadoCita().getNombre()+"<br />"+
+					  "Fecha y hora de la cita : "+cita.getHoraInicio()+"<br />"+
+					  "Informacion sobre odontologo"+"<br />"+		
+					  "Nombre :"+cita.getCitaOdontologo().getOdontologoPersona().getNombre()+" "+cita.getCitaOdontologo().getOdontologoPersona().getApellidoPaterno()+" "+cita.getCitaOdontologo().getOdontologoPersona().getApellidoMaterno()+"<br />"+
+					  "Especialidad : "+cita.getCitaOdontologo().getEspecialidad()+"<br />"+"<br />"+	
+					  "Agradecemos su preferencia por confiar en clinica odontologica SPADENT"+"<br/>";
+		
+		propiedades();
+		preparaEnviar(email, asunto, body);
+	}
+	
+    public void enviarEmailModifCitaOdontologo(Cita cita){
+		
+		String email= cita.getCitaOdontologo().getOdontologoPersona().getCorreoElectronico();
+		
+		String asunto ="Notificacion de cita odontologica actualizada de la clinica SPADENT";
+		String body = "Se le notifica que su cita odontologica ha sido actualizada : <br/>"+"<br />"+
+		              "Codigo Odontologo:"+cita.getCitaOdontologo().getIdOdontologo()+"<br />"+
+					  "Odontologo : "+cita.getCitaOdontologo().getOdontologoPersona().getNombre()+" "+cita.getCitaOdontologo().getOdontologoPersona().getApellidoPaterno()+" "+cita.getCitaOdontologo().getOdontologoPersona().getApellidoMaterno()+"<br />"+
+					  "Estado de su cita: "+cita.getCitaEstadoCita().getNombre()+"<br />"+
+					  "Fecha y hora de la cita : "+cita.getHoraInicio()+"<br />"+
+					  "Informacion sobre el Paciente :"+"<br />"+
+					  "Nombre :"+cita.getCitaPaciente().getPacientePersona().getNombre()+" "+cita.getCitaPaciente().getPacientePersona().getApellidoPaterno()+" "+cita.getCitaPaciente().getPacientePersona().getApellidoMaterno()+"<br />"+
+					  "Telefono :"+cita.getCitaPaciente().getPacientePersona().getCelular() +"<br />"+"<br />"+
+					  "Agradecemos su preferencia por confiar en clinica odontologica SPADENT"+"<br/>";
+		
+		propiedades();
+		preparaEnviar(email, asunto, body);
+	}
+	
+	
 	public void propiedades() {
 		emailProperties = System.getProperties();
 		emailProperties.put("mail.smtp.port", "587");
