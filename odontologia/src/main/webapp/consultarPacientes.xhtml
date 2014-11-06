@@ -11,90 +11,99 @@
 </h:head>
 <h:body>
 
-			<h:form>
+	<h:form>
 
-				<p:dataTable var="pac" resizableColumns="true" widgetVar="tPac"
-					emptyMessage="No hay Pacientes registrados" paginatorPosition="top"
-					rowKey="#{pac.idPaciente}" value="#{odontogramaBean.pacientes}"
-					paginator="true" rows="10"
-					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-					rowsPerPageTemplate="5,10,15">
+		<p:dataTable var="pac" resizableColumns="true" widgetVar="tPac"
+			emptyMessage="No hay Pacientes registrados" paginatorPosition="top"
+			rowKey="#{pac.idPaciente}" value="#{odontogramaBean.pacientes}"
+			paginator="true" rows="10"
+			paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+			rowsPerPageTemplate="5,10,15">
 
-					<f:facet name="header">
-						<p:outputPanel>
-							<h:outputText value="Búsqueda:" />
-							<p:inputText id="globalFilter" onkeyup="PF('tPac').filter()"
-								style="width:150px" />
-						</p:outputPanel>
-					</f:facet>
+			<f:facet name="header">
+				<p:outputPanel>
+					<h:outputText value="Búsqueda:" />
+					<p:inputText id="globalFilter" onkeyup="PF('tPac').filter()"
+						style="width:150px" />
+				</p:outputPanel>
+			</f:facet>
 
-					<p:column headerText="Nombre" footerText=""
-						filterMatchMode="contains"
-						filterBy="#{pac.pacientePersona.nombre}">
-						<h:outputText value="#{pac.pacientePersona.nombre}" />
-					</p:column>
+			<p:column headerText="Nombre" footerText=""
+				filterMatchMode="contains" filterBy="#{pac.pacientePersona.nombre}">
+				<h:outputText value="#{pac.pacientePersona.nombre}" />
+			</p:column>
 
-					<p:column headerText="Apellido Paterno" footerText=""
-						filterMatchMode="contains"
-						filterBy="#{pac.pacientePersona.apellidoPaterno}">
-						<h:outputText value="#{pac.pacientePersona.apellidoPaterno}" />
-					</p:column>
+			<p:column headerText="Apellido Paterno" footerText=""
+				filterMatchMode="contains"
+				filterBy="#{pac.pacientePersona.apellidoPaterno}">
+				<h:outputText value="#{pac.pacientePersona.apellidoPaterno}" />
+			</p:column>
 
-					<p:column headerText="Apellido Materno" footerText=""
-						filterMatchMode="contains"
-						filterBy="#{pac.pacientePersona.apellidoMaterno}">
-						<h:outputText value="#{pac.pacientePersona.apellidoMaterno}" />
-					</p:column>
+			<p:column headerText="Apellido Materno" footerText=""
+				filterMatchMode="contains"
+				filterBy="#{pac.pacientePersona.apellidoMaterno}">
+				<h:outputText value="#{pac.pacientePersona.apellidoMaterno}" />
+			</p:column>
 
-					<p:column headerText="Celular" footerText=""
-						filterMatchMode="contains"
-						filterBy="#{pac.pacientePersona.celular}">
-						<h:outputText value="#{pac.pacientePersona.celular}" />
-					</p:column>
+			<p:column headerText="Celular" footerText=""
+				filterMatchMode="contains" filterBy="#{pac.pacientePersona.celular}">
+				<h:outputText value="#{pac.pacientePersona.celular}" />
+			</p:column>
 
-					<p:column headerText="Acciones"
-						style="width:400px; text-align:center;">
+			<p:column headerText="Acciones"
+				style="width:400px; text-align:center;">
 
-						<p:commandButton id="btnCrearOdontograma"
-							value="Crear Odontograma" action="#{odontogramaBean.crearOdontograma}" update=":tableOdonto">
-							<f:setPropertyActionListener target="#{odontogramaBean.paciente}"
-								value="#{pac}" />
-						</p:commandButton>
+				<p:commandButton id="btnCrearOdontograma" value="Crear Odontograma"
+					action="#{odontogramaBean.crearOdontograma}" update=":tableOdonto">
+					<f:setPropertyActionListener target="#{odontogramaBean.paciente}"
+						value="#{pac}" />
+				</p:commandButton>
 
-						<p:commandButton id="btnVerOdontogramas" value="Ver Odontogramas"
-						oncomplete="PF('dlg').show();" update=":tableOdonto" action="#{odontogramaBean.cargarOdontogramas(pac.idPaciente)}">
-						</p:commandButton>	
-					</p:column>
+				<p:commandButton id="btnVerOdontogramas" value="Ver Odontogramas"
+					oncomplete="PF('dlg').show();" update=":tableOdonto"
+					action="#{odontogramaBean.cargarOdontogramas(pac.idPaciente)}">
+				</p:commandButton>
 
-				</p:dataTable>
-			</h:form>
-			
-			<p:dialog header="Odontogramas del paciente" widgetVar="dlg" modal="true">
-				
-				<p:dataTable id="tableOdonto" var="odonto" resizableColumns="true" widgetVar="tOdontograma"
-					emptyMessage="No hay Odontogramas registrados" paginatorPosition="top"
-					rowKey="#{odonto.idOdontograma}" value="#{odontogramaBean.odontogramasPorPaciente}"
-					paginator="true" rows="10"
-					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-					rowsPerPageTemplate="5,10,15">
-				
-					<p:column headerText="Odontologo">
-						<h:outputText value="#{odonto.odontogramaOdontologo.odontologoPersona.apellidoPaterno}, 
-											 #{odonto.odontogramaOdontologo.odontologoPersona.nombre}" />						
-					</p:column>
-					
-					<p:column headerText="Fecha de Actualización">
-						<h:outputText value="#{odonto.fechaActualizacion}" /> 						
-					</p:column>
-					
-					<p:column headerText="Opciones">
-						<p:commandButton value="Ver Odontograma" id="btnVerOdontograma" action="#{odontogramaBean.cargarOdontogramaEspecifico(odonto.idOdontograma)}" />
-					</p:column>				
-				
-				</p:dataTable>
-				<p:commandButton id="btnCerrar" value="Cerrar"
-						oncomplete="PF('dlg').hide();" />
-			</p:dialog>
+				<p:commandButton icon="ui-icon-document"
+					actionListener="#{reporteBean.verPDF(actionEvent, cita.citaPaciente.idPaciente)}"
+					ajax="false" />
+
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+
+	<p:dialog header="Odontogramas del paciente" widgetVar="dlg"
+		modal="true">
+
+		<p:dataTable id="tableOdonto" var="odonto" resizableColumns="true"
+			widgetVar="tOdontograma"
+			emptyMessage="No hay Odontogramas registrados"
+			paginatorPosition="top" rowKey="#{odonto.idOdontograma}"
+			value="#{odontogramaBean.odontogramasPorPaciente}" paginator="true"
+			rows="10"
+			paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+			rowsPerPageTemplate="5,10,15">
+
+			<p:column headerText="Odontologo">
+				<h:outputText
+					value="#{odonto.odontogramaOdontologo.odontologoPersona.apellidoPaterno}, 
+											 #{odonto.odontogramaOdontologo.odontologoPersona.nombre}" />
+			</p:column>
+
+			<p:column headerText="Fecha de Actualización">
+				<h:outputText value="#{odonto.fechaActualizacion}" />
+			</p:column>
+
+			<p:column headerText="Opciones">
+				<p:commandButton value="Ver Odontograma" id="btnVerOdontograma"
+					action="#{odontogramaBean.cargarOdontogramaEspecifico(odonto.idOdontograma)}" />
+			</p:column>
+
+		</p:dataTable>
+		<p:commandButton id="btnCerrar" value="Cerrar"
+			oncomplete="PF('dlg').hide();" />
+	</p:dialog>
 </h:body>
 </html>
 
