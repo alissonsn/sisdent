@@ -1,3 +1,4 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -29,10 +30,343 @@
 				<f:facet name="footer">
 					<p:commandButton value="Iniciar Sesion" update="growl"
 						action="#{loginBean.usuarioLogin}" />
-				</f:facet>
-
+						<p:commandButton value="registrate" 
+						 oncomplete="PF('dlgMenorW').show()" />
+				</f:facet> 		
 			</h:panelGrid>
 		</h:form>
+		
+		<!-- Diálogo de agregar paciente menor de edad -->
+
+	<p:dialog id="dlgAgregar" header="Agregar Nuevo Paciente"
+		resizable="true" widgetVar="dlgAgregarW" showEffect="fade"
+		modal="true" hideEffect="fade" position="center" appendTo="@(body)">
+		<h:form id="frmNuevo">
+			<p:growl id="growl" sticky="true" showDetail="true" />
+			<p:wizard id="wizardM" backLabel="Atrás" nextLabel="Siguiente"
+				step="tab1M">
+				<p:tab id="tab1M" title="Datos Personales">
+					<p:messages />
+					<p:panelGrid columns="4">
+
+						<p:outputLabel for="nombrePac" value="Nombre:"></p:outputLabel>
+						<p:inputText id="nombrePac" value="#{pacienteBean.persona.nombre}"
+							required="true" requiredMessage="Se debe ingresar un nombre"
+							label="Nombre">
+						</p:inputText>
+
+						<p:outputLabel for="apPac" value="Apellido Paterno:"></p:outputLabel>
+						<p:inputText id="apPac"
+							value="#{pacienteBean.persona.apellidoPaterno}" required="true"
+							requiredMessage="Se debe ingresar un apellido paterno">
+						</p:inputText>
+
+						<p:outputLabel for="amPac" value="Apellido Materno:"></p:outputLabel>
+						<p:inputText id="amPac"
+							value="#{pacienteBean.persona.apellidoMaterno}" required="true"
+							requiredMessage="Se debe ingresar un apellido materno">
+						</p:inputText>
+
+						<p:outputLabel for="direccionPac" value="Dirección:"></p:outputLabel>
+						<p:inputText id="direccionPac"
+							value="#{pacienteBean.persona.direccion}" required="true"
+							requiredMessage="Se debe ingresar una dirección">
+						</p:inputText>
+
+						<p:outputLabel for="dniPac" value="Dni:"></p:outputLabel>
+						<p:inputMask id="dniPac" value="#{pacienteBean.persona.dni}"
+							mask="99999999" required="true"
+							requiredMessage="Se debe ingresar un Dni">
+						</p:inputMask>
+
+						<p:outputLabel for="fnPac" value="Fecha de Nacimiento:"></p:outputLabel>
+						<p:calendar id="fnPac"
+							value="#{pacienteBean.persona.fechaNacimiento}"
+							yearRange="1996:2014" maxdate="#{pacienteBean.fechaHoy}"
+							navigator="true" required="true"
+							requiredMessage="Se debe ingresar una fecha de nacimiento">
+						</p:calendar>
+
+
+					</p:panelGrid>
+					<p:separator></p:separator>
+
+				</p:tab>
+
+				<p:tab title="Usuario">
+					<p:messages />
+					<p:panelGrid columns="4">
+
+						<p:outputLabel for="usuario" value="Usuario:"></p:outputLabel>
+						<p:inputText id="usuario" value="#{pacienteBean.usuario.usuario}"
+							required="true" requiredMessage="Se debe ingresar un usuario">
+						</p:inputText>
+
+						<p:outputLabel for="contra" value="Contraseña:"></p:outputLabel>
+						<p:inputText id="contra" value="#{pacienteBean.usuario.password}"
+							required="true" requiredMessage="Se debe ingresar una contraseña">
+						</p:inputText>
+
+
+
+
+					</p:panelGrid>
+
+					<p:separator></p:separator>
+
+				</p:tab>
+
+				<p:tab title="Apoderado">
+					<p:panelGrid columns="2">
+						<p:messages for="nombre" />
+						<p:messages for="apellidoPaterno" />
+					</p:panelGrid>
+					<p:panelGrid columns="4">
+						<p:outputLabel for="nombre" value="Nombre:"></p:outputLabel>
+						<p:inputText id="nombre"
+							value="#{pacienteBean.personaApoderado.nombre}" required="true"
+							requiredMessage="Se debe ingresar un nombre">
+						</p:inputText>
+
+						<p:outputLabel for="apellidoPaterno" value="Apellido Paterno:"></p:outputLabel>
+						<p:inputText id="apellidoPaterno"
+							value="#{pacienteBean.personaApoderado.apellidoPaterno}"
+							required="true"
+							requiredMessage="Se debe ingresar un apellido paterno">
+						</p:inputText>
+
+						<p:outputLabel for="apellidoMaterno" value="Apellido Materno:"></p:outputLabel>
+						<p:inputText id="apellidoMaterno"
+							value="#{pacienteBean.personaApoderado.apellidoMaterno}"
+							required="true"
+							requiredMessage="Se debe ingresar un apellido materno">
+						</p:inputText>
+
+						<p:outputLabel for="dni" value="Dni:"></p:outputLabel>
+						<p:inputMask id="dni" value="#{pacienteBean.personaApoderado.dni}"
+							mask="99999999" required="true"
+							requiredMessage="Se debe ingresar un Dni">
+						</p:inputMask>
+
+						<p:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento:"></p:outputLabel>
+						<p:calendar id="fechaNacimiento" maxdate="02/10/96"
+							value="#{pacienteBean.personaApoderado.fechaNacimiento}"
+							required="true"
+							requiredMessage="Se debe ingresar una fecha de nacimiento"
+							navigator="true">
+						</p:calendar>
+
+						<p:outputLabel for="direccion" value="Dirección:"></p:outputLabel>
+						<p:inputText id="direccion"
+							value="#{pacienteBean.personaApoderado.direccion}"
+							required="true" requiredMessage="Se debe ingresar una dirección">
+						</p:inputText>
+
+						<p:outputLabel for="distrito" value="Distrito:"></p:outputLabel>
+						<p:selectOneMenu id="distrito"
+							value="#{pacienteBean.distrito.idDistrito}" required="true"
+							requiredMessage="Se debe ingresar un distrito" effect="drop">
+							<f:selectItem itemLabel="Seleccionar distrito" itemValue="" />
+							<f:selectItems value="#{pacienteBean.distritos}" var="distrito"
+								itemLabel="#{distrito.nombre}"
+								itemValue="#{distrito.idDistrito}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="celular" value="Celular:"></p:outputLabel>
+						<p:inputMask id="celular"
+							value="#{pacienteBean.personaApoderado.celular}" mask="999999999"
+							required="true" requiredMessage="Se debe ingresar un celular">
+						</p:inputMask>
+
+						<p:outputLabel for="telefonoFijo" value="Teléfono Fijo:"></p:outputLabel>
+						<p:inputMask id="telefonoFijo"
+							value="#{pacienteBean.personaApoderado.telefono}" mask="999-9999"
+							required="true" requiredMessage="Se debe ingresar un teléfono">
+						</p:inputMask>
+
+						<p:outputLabel for="telefonoTrabajo" value="Teléfono Trabajo:"></p:outputLabel>
+						<p:inputMask id="telefonoTrabajo"
+							value="#{pacienteBean.apoderado.telefonoTrabajo}" required="true"
+							requiredMessage="Se debe ingresar un teléfono de trabajo">
+						</p:inputMask>
+
+						<p:outputLabel for="email" value="Correo Electrónico:"></p:outputLabel>
+						<p:inputText id="email"
+							value="#{pacienteBean.personaApoderado.correoElectronico}"
+							required="true"
+							requiredMessage="Se debe ingresar un correo electrónico"
+							validatorMessage="El formato de correo electrónico es incorrecto">
+							<f:validateRegex
+								pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+
+						</p:inputText>
+
+					</p:panelGrid>
+
+
+					<p:separator></p:separator>
+				</p:tab>
+
+				<p:tab title="Acciones">
+					<p:panelGrid columns="2">
+						<p:commandButton
+							actionListener="#{pacienteBean.registrarPaciente(actionEvent)}"
+							value="Guardar" 
+							oncomplete="PF('dlgAgregarW').hide()" />
+						<p:commandButton value="Cancelar"
+							actionListener="#{pacienteBean.cancelar(actionEvent)}"
+							 oncomplete="PF('dlgAgregarW').hide()">
+						</p:commandButton>
+					</p:panelGrid>
+				</p:tab>
+
+
+
+			</p:wizard>
+		</h:form>
+
+	</p:dialog>
+
+	<!-- Diálogo de agregar paciente mayor de edad -->
+
+	<p:dialog id="dlgAgregarM" header="Agregar Nuevo Paciente"
+		resizable="false" widgetVar="dlgAgregarWM" showEffect="fade"
+		modal="true" hideEffect="fade" position="center" appendTo="@(body)">
+		<h:form id="frmNuevoM">
+			<p:wizard backLabel="Atrás" nextLabel="Siguiente">
+				<p:tab title="Datos Personales">
+					<p:messages />
+					<p:panelGrid columns="4">
+
+						<p:outputLabel for="nombrePac" value="Nombre:"></p:outputLabel>
+						<p:inputText id="nombrePac" value="#{pacienteBean.persona.nombre}"
+							required="true" requiredMessage="Se debe ingresar un nombre"
+							label="Nombre">
+						</p:inputText>
+
+						<p:outputLabel for="apPac" value="Apellido Paterno:"></p:outputLabel>
+						<p:inputText id="apPac"
+							value="#{pacienteBean.persona.apellidoPaterno}" required="true"
+							requiredMessage="Se debe ingresar un apellido paterno">
+						</p:inputText>
+
+						<p:outputLabel for="amPac" value="Apellido Materno:"></p:outputLabel>
+						<p:inputText id="amPac"
+							value="#{pacienteBean.persona.apellidoMaterno}" required="true"
+							requiredMessage="Se debe ingresar un apellido materno">
+						</p:inputText>
+
+						<p:outputLabel for="direccionPac" value="Dirección:"></p:outputLabel>
+						<p:inputText id="direccionPac"
+							value="#{pacienteBean.persona.direccion}" required="true"
+							requiredMessage="Se debe ingresar una dirección">
+						</p:inputText>
+
+						<p:outputLabel for="dniPac" value="Dni:"></p:outputLabel>
+						<p:inputMask id="dniPac" value="#{pacienteBean.persona.dni}"
+							mask="99999999" required="true"
+							requiredMessage="Se debe ingresar un Dni">
+						</p:inputMask>
+
+						<p:outputLabel for="distrito" value="Distrito:"></p:outputLabel>
+						<p:selectOneMenu id="distrito"
+							value="#{pacienteBean.distrito.idDistrito}" required="true"
+							requiredMessage="Se debe ingresar un distrito" effect="drop">
+							<f:selectItem itemLabel="Seleccionar distrito" itemValue="" />
+							<f:selectItems value="#{pacienteBean.distritos}" var="distrito"
+								itemLabel="#{distrito.nombre}"
+								itemValue="#{distrito.idDistrito}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Fecha de Nacimiento:"></p:outputLabel>
+						<p:calendar value="#{pacienteBean.persona.fechaNacimiento}"
+							maxdate="02/10/96" navigator="true">
+						</p:calendar>
+
+
+						<p:outputLabel for="celular" value="Celular:"></p:outputLabel>
+						<p:inputMask id="celular" value="#{pacienteBean.persona.celular}"
+							mask="999999999" required="true"
+							requiredMessage="Se debe ingresar un celular">
+						</p:inputMask>
+
+						<p:outputLabel for="telefonoFijo" value="Teléfono Fijo:"></p:outputLabel>
+						<p:inputMask id="telefonoFijo"
+							value="#{pacienteBean.persona.telefono}" mask="999-9999"
+							required="true" requiredMessage="Se debe ingresar un teléfono">
+						</p:inputMask>
+
+						<p:outputLabel for="email" value="Correo Electrónico:"></p:outputLabel>
+						<p:inputText id="email"
+							value="#{pacienteBean.persona.correoElectronico}" required="true"
+							requiredMessage="Se debe ingresar un correo electrónico"
+							validatorMessage="El formato de correo electrónico es incorrecto">
+							<f:validateRegex
+								pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+
+						</p:inputText>
+
+
+					</p:panelGrid>
+					<p:separator></p:separator>
+
+				</p:tab>
+
+				<p:tab title="Usuario">
+					<p:messages />
+					<p:panelGrid columns="4">
+
+						<p:outputLabel value="Usuario:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.usuario.usuario}">
+						</p:inputText>
+
+						<p:outputLabel value="Conraseña:"></p:outputLabel>
+						<p:inputText value="#{pacienteBean.usuario.password}">
+						</p:inputText>
+
+
+					</p:panelGrid>
+					<p:separator></p:separator>
+
+					<p:commandButton
+						actionListener="#{pacienteBean.registrarPaciente(actionEvent)}"
+						value="Guardar" 
+						oncomplete="PF('dlgAgregarWM').hide()" />
+					<p:commandButton value="Cancelar"
+						actionListener="#{pacienteBean.cancelar(actionEvent)}"
+						 oncomplete="PF('dlgAgregarWM').hide()">
+					</p:commandButton>
+
+				</p:tab>
+
+			</p:wizard>
+		</h:form>
+
+	</p:dialog>
+
+
+
+
+
+	<!-- Diálogo de Preguntar si es menor de edad el paciente -->
+	<p:confirmDialog id="dlgMenor" appendTo="@(body)"
+		message="¿Es menor de edad el paciente?"
+		header="Escoger tipo paciente" severity="alert" widgetVar="dlgMenorW">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+                 <h:form>
+			<h:panelGrid columns="2">
+				<p:commandButton value="Sí" icon="ui-icon-circle-check"
+					update=":frmNuevo"
+					actionListener="#{pacienteBean.prepararInsertar(actionEvent)}"
+					oncomplete="PF('dlgAgregarW').show();PF('dlgMenorW').hide();"></p:commandButton>
+
+				<p:commandButton value="No" icon="ui-icon-circle-close"
+					update=":frmNuevoM"
+					actionListener="#{pacienteBean.prepararInsertar(actionEvent)}"
+					oncomplete="PF('dlgAgregarWM').show();PF('dlgMenorW').hide()"></p:commandButton>
+			</h:panelGrid>
+		</h:form>
+	</p:confirmDialog>
+		
 	</div>
 
 </h:body>
