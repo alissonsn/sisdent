@@ -19,14 +19,8 @@ public class TipoDiente {
 	@Column(name="nombre", length=50, nullable=true)
 	private String nombre;
 	
-	@Column(name="urlimagen", length=200, nullable=true)
-	private String urlImagen;
-	
 	@OneToMany(mappedBy="dienteTipoDiente")
 	private Collection<Diente> tipoDienteDientes;
-	
-	@OneToMany(mappedBy="imagenOdontogramaTipoDiente")
-	private Collection<ImagenOdontograma> tipoDienteImagenOdontogramas;
 
 	public Integer getIdTipoDiente() {
 		return idTipoDiente;
@@ -44,14 +38,6 @@ public class TipoDiente {
 		this.nombre = nombre;
 	}
 
-	public String getUrlImagen() {
-		return urlImagen;
-	}
-
-	public void setUrlImagen(String urlImagen) {
-		this.urlImagen = urlImagen;
-	}
-
 	public Collection<Diente> getTipoDienteDientes() {
 		return tipoDienteDientes;
 	}
@@ -60,13 +46,4 @@ public class TipoDiente {
 		this.tipoDienteDientes = tipoDienteDientes;
 	}
 
-	public Collection<ImagenOdontograma> getTipoDienteImagenOdontogramas() {
-		return tipoDienteImagenOdontogramas;
-	}
-
-	public void setTipoDienteImagenOdontogramas(
-			Collection<ImagenOdontograma> tipoDienteImagenOdontogramas) {
-		this.tipoDienteImagenOdontogramas = tipoDienteImagenOdontogramas;
-	}		
-	
 }

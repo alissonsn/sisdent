@@ -18,7 +18,6 @@ public class TipoDienteServiceImpl implements TipoDienteService{
 	public boolean registrarTipoDiente(TipoDiente arg) {
 		boolean esCorrecto = false;	
 		try{
-			arg.setUrlImagen("");
 			em.persist(arg);			
 			System.out.println("Se inserto correctamente un TipoDiente");
 		}

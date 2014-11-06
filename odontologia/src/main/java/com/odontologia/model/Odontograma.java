@@ -3,6 +3,7 @@ package com.odontologia.model;
 import java.sql.Timestamp;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,8 @@ public class Odontograma {
 	@OneToMany(mappedBy="odontogramaLogOdontograma")
 	private Collection<OdontogramaLog> odontogramaOdontogramaLogs;
 	
-	@ManyToOne @JoinColumn(name="idfichaodontologica", nullable=true)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="idfichaodontologica", nullable=true)
 	private FichaOdontologica odontogramaFichaOdontologica;
 	
 	@OneToMany(mappedBy="dienteOdontogramaOdontograma")

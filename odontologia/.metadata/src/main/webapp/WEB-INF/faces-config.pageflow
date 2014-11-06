@@ -4,8 +4,11 @@
   <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="178" id="pf14100766176188" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14100810517129" inlinks="pf14100766176187" path="/index.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="m/loginMovil.xhtml" x="338" y="562" id="pf14117408180910" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" outlinks="pf14117408180911" inlinks="pf14117408180912" path="/m/loginMovil.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="m/indexMovil.xhtml" x="122" y="562" id="pf14117408180913" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf14117408180912" inlinks="pf14117408180911" path="/m/indexMovil.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="consultarPacientes.xhtml" id="pf14152539526310" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf14152539526311" path="/consultarPacientes.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Odontograma.xhtml" id="pf14152539526312" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf14152539526311" path="/Odontograma.xhtml"/>
   <links id="pf14100766176187" target="pf14100766176188" source="pf14100766176176" outcome="index" redirect="true"/>
   <links id="pf14100810517129" target="pf14100766176176" source="pf14100766176188" outcome="login" redirect="true"/>
   <links id="pf14117408180911" target="pf14117408180913" source="pf14117408180910" outcome="indexMovil" redirect="true"/>
   <links id="pf14117408180912" target="pf14117408180910" source="pf14117408180913" outcome="loginMovil" redirect="true"/>
+  <links id="pf14152539526311" target="pf14152539526312" source="pf14152539526310" outcome="toOdontograma" redirect="true"/>
 </pageflow:Pageflow>

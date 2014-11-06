@@ -61,11 +61,21 @@
 	<managed-bean>
 		<managed-bean-name>citaBean</managed-bean-name>
 		<managed-bean-class>com.odontologia.bean.CitaBean</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
+		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>mensajeBean</managed-bean-name>
 		<managed-bean-class>com.odontologia.bean.MensajeBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>odontogramaBean</managed-bean-name>
+		<managed-bean-class>com.odontologia.bean.odontogramaBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>reporteBean</managed-bean-name>
+		<managed-bean-class>com.odontologia.bean.ReporteBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	
@@ -108,5 +118,16 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	
+		<navigation-rule>
+		<display-name>consultarPacientes.xhtml</display-name>
+		<from-view-id>/consultarPacientes.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>toOdontograma</from-outcome>
+			<to-view-id>/Odontograma.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>	
+	
 
 </faces-config>

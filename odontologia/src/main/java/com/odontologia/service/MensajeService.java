@@ -12,17 +12,4 @@ public interface MensajeService {
 	
 	public List<Mensaje> getMensajesEmisorReceptor(Integer idPersona);
 	
-	public void propiedades();
-	
-	public String mensajeEmail();
-	
-	public String cabeceraEmail();
-	
-	public void preparaEnviar(String para, String cabecera, String cuerpo);
-	
-	public boolean EnviarMensaje(String to);
-	
-	public boolean EnviarMensaje(String to, String cabecera, String cuerpo);
-	
-	public boolean NotificarCitasUsuario(Integer idCita, Integer idUsuario);
 }

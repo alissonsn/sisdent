@@ -21,6 +21,9 @@ public class DienteOdontograma {
 	@Column(name="detalle", nullable=true)
 	private String detalle;
 	
+	@Column(name="urlimagen", nullable=true, length=200)
+	private String urlImagen;
+	
 	@ManyToOne @JoinColumn(name="idodontograma", nullable=false)
 	private Odontograma dienteOdontogramaOdontograma;
 	
@@ -34,8 +37,8 @@ public class DienteOdontograma {
 	private SuperficieDental dienteOdontogramaSuperficieDental;
 	
 	@OneToMany(mappedBy="tratamientoDienteOdontograma")
-	private Collection<Tratamiento> dienteOdontogramaTratamientos;
-
+	private Collection<Tratamiento> dienteOdontogramaTratamientos;	
+	
 	public Integer getIdDienteOdontograma() {
 		return idDienteOdontograma;
 	}
@@ -94,6 +97,14 @@ public class DienteOdontograma {
 	public void setDienteOdontogramaTratamientos(
 			Collection<Tratamiento> dienteOdontogramaTratamientos) {
 		this.dienteOdontogramaTratamientos = dienteOdontogramaTratamientos;
+	}
+
+	public String getUrlImagen() {
+		return urlImagen;
+	}
+
+	public void setUrlImagen(String urlImagen) {
+		this.urlImagen = urlImagen;
 	}		
 	
 }

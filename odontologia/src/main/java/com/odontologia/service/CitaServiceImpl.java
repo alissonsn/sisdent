@@ -1,9 +1,14 @@
 package com.odontologia.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -15,9 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.odontologia.model.Cita;
 import com.odontologia.model.EstadoCita;
-import com.odontologia.model.Odontologo;
-import com.odontologia.model.Paciente;
-import com.odontologia.model.Persona;
+
 
 @Service
 public class CitaServiceImpl implements CitaService{
@@ -27,6 +30,14 @@ public class CitaServiceImpl implements CitaService{
 	
 	@PersistenceContext
 	EntityManager em;	
+	
+	Session mailSession;
+	private String fromUser;
+	private String fromUserEmailPassword;
+	private String emailHost;
+	private String cabecera;
+	private String cuerpo;
+	Properties emailProperties;
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
@@ -229,21 +240,135 @@ public class CitaServiceImpl implements CitaService{
 		}
 		return result;
 	}
-	
+
 	@Transactional
-	public List<String> notificarCitasPacientes(String[] ids) {
-		List<String> enviados = new ArrayList<String>();
+	public void enviarEmail(String email,Integer idcita) {
+		Cita ci = em.find(Cita.class, idcita);
+		
+		String asunto ="Notificacion de cita odontologica de la clinica SPADENT";
+		String body = "Se le notifica que su cita odontologica se aproxima : <br/>"+"<br />"+
+		              "Codigo de paciente :"+ci.getCitaPaciente().getIdPaciente()+"<br />"+
+					  "Sr. o Sra. : "+ci.getCitaPaciente().getPacientePersona().getNombre()+" "+ci.getCitaPaciente().getPacientePersona().getApellidoPaterno()+" "+ci.getCitaPaciente().getPacientePersona().getApellidoMaterno()+"<br />"+
+					  "Estado de su cita: "+ci.getCitaEstadoCita().getNombre()+"<br />"+
+					  "Fecha y hora de la cita : "+ci.getHoraFin()+"<br />"+"<br />"+				  
+					  "Agradecemos su preferencia por confiar en clinica odontologica SPADENT"+"<br/>";
+		
+		
+		
+		
+		propiedades();
+		preparaEnviar(email, asunto, body);
+	}
+	
+	
+	public void enviarEmailModifCitaPaciente(Cita cita){
+		
+		String email= cita.getCitaPaciente().getPacientePersona().getCorreoElectronico();
+		
+		String asunto ="Notificacion de cita odontologica actualizada de la clinica SPADENT";
+		String body = "Se le notifica que su cita odontologica ha sido actualizada : <br/>"+"<br />"+
+		              "Codigo Paciente :"+cita.getCitaPaciente().getIdPaciente()+"<br />"+
+					  "Sr. o Sra. : "+cita.getCitaPaciente().getPacientePersona().getNombre()+" "+cita.getCitaPaciente().getPacientePersona().getApellidoPaterno()+" "+cita.getCitaPaciente().getPacientePersona().getApellidoMaterno()+"<br />"+
+					  "Estado de su cita: "+cita.getCitaEstadoCita().getNombre()+"<br />"+
+					  "Fecha y hora de la cita : "+cita.getHoraInicio()+"<br />"+
+					  "Informacion sobre odontologo"+"<br />"+		
+					  "Nombre :"+cita.getCitaOdontologo().getOdontologoPersona().getNombre()+" "+cita.getCitaOdontologo().getOdontologoPersona().getApellidoPaterno()+" "+cita.getCitaOdontologo().getOdontologoPersona().getApellidoMaterno()+"<br />"+
+					  "Especialidad : "+cita.getCitaOdontologo().getEspecialidad()+"<br />"+"<br />"+	
+					  "Agradecemos su preferencia por confiar en clinica odontologica SPADENT"+"<br/>";
+		
+		propiedades();
+		preparaEnviar(email, asunto, body);
+	}
+	
+    public void enviarEmailModifCitaOdontologo(Cita cita){
+		
+		String email= cita.getCitaOdontologo().getOdontologoPersona().getCorreoElectronico();
+		
+		String asunto ="Notificacion de cita odontologica actualizada de la clinica SPADENT";
+		String body = "Se le notifica que su cita odontologica ha sido actualizada : <br/>"+"<br />"+
+		              "Codigo Odontologo:"+cita.getCitaOdontologo().getIdOdontologo()+"<br />"+
+					  "Odontologo : "+cita.getCitaOdontologo().getOdontologoPersona().getNombre()+" "+cita.getCitaOdontologo().getOdontologoPersona().getApellidoPaterno()+" "+cita.getCitaOdontologo().getOdontologoPersona().getApellidoMaterno()+"<br />"+
+					  "Estado de su cita: "+cita.getCitaEstadoCita().getNombre()+"<br />"+
+					  "Fecha y hora de la cita : "+cita.getHoraInicio()+"<br />"+
+					  "Informacion sobre el Paciente :"+"<br />"+
+					  "Nombre :"+cita.getCitaPaciente().getPacientePersona().getNombre()+" "+cita.getCitaPaciente().getPacientePersona().getApellidoPaterno()+" "+cita.getCitaPaciente().getPacientePersona().getApellidoMaterno()+"<br />"+
+					  "Telefono :"+cita.getCitaPaciente().getPacientePersona().getCelular() +"<br />"+"<br />"+
+					  "Agradecemos su preferencia por confiar en clinica odontologica SPADENT"+"<br/>";
+		
+		propiedades();
+		preparaEnviar(email, asunto, body);
+	}
+	
+	
+	public void propiedades() {
+		emailProperties = System.getProperties();
+		emailProperties.put("mail.smtp.port", "587");
+		emailProperties.put("mail.smtp.auth", "true");
+		emailProperties.put("mail.smtp.starttls.enable", "true");
+		mailSession = Session.getDefaultInstance(emailProperties, null);
+		setFromUser("odontologospadent@gmail.com");
+		setFromUserEmailPassword("tp2014jp");
+		setEmailHost("smtp.gmail.com");
+	}
+
+	public String getFromUser() {
+		return fromUser;
+	}
+
+	public void setFromUser(String fromUser) {
+		this.fromUser = fromUser;
+	}
+
+	public String getFromUserEmailPassword() {
+		return fromUserEmailPassword;
+	}
+
+	public void setFromUserEmailPassword(String fromUserEmailPassword) {
+		this.fromUserEmailPassword = fromUserEmailPassword;
+	}
+
+	public String getEmailHost() {
+		return emailHost;
+	}
+
+	public void setEmailHost(String emailHost) {
+		this.emailHost = emailHost;
+	}
+
+	public String getCabecera() {
+		return cabecera;
+	}
+
+	public void setCabecera(String cabecera) {
+		this.cabecera = cabecera;
+	}
+
+	public String getCuerpo() {
+		return cuerpo;
+	}
+
+	public void setCuerpo(String cuerpo) {
+		this.cuerpo = cuerpo;
+	}
+	
+	public void preparaEnviar(String para, String cabecera, String cuerpo) {
 		try {
-			for (int i = 0; i < ids.length; i++) {		
-				Cita cit = em.find(Cita.class, Integer.parseInt(ids[i]));				
-				Persona per = cit.getCitaPaciente().getPacientePersona();
-				enviados.add( per.getNombre()+" "+per.getApellidoPaterno()+" "+per.getApellidoMaterno());
-				//Metodo para enviar correo
-				emailService.NotificarCitasUsuario(Integer.parseInt(ids[i]), per.getPersonaUsuario().getIdUsuario());
-			}
+			MimeMessage emailMessage = new MimeMessage(mailSession);
+			emailMessage.addRecipient(Message.RecipientType.TO,
+					new InternetAddress(para));
+			emailMessage.setSubject(cabecera);
+			emailMessage.setContent(cuerpo, "text/html");
+			Transport transport = mailSession.getTransport("smtp");
+			transport.connect(getEmailHost(), getFromUser(),
+					getFromUserEmailPassword());
+			transport
+					.sendMessage(emailMessage, emailMessage.getAllRecipients());
+			transport.close();
+			System.out.println("Email sent successfully.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		return enviados;
+
 	}
+	
 }
