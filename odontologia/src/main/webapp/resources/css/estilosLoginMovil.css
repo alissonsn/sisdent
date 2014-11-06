@@ -1,17 +1,7 @@
-.ui-state-default .icon-agenda{	
-	 background-size: 18px 18px;
-}
 .ui-panel-m .ui-panel-m-content {
 background : initial!important;
 }
-.ui-input-search.ui-input-has-clear .ui-btn.ui-input-clear, .ui-input-text.ui-input-has-clear .ui-btn.ui-input-clear {
-position: static;
-right: 0;
-top: 5%;
-margin: -14px .3125em 0;
-border: 0;
-background-color: transparent;
-}
+
 
 #wrapper {
     width: 0 auto;
@@ -23,17 +13,17 @@ background-color: transparent;
 	
 	.ui-btnPanelGrid{
 		width: 100%;
-		margin-left:0%;;
+		margin-left:0px;
 		margin-top: 12%;
 	}
 	/* label*/
 	.ui-field-contain > label {
-		margin-left: 5%;
-		width: 20%;
+		margin-left: 0%;
+		width: 40%;
 	}
 	.ui-field-contain>label  ~ [class*='ui-'] {
 		width: 84%;
-		margin-left: 2%;
+		margin-left: 0%;
 	}
 	
 }
