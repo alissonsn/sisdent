@@ -19,7 +19,7 @@ public class Paciente {
 	private Integer idPaciente; 
 	
 	@Column(name="esasegurado", nullable=true)
-	private boolean esAsegurado;	
+	private Boolean esAsegurado;	
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idpersona", nullable = false)

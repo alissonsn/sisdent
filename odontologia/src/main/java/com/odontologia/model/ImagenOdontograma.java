@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table(name = "imagenodontograma")
 public class ImagenOdontograma {
 
-	@Id @GeneratedValue @Column(name="idenfermedad", nullable=false)
+	@Id @GeneratedValue @Column(name="idimagenodontograma", nullable=false)
 	private Integer idImagenOdontograma;
 	
 	@Column(name="urlimagen", nullable=true, length=200)
@@ -24,8 +24,8 @@ public class ImagenOdontograma {
 	@ManyToOne @JoinColumn(name="idsuperficiedental", nullable=true)
 	private SuperficieDental imagenOdontogramaSuperficieDental;	
 
-	@ManyToOne @JoinColumn(name="idtipodiente", nullable=true)
-	private TipoDiente imagenOdontogramaTipoDiente;
+	@ManyToOne @JoinColumn(name="iddiente", nullable=true)
+	private Diente imagenOdontogramaDiente;
 
 	public Integer getIdImagenOdontograma() {
 		return idImagenOdontograma;
@@ -61,13 +61,12 @@ public class ImagenOdontograma {
 		this.imagenOdontogramaSuperficieDental = imagenOdontogramaSuperficieDental;
 	}
 
-	public TipoDiente getImagenOdontogramaTipoDiente() {
-		return imagenOdontogramaTipoDiente;
+	public Diente getImagenOdontogramaDiente() {
+		return imagenOdontogramaDiente;
 	}
 
-	public void setImagenOdontogramaTipoDiente(
-			TipoDiente imagenOdontogramaTipoDiente) {
-		this.imagenOdontogramaTipoDiente = imagenOdontogramaTipoDiente;
-	}		
+	public void setImagenOdontogramaDiente(Diente imagenOdontogramaDiente) {
+		this.imagenOdontogramaDiente = imagenOdontogramaDiente;
+	}
 	
 }

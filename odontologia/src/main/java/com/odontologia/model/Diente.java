@@ -18,11 +18,17 @@ public class Diente {
 	@Id @GeneratedValue @Column(name="iddiente")
 	private Integer idDiente;
 	
+	@Column(name="numeracionfdi", nullable = true)
+	private Integer numeracionFdi;
+	
 	@ManyToOne @JoinColumn(name="idtipodiente", nullable=false)
 	private TipoDiente dienteTipoDiente;
 
 	@OneToMany(mappedBy="dienteOdontogramaDiente")
 	private Collection<DienteOdontograma> dienteDienteOdontogramas;
+	
+	@OneToMany(mappedBy="imagenOdontogramaDiente")
+	private Collection<ImagenOdontograma> DienteImagenOdontogramas;
 	
 	public Integer getIdDiente() {
 		return idDiente;
@@ -47,6 +53,23 @@ public class Diente {
 	public void setDienteDienteOdontogramas(
 			Collection<DienteOdontograma> dienteDienteOdontogramas) {
 		this.dienteDienteOdontogramas = dienteDienteOdontogramas;
+	}
+
+	public Collection<ImagenOdontograma> getDienteImagenOdontogramas() {
+		return DienteImagenOdontogramas;
+	}
+
+	public void setDienteImagenOdontogramas(
+			Collection<ImagenOdontograma> dienteImagenOdontogramas) {
+		DienteImagenOdontogramas = dienteImagenOdontogramas;
+	}
+
+	public Integer getNumeracionFdi() {
+		return numeracionFdi;
+	}
+
+	public void setNumeracionFdi(Integer numeracionFdi) {
+		this.numeracionFdi = numeracionFdi;
 	}
 	
 	

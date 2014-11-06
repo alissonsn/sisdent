@@ -1,5 +1,7 @@
 package com.odontologia.util;
 
+import java.sql.Timestamp;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -27,5 +29,14 @@ public class StaticHelp {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         return  session.getAttribute("username").toString();
 	}
+	
+	public static Timestamp getFechaActual(){
+		Timestamp fecha;
+		java.util.Date date = new java.util.Date();
+		long ms = date.getTime();
+		fecha = new Timestamp(ms);
+		return fecha;
+	}
+
 	
 }
