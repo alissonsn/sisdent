@@ -51,7 +51,7 @@
 			</p:column>
 
 			<p:column headerText="Acciones"
-				style="width:400px; text-align:center;">
+				style="width:500px; text-align:center;">
 
 				<p:commandButton id="btnCrearOdontograma" value="Crear Odontograma"
 					action="#{odontogramaBean.crearOdontograma}" update=":tableOdonto">
@@ -65,7 +65,7 @@
 				</p:commandButton>
 
 				<p:commandButton icon="ui-icon-document"
-					actionListener="#{reporteBean.verPDF(actionEvent, cita.citaPaciente.idPaciente)}"
+					actionListener="#{reporteBean.verPDF(actionEvent,pac.idPaciente)}"
 					ajax="false" />
 
 			</p:column>

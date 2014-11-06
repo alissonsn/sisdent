@@ -5,6 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -29,19 +32,14 @@ import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRPptxExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
-import net.sf.jasperreports.engine.query.JRHibernateQueryExecuterFactory;
 import net.sf.jasperreports.engine.util.JRLoader;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.odontologia.model.Persona;
-import com.odontologia.util.StaticHelp;
 
 @SuppressWarnings({ "deprecation" })
 public class ReporteBean {
@@ -55,6 +53,40 @@ public class ReporteBean {
 	}
 
 	JasperPrint jasperPrint;
+	
+	@SuppressWarnings("finally")
+	public static Connection GetConnection()
+    {
+        Connection conexion=null;
+      
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+            String servidor = "jdbc:mysql://localhost:3306/spadent";
+            String usuarioDB="root";
+            String passwordDB="1234";
+            conexion= DriverManager.getConnection(servidor,usuarioDB,passwordDB);
+        }
+        catch(ClassNotFoundException ex)
+        {
+            System.out.println("Error1 en la Conexión con la BD "+ex.getMessage());
+            conexion=null;
+        }
+        catch(SQLException ex)
+        {
+        	System.out.println("Error2 en la Conexión con la BD "+ex.getMessage());
+            conexion=null;
+        }
+        catch(Exception ex)
+        {
+        	System.out.println("Error3 en la Conexión con la BD "+ex.getMessage());
+            conexion=null;
+        }
+        finally
+        {
+            return conexion;
+        }
+    }
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init(Integer idPaciente) throws JRException {
@@ -82,20 +114,14 @@ public class ReporteBean {
 
 	}
 	
-	private SessionFactory sessionFactory;
-
-    public Session getSessionFactory() {
-        return sessionFactory.getCurrentSession();
-    }
-	/*
+	//Método que funciona
 	public void verPDF(ActionEvent actionEvent, Integer idPaciente)
-			throws JRException, IOException {
-		Session s = 
-		Map<String, Object> parametros = new HashMap<String, Object>();
-		parametros.put(JRHibernateQueryExecuterFactory.PARAMETER_HIBERNATE_SESSION,	s);
+			throws JRException, IOException {		
+		Map<String, Object> parametros = new HashMap<String, Object>();		
 		parametros.put("ID_PACIENTE", idPaciente);
+		parametros.put("IMAGEN_LOGO", this.getClass().getResourceAsStream("../../../../../resources/images/logo.jpg"));
 		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reportes/report1.jasper"));
-		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros);
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros, GetConnection());
 		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
 		response.addHeader("Content-disposition", "attachment; filename=jsfReporte"+idPaciente+".pdf");
         ServletOutputStream stream = response.getOutputStream();
@@ -103,7 +129,7 @@ public class ReporteBean {
         stream.flush();
         stream.close();
         FacesContext.getCurrentInstance().responseComplete();
-	}*/
+	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public StreamedContent getArchivoPDF(Integer idPaciente) throws JRException {
