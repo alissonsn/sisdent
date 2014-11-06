@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.odontologia.model.Cita;
+import com.odontologia.model.EstadoCita;
 import com.odontologia.model.Odontologo;
 import com.odontologia.model.Paciente;
 import com.odontologia.model.Persona;
@@ -47,6 +48,7 @@ public class horarioBean {
 	private citaData dataSeleccionado;
 	private Cita citaSeleccionada;
 	private citaData dataInsert;
+	private EstadoCita estadoCita;
 
 	private List<Paciente> pacientes;
 	private List<Odontologo> odontologos;
@@ -64,6 +66,7 @@ public class horarioBean {
 		odontologoSeleccionado = new Odontologo();
 		cita = new Cita();
 		citasDeOdontologo = new ArrayList<>();
+		estadoCita = new EstadoCita();
 	}
 
 	@PostConstruct
@@ -149,7 +152,7 @@ public class horarioBean {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void insertarCitaMóvil(){		
+	public void insertarCitaMovil(){		
 		Persona persona = new Persona();
 		Paciente paciente = new Paciente();
 		cita.setCitaOdontologo(odontologoSeleccionado);
@@ -168,9 +171,9 @@ public class horarioBean {
 				.getHoraFin(), dataInsert.getMinFin(), 0, 0);
 		
 		cita.setHoraInicio(inicio);
-		cita.setHoraFin(fin);
-		
+		cita.setHoraFin(fin);		
 		citaService.insertarCita(cita);
+		recargaHorario();
 		cita = new Cita();
 		dataInsert = new citaData();
 	}
@@ -179,6 +182,7 @@ public class horarioBean {
 		event = new DefaultScheduleEvent();
 		pacienteSeleccionado = new Paciente();
 		odontologoSeleccionado = new Odontologo();
+		estadoCita = new EstadoCita();
 	}
 
 	public void eliminar() {
@@ -186,6 +190,7 @@ public class horarioBean {
 		event = new DefaultScheduleEvent();
 		pacienteSeleccionado = new Paciente();
 		odontologoSeleccionado = new Odontologo();
+		estadoCita = new EstadoCita();
 		recargaHorario();
 	}
 
@@ -195,6 +200,7 @@ public class horarioBean {
 		citaSeleccionada = citaService.citaFromId(dataSeleccionado.getIdCita());
 		pacienteSeleccionado = citaSeleccionada.getCitaPaciente();
 		odontologoSeleccionado = citaSeleccionada.getCitaOdontologo();
+		estadoCita = citaSeleccionada.getCitaEstadoCita();
 	}
 
 	public Cita getCitaSeleccionada() {
@@ -337,5 +343,13 @@ public class horarioBean {
 
 	public void setCitasDeOdontologo(List<Cita> citasDeOdontologo) {
 		this.citasDeOdontologo = citasDeOdontologo;
+	}
+
+	public EstadoCita getEstadoCita() {
+		return estadoCita;
+	}
+
+	public void setEstadoCita(EstadoCita estadoCita) {
+		this.estadoCita = estadoCita;
 	}
 }

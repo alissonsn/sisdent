@@ -19,75 +19,106 @@
 
 		<ui:define name="center">
 
-		<h:form id="form">
-    <p:growl id="msgs" showDetail="true" />
- 
-    <p:dataTable id="basicDT" value="#{citaBean.citasDeOdontologoPaciente}" var="cita" style="text-align:center;">
-        <f:facet name="header">
-            Lista de Pacientes
-        </f:facet>
-        <p:column headerText="Codigo Paciente">
-            <h:outputText value="#{cita.citaPaciente.idPaciente}" />
-        </p:column>
-        <p:column headerText="Nombre">
-            <h:outputText value="#{cita.citaPaciente.pacientePersona.nombre}" />
-        </p:column>
-        <p:column headerText="Apellido Paterno">
-            <h:outputText value="#{cita.citaPaciente.pacientePersona.apellidoPaterno}" />
-        </p:column>
-        <p:column headerText="Apellido Materno">
-            <h:outputText value="#{cita.citaPaciente.pacientePersona.apellidoMaterno}" />
-        </p:column>
-        <p:column headerText="Celular">
-            <h:outputText value="#{cita.citaPaciente.pacientePersona.celular}" />
-        </p:column>  
-         <p:column headerText="Correo Electronico">
-            <h:outputText value="#{cita.citaPaciente.pacientePersona.correoElectronico}" />
-        </p:column> 
-        <p:column style="width:32px;text-align: center">
-             <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="ui-icon-search" title="View">
-                <f:setPropertyActionListener value="#{cita}" target="#{citaBean.selectedCita}" />
-            </p:commandButton>
-        </p:column>
-    </p:dataTable>
-    
-      <p:dialog id="formficha" header="Ficha Odontologica" width="800px" position="bottom"  widgetVar="carDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false">
-        <p:outputPanel id="carDetail" style="text-align:center;">
-            <p:panelGrid  columns="2" columnClasses="label,value">
-               <f:facet name="header">
-                    <p:graphicImage url="/resources/images/usuario.jpg" /> 
-                </f:facet>
-                
-                <h:outputText value="Codigo Paciente:" />
-                <h:outputText value="#{citaBean.selectedCita.citaPaciente.idPaciente}" />
-                
-                <h:outputText value="Nombre:" />
-                <h:outputText value="#{citaBean.selectedCita.citaPaciente.pacientePersona.nombre}" />
- 
-                <h:outputText value="Apellidos Paterno:" />
-                <h:outputText value="#{citaBean.selectedCita.citaPaciente.pacientePersona.apellidoPaterno}" />
-                          
-                <h:outputText value="Apellido Materno:" />
-                <h:outputText value="#{citaBean.selectedCita.citaPaciente.pacientePersona.apellidoMaterno}" />
-                                           
-                <h:outputText value="Tipo de Sangre:" />
-                <h:outputText value="#{citaBean.selectedCita.citaPaciente.pacienteFichaOdontologica.tipoSangre}" />
-            
-                <h:outputText value="Es Alergico:" />
-                <h:outputText value="#{citaBean.selectedCita.citaPaciente.pacienteFichaOdontologica.esAlergico}" />
-                
-                <h:outputText value="Toma Medicacion:" />
-                <h:outputText value="#{citaBean.selectedCita.citaPaciente.pacienteFichaOdontologica.tomaMedicacion}" />
-                
-                <h:outputText value="Bajo Atencion:" />
-                <h:outputText value="#{citaBean.selectedCita.citaPaciente.pacienteFichaOdontologica.bajoAtencion}" />
-                
-                <h:outputText value="Pacede Enfermedad:" />
-                <h:outputText value="#{citaBean.selectedCita.citaPaciente.pacienteFichaOdontologica.padeceEnfermedad}" />
-            </p:panelGrid>
-        </p:outputPanel>
-    </p:dialog>    
-</h:form>
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true" />
+
+				<p:dataTable var="pac" resizableColumns="true" widgetVar="tPac"
+					emptyMessage="No hay Pacientes registrados" paginatorPosition="top"
+					rowKey="#{pac.idPaciente}" value="#{odontogramaBean.pacientes}"
+					paginator="true" rows="10"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,15">
+
+					<f:facet name="header">
+						<p:outputPanel>
+							<h:outputText value="Búsqueda:" />
+							<p:inputText id="globalFilter" onkeyup="PF('tPac').filter()"
+								style="width:150px" />
+						</p:outputPanel>
+					</f:facet>
+
+					<p:column headerText="Nombre" footerText=""
+						filterMatchMode="contains"
+						filterBy="#{pac.pacientePersona.nombre}">
+						<h:outputText value="#{pac.pacientePersona.nombre}" />
+					</p:column>
+
+					<p:column headerText="Apellido Paterno" footerText=""
+						filterMatchMode="contains"
+						filterBy="#{pac.pacientePersona.apellidoPaterno}">
+						<h:outputText value="#{pac.pacientePersona.apellidoPaterno}" />
+					</p:column>
+
+					<p:column headerText="Apellido Materno" footerText=""
+						filterMatchMode="contains"
+						filterBy="#{pac.pacientePersona.apellidoMaterno}">
+						<h:outputText value="#{pac.pacientePersona.apellidoMaterno}" />
+					</p:column>
+
+					<p:column headerText="Celular" footerText=""
+						filterMatchMode="contains"
+						filterBy="#{pac.pacientePersona.celular}">
+						<h:outputText value="#{pac.pacientePersona.celular}" />
+					</p:column>
+
+					<p:column headerText="Acciones"
+						style="width:500px; text-align:center;">
+
+						<p:commandButton id="btnCrearOdontograma"
+							value="Crear Odontograma"
+							action="#{odontogramaBean.crearOdontograma}"
+							update=":fromOdonto">
+							<f:setPropertyActionListener target="#{odontogramaBean.paciente}"
+								value="#{pac}" />
+						</p:commandButton>
+
+						<p:commandButton id="btnVerOdontogramas" value="Ver Odontogramas"
+							oncomplete="PF('dlg').show();" update=":fromOdonto"
+							action="#{odontogramaBean.cargarOdontogramas(pac.idPaciente)}">
+						</p:commandButton>
+
+						<p:commandButton icon="ui-icon-document"
+							actionListener="#{reporteBean.verPDF(actionEvent,pac.idPaciente)}"
+							ajax="false" />
+
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+
+			<p:dialog header="Odontogramas del paciente" widgetVar="dlg" appendTo="@(body)"
+				modal="true">
+				<h:form id="fromOdonto">
+					<p:dataTable id="tableOdonto" var="odonto" resizableColumns="true"
+						widgetVar="tOdontograma"
+						emptyMessage="No hay Odontogramas registrados"
+						paginatorPosition="top" rowKey="#{odonto.idOdontograma}"
+						value="#{odontogramaBean.odontogramasPorPaciente}"
+						paginator="true" rows="10"
+						paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+						rowsPerPageTemplate="5,10,15">
+
+						<p:column headerText="Odontologo">
+							<h:outputText
+								value="#{odonto.odontogramaOdontologo.odontologoPersona.apellidoPaterno}, 
+											 #{odonto.odontogramaOdontologo.odontologoPersona.nombre}" />
+						</p:column>
+
+						<p:column headerText="Fecha de Actualización">
+							<h:outputText value="#{odonto.fechaActualizacion}" />
+						</p:column>
+
+						<p:column headerText="Opciones">
+							<p:commandButton value="Ver Odontograma" id="btnVerOdontograma"
+								action="#{odontogramaBean.cargarOdontogramaEspecifico2(odonto.idOdontograma)}" />
+						</p:column>
+
+					</p:dataTable>
+					<p:commandButton id="btnCerrar" value="Cerrar"
+						oncomplete="PF('dlg').hide();" />
+				</h:form>
+			</p:dialog>
+
 		</ui:define>
 
 	</ui:composition>

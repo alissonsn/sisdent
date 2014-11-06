@@ -50,9 +50,11 @@ public class CitaBean {
 	private List<Cita> citasPorPaciente;
 	private List<Cita> citasPorOdontologo;
 	private List<Cita> citasListasHorInic;
+	private List<Cita> citasFiltradas; //para el indexRecepcionista
 	private EstadoCita estadoCita;
 	private Cita selectedCita;
 	private List<Cita> elegidos;
+	private List<EstadoCita> estadoCitas;
 	
 	public CitaBean() {
 		cita = new Cita();
@@ -66,6 +68,8 @@ public class CitaBean {
 		citasDeOdontologoPaciente = new ArrayList<>();
 		citasListasHorInic = new ArrayList<>();
 		elegidos=new ArrayList<>();
+		estadoCitas = new ArrayList<>();
+		citasFiltradas = new ArrayList<>();
 		
 	}
 
@@ -91,7 +95,7 @@ public class CitaBean {
 
 	public void cancelarCita(ActionEvent actionEvent) {
 		// ID DE ESTADO DE CITA = 3 (CANCELADO)
-		estadoCita = estadoCitaService.buscarPorId(3);
+		estadoCita = citaService.estadoCitaFromNombre("CANCELADO");
 		cita.setCitaEstadoCita(estadoCita);
 		if (citaService.modificarCita(cita)) {
 			StaticHelp.correctMessage("Se ha cancelado la cita", "");
@@ -110,7 +114,8 @@ public class CitaBean {
 		persona = (Persona) session.getAttribute("personaSesion");
 		paciente = pacienteService.buscarPorPersona(persona);
 		// ID DE ESTAOD DE CITA = 1 (EN ESPERA)
-		citasDePacienteEnEspera = citaService.getCitasPorPacientePorEstado(paciente.getIdPaciente(), 1);
+		estadoCita = citaService.estadoCitaFromNombre("EN ESPERA");
+		citasDePacienteEnEspera = citaService.getCitasPorPacientePorEstado(paciente.getIdPaciente(), estadoCita.getIdEstadoCita());
 		return citasDePacienteEnEspera;
 	}
 
@@ -121,7 +126,8 @@ public class CitaBean {
 		persona = (Persona) session.getAttribute("personaSesion");
 		odontologo = odontologoService.buscarPorPersona(persona);;
 		// ID DE ESTAOD DE CITA = 1 (EN ESPERA)
-		citasDeOdontologoEnEspera = citaService.getCitasPorOdontologoPorEstado(odontologo.getIdOdontologo(), 1);
+		estadoCita = citaService.estadoCitaFromNombre("EN ESPERA");
+		citasDeOdontologoEnEspera = citaService.getCitasPorOdontologoPorEstado(odontologo.getIdOdontologo(), estadoCita.getIdEstadoCita());
 		return citasDeOdontologoEnEspera;
 	}
 	
@@ -182,6 +188,29 @@ public class CitaBean {
 
 	public void setCitasPorOdontologo(List<Cita> citasPorOdontologo) {
 		this.citasPorOdontologo = citasPorOdontologo;
+	}
+	
+	//Para editar el CambiarEstado de Cita
+	public void prepararAccion(int idCita){		
+		cita = new Cita();
+		estadoCita = new EstadoCita();
+		cita = citaService.citaFromId(idCita);
+		estadoCita = cita.getCitaEstadoCita();	
+	}
+	
+	public void cancelar(ActionEvent actionEvent){
+		cita = new Cita();
+		estadoCita = new EstadoCita();
+	}
+	
+	public void actualizarCita(ActionEvent actionEvent){
+		cita.setCitaEstadoCita(estadoCita);
+		if(citaService.modificarCita(cita)){
+			StaticHelp.correctMessage(
+					"Se ha cambiado de estado a "+estadoCita.getNombre()+"", "");
+			RequestContext.getCurrentInstance().update("frmNuevoo:growl");
+		}
+		cancelar(actionEvent);
 	}
 	
 	
@@ -250,5 +279,22 @@ public class CitaBean {
 		elegidos = new ArrayList<>();
 		return null;
 		
+	}
+
+	public List<EstadoCita> getEstadoCitas() {
+		estadoCitas = estadoCitaService.getEstadoCitas();
+		return estadoCitas;
+	}
+
+	public void setEstadoCitas(List<EstadoCita> estadoCitas) {
+		this.estadoCitas = estadoCitas;
+	}
+
+	public List<Cita> getCitasFiltradas() {
+		return citasFiltradas;
+	}
+
+	public void setCitasFiltradas(List<Cita> citasFiltradas) {
+		this.citasFiltradas = citasFiltradas;
 	}
 }

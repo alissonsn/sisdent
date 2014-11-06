@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="css/estilos.css" />
+
+</h:head>
+<h:body>
+	<ui:composition
+		template="/WEB-INF/facelets/templates/plantillaOdontologo.xhtml">
+
+		<ui:define name="west">
+	INDEX
+	</ui:define>
+
+		<ui:define name="center">
+
+			<h:form id="form">
+				<p:dataGrid var="diente" id="odontogramaGrid"
+					value="#{odontogramaBean.odontogramaPaciente}" layout="grid"
+					paginator="false" columns="16">
+					<p:column>
+
+						<p:panel id="idPanel" styleClass="centerTable">
+							<p:commandLink process="@this" update=":dialogDetalle"
+								action="#{odontogramaBean.cargaDiente(diente.idDienteOdontograma)}"
+								oncomplete="PF('dienteDialog').show();">
+								<p:graphicImage id="img" width="30" height="60" cache="false"
+									name="images/#{diente.urlImagen}">
+									<f:param name="dienteImagen"
+										value="#{diente.idDienteOdontograma}" />
+								</p:graphicImage>
+							</p:commandLink>
+						</p:panel>
+					</p:column>
+				</p:dataGrid>
+			</h:form>
+
+
+			<p:dialog widgetVar="dienteDialog" id="dialogDetalle" appendTo="@(body)"
+				header="Detalles del diente" showEffect="clip" hideEffect="clip">
+				<h:form id="dlg">
+					<h:panelGrid>
+						<p:outputLabel for="txtDetalle" value="Detalle del diente" />
+						<p:inputTextarea id="txtDetalle"
+							value="#{odontogramaBean.detalle}" rows="6" cols="33" />
+
+						<p:outputLabel for="cmbSituacion" value="Situacion dental: " />
+						<p:selectOneMenu id="cmbSituacion"
+							value="#{odontogramaBean.situacionDental.idSituacionDental}"
+							required="true">
+							<f:selectItem itemLabel="Elija una Situcion Dental"></f:selectItem>
+							<f:selectItems value="#{odontogramaBean.situaciones}"
+								var="situacion" itemLabel="#{situacion.nombre}"
+								itemValue="#{situacion.idSituacionDental}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="cmbSuperficie" value="Superficie dental: " />
+						<p:selectOneMenu id="cmbSuperficie"
+							value="#{odontogramaBean.superficieDental.idSuperficieDental}"
+							required="true">
+							<f:selectItem itemLabel="Elija una Superficie Dental"></f:selectItem>
+							<f:selectItems value="#{odontogramaBean.superficies}"
+								var="superficie" itemLabel="#{superficie.nombre}"
+								itemValue="#{superficie.idSuperficieDental}" />
+						</p:selectOneMenu>
+
+						<h:panelGrid columns="2">
+							<p:commandButton id="btnModificarDiente" process="@form"
+								update=":form:odontogramaGrid:idPanel" value="Guardar"
+								action="#{odontogramaBean.actualizarDiente2}"
+								oncomplete="PF('dienteDialog').hide();" />
+
+							<p:commandButton id="btnCancelar" update=":form:odontogramaGrid"
+								process="@this" value="Cancelar"
+								action="#{odontogramaBean.cancelar}"
+								oncomplete="PF('dienteDialog').hide();" />
+						</h:panelGrid>
+					</h:panelGrid>
+				</h:form>
+
+			</p:dialog>
+
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>
+

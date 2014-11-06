@@ -23,9 +23,10 @@
 
 			<h:form id="frmEstadoCitas">
 				<p:dataTable id="tablaCitas" var="cita" value="#{citaBean.citas}"
-					paginator="true"
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					rowsPerPageTemplate="5,10,15">
+					rowKey="#{cita.idCita}" paginator="true" rows="10"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,15" widgetVar="citaW"
+					>
 					<f:facet name="header">
             Estado de las Citas
         </f:facet>
@@ -33,18 +34,16 @@
 						<h:outputText value="#{cita.titulo}" />
 					</p:column>
 
-					<p:column headerText="Odontólogo"
-						sortBy="#{cita.citaOdontologo.odontologoPersona.nombre}">
+					<p:column headerText="Odontólogo">
 						<h:outputText
 							value="#{cita.citaOdontologo.odontologoPersona.nombre}" />
 					</p:column>
 
-					<p:column headerText="Paciente"
-						sortBy="#{cita.citaPaciente.pacientePersona.nombre}">
+					<p:column headerText="Paciente">
 						<h:outputText value="#{cita.citaPaciente.pacientePersona.nombre}" />
 					</p:column>
 
-					<p:column headerText="Fecha" sortBy="#{cita.horaInicio}">
+					<p:column headerText="Fecha">
 						<h:outputText value="#{cita.horaInicio}">
 							<f:convertDateTime pattern="dd/MM"
 								timeZone="#{citaBean.timeZone}">
@@ -52,7 +51,7 @@
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Hora Inicio" sortBy="#{cita.horaInicio}">
+					<p:column headerText="Hora Inicio">
 						<h:outputText value="#{cita.horaInicio}">
 							<f:convertDateTime pattern="hh:mm"
 								timeZone="#{citaBean.timeZone}">
@@ -60,7 +59,7 @@
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="Hora Fin" sortBy="#{cita.horaFin}">
+					<p:column headerText="Hora Fin">
 						<h:outputText value="#{cita.horaFin}">
 							<f:convertDateTime pattern="hh:mm"
 								timeZone="#{citaBean.timeZone}">
@@ -69,18 +68,67 @@
 					</p:column>
 
 					<p:column headerText="Estado"
-						sortBy="#{cita.citaEstadoCita.nombre}">
+						filterBy="#{cita.citaEstadoCita.nombre}"
+						filterMatchMode="contains">
 						<h:outputText value="#{cita.citaEstadoCita.nombre}" />
 					</p:column>
+
+
+					<p:column headerText="Acciones">
+						<p:commandButton update=":dlgEditar" value="Cambiar Estado"
+							oncomplete="PF('dlgEditarW').show()"
+							actionListener="#{citaBean.prepararAccion(cita.idCita)}"
+							icon="ui-icon-info" />
+					</p:column>
+
+
+
 				</p:dataTable>
 
 				<!-- Imagen de Loading -->
 				<p:blockUI block="tablaCitas" trigger="tablaCitas">
         Cargando ...<br />
 					<p:graphicImage value="/resources/images/loading.gif" />
-				</p:blockUI>
-				<!-- Imagen de Loading -->
+				</p:blockUI>				
+			
 			</h:form>
+
+			<!-- Diálogo de cambiar de Estado CIta -->
+
+			<p:dialog id="dlgEditar" header="Cambiar Estado" resizable="false"
+				widgetVar="dlgEditarW" showEffect="fade" modal="true"
+				hideEffect="fade" position="center" appendTo="@(body)">
+				<h:form>
+
+					<p:panelGrid columns="2">
+						<h:outputLabel value="Estado:">
+						</h:outputLabel>
+						<p:selectOneMenu value="#{citaBean.estadoCita.idEstadoCita}"
+							effect="drop">
+							<f:selectItem itemLabel="Seleccionar estado" itemValue="" />
+							<f:selectItems value="#{citaBean.estadoCitas}" var="estadocita"
+								itemLabel="#{estadocita.nombre}"
+								itemValue="#{estadocita.idEstadoCita}" />
+						</p:selectOneMenu>
+
+
+					</p:panelGrid>
+
+					<p:separator></p:separator>
+
+					<p:commandButton
+						actionListener="#{citaBean.actualizarCita(actionEvent)}"
+						value="Actualizar" update=":frmEstadoCitas"
+						oncomplete="PF('dlgEditarW').hide()"></p:commandButton>
+					<p:commandButton value="Cancelar"
+						actionListener="#{citaBean.cancelar(actionEvent)}"
+						update=":frmEstadoCitas" oncomplete="PF('dlgEditarW').hide()">
+					</p:commandButton>
+
+				</h:form>
+
+			</p:dialog>>
+			
 		</ui:define>
 
 	</ui:composition>

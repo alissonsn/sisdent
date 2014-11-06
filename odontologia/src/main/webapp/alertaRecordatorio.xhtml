@@ -29,14 +29,20 @@
         </f:facet>
 					<p:column selectionMode="multiple"
 						style="width:16px;text-align:center" />
-					<p:column headerText="Id">
-						<h:outputText value="#{cita.idCita}" />
+					
+					<p:column headerText="Fecha">
+						<h:outputText value="#{cita.horaInicio}">
+							<f:convertDateTime pattern="dd/MM"
+								timeZone="#{citaBean.timeZone}">
+							</f:convertDateTime>
+						</h:outputText>
 					</p:column>
-					<p:column headerText="Hora Inicio">
-						<h:outputText value="#{cita.horaInicio}" />
-					</p:column>
-					<p:column headerText="Hora Fin">
-						<h:outputText value="#{cita.horaFin}" />
+					<p:column headerText="Hora">
+						<h:outputText value="#{cita.horaInicio}">
+							<f:convertDateTime pattern="hh:mm"
+								timeZone="#{citaBean.timeZone}">
+							</f:convertDateTime>
+						</h:outputText>
 					</p:column>
 					<p:column headerText="Titulo">
 						<h:outputText value="#{cita.titulo}" />

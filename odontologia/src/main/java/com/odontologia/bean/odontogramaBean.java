@@ -141,6 +141,14 @@ public class odontogramaBean {
 		odontogramaPaciente = dienteOdontogramaService.getByOdontograma(odontograma);
 		return "toOdontograma";
 	}
+	
+	public String cargarOdontogramaEspecifico2(int id){
+		Odontograma odontograma = odontogramaService.buscarPorId(id);
+		odontogramaPaciente = dienteOdontogramaService.getByOdontograma(odontograma);
+		return "odontograma2";
+	}
+	
+	
 
 	public String cargaDiente(int id){
 		dienteSeleccionado = dienteOdontogramaService.buscarPorId(id);		
@@ -161,6 +169,19 @@ public class odontogramaBean {
 		situacionDental = new SituacionDental();
 		superficieDental = new SuperficieDental();
 		return "Odontograma";
+	}
+	
+	public String actualizarDiente2(){
+		dienteSeleccionado.setDetalle(detalle);
+		dienteSeleccionado.setDienteOdontogramaSituacionDental(situacionDental);
+		dienteSeleccionado.setDienteOdontogramaSuperficieDental(superficieDental);
+		dienteSeleccionado.setUrlImagen(imagenOdontogramaService.getUrlImagen(dienteSeleccionado.getDienteOdontogramaDiente().getIdDiente(), superficieDental.getIdSuperficieDental(), situacionDental.getIdSituacionDental()));
+		//+"?cache="+System.currentTimeMillis()
+		dienteOdontogramaService.merge(dienteSeleccionado);
+		dienteSeleccionado = new DienteOdontograma();
+		situacionDental = new SituacionDental();
+		superficieDental = new SuperficieDental();
+		return "odontograma2";
 	}
 	
 	public void cancelar(){
