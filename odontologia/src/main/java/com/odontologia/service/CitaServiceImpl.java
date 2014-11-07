@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.odontologia.model.Cita;
 import com.odontologia.model.EstadoCita;
+import com.odontologia.model.Odontologo;
 
 
 @Service
@@ -283,6 +284,25 @@ public class CitaServiceImpl implements CitaService{
     public void enviarEmailModifCitaOdontologo(Cita cita){
 		
 		String email= cita.getCitaOdontologo().getOdontologoPersona().getCorreoElectronico();
+		
+		String asunto ="Notificacion de cita odontologica actualizada de la clinica SPADENT";
+		String body = "Se le notifica que su cita odontologica ha sido actualizada : <br/>"+"<br />"+
+		              "Codigo Odontologo:"+cita.getCitaOdontologo().getIdOdontologo()+"<br />"+
+					  "Odontologo : "+cita.getCitaOdontologo().getOdontologoPersona().getNombre()+" "+cita.getCitaOdontologo().getOdontologoPersona().getApellidoPaterno()+" "+cita.getCitaOdontologo().getOdontologoPersona().getApellidoMaterno()+"<br />"+
+					  "Estado de su cita: "+cita.getCitaEstadoCita().getNombre()+"<br />"+
+					  "Fecha y hora de la cita : "+cita.getHoraInicio()+"<br />"+
+					  "Informacion sobre el Paciente :"+"<br />"+
+					  "Nombre :"+cita.getCitaPaciente().getPacientePersona().getNombre()+" "+cita.getCitaPaciente().getPacientePersona().getApellidoPaterno()+" "+cita.getCitaPaciente().getPacientePersona().getApellidoMaterno()+"<br />"+
+					  "Telefono :"+cita.getCitaPaciente().getPacientePersona().getCelular() +"<br />"+"<br />"+
+					  "Agradecemos su preferencia por confiar en clinica odontologica SPADENT"+"<br/>";
+		
+		propiedades();
+		preparaEnviar(email, asunto, body);
+	}
+    
+    public void enviarEmailModifCitaOdontologo2(Odontologo odonto, Cita cita){
+		
+		String email= odonto.getOdontologoPersona().getCorreoElectronico();
 		
 		String asunto ="Notificacion de cita odontologica actualizada de la clinica SPADENT";
 		String body = "Se le notifica que su cita odontologica ha sido actualizada : <br/>"+"<br />"+

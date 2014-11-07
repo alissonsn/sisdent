@@ -33,10 +33,7 @@
 
 						</p:menuitem>
 
-						<p:submenu label="Perfil" icon="ui-icon-person">
-							<p:menuitem value="Datos Personales"
-								url="consultarInformacionPersonal.jsf" />
-						</p:submenu>
+					
 
 						<p:submenu label="Administrar" icon="ui-icon-document">
 							<p:menuitem value="Odontólogo" url="administrarOdontologo.jsf" />
@@ -48,12 +45,10 @@
 							<p:menuitem value="Administrar Horario" url="reservarCita.jsf" />
 							<p:menuitem value="Alertar Citas" url="alertaRecordatorio.jsf" />
 						</p:submenu>
+				
 
-						<p:submenu label="Contacto" icon="ui-icon-mail-closed">
-							<p:menuitem value="Mensajes" url="enviarMensaje.jsf" />
-						</p:submenu>
 						<p:submenu label="Reporte" icon="ui-icon-document">
-							<p:menuitem value="Ventas" url="reporteVentas.jsf" />
+							<p:menuitem value="Ventas" />
 						</p:submenu>
 						<f:facet name="options">
 
@@ -69,7 +64,7 @@
 		<!-- END LAYOUT FOR TOP -->
 
 		<!-- LAYOUT FOR WEST -->
-		<p:layoutUnit position="west" size="200" header="Opciones"
+		<p:layoutUnit position="west" size="200" header="OPCIONES"
 			resizable="true" closable="false" collapsible="true">
 			<ui:insert name="west">
 			No se usa porque varía

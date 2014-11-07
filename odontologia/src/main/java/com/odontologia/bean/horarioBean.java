@@ -107,7 +107,8 @@ public class horarioBean {
 			eventModel.updateEvent(event);
 			citaService.modificarCita(citaSeleccionada);
 			citaService.enviarEmailModifCitaPaciente(citaSeleccionada);
-			citaService.enviarEmailModifCitaOdontologo(citaSeleccionada);
+			//citaService.enviarEmailModifCitaOdontologo(citaSeleccionada);
+			citaService.enviarEmailModifCitaOdontologo2(odontologoSeleccionado, citaSeleccionada);
 		}
 		event = new DefaultScheduleEvent();
 		pacienteSeleccionado = new Paciente();

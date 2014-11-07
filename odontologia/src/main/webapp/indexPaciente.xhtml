@@ -1,8 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 <h:outputStylesheet name="css/estilos.css" />
@@ -16,7 +17,50 @@
 	</ui:define>
 	
 	<ui:define name="center">
-	PODRÍA SER CONSULTAR CITAS DE PACIENTE
+	
+	<h:form id="frmConsultarCitaPersonal">
+				<p:dataTable var="cita" value="#{citaBean.citasPorPaciente}" rowKey="#{cita.idCita}" emptyMessage="No hay citas registradas">
+					<f:facet name="header">
+            Citas 
+        </f:facet>
+					<p:column style="width:16px">
+						<p:rowToggler />
+					</p:column>
+					<p:column headerText="Título">
+						<h:outputText value="#{cita.titulo}" />
+					</p:column>
+
+					<p:column headerText="Odontólogo"						>
+						<h:outputText
+							value="#{cita.citaOdontologo.odontologoPersona.nombre}" />
+					</p:column>
+
+					<p:column headerText="Estado"	>
+						<h:outputText value="#{cita.citaEstadoCita.nombre}" />
+					</p:column>
+
+					<p:rowExpansion>
+						<p:panelGrid columns="2" columnClasses="label,value"
+							style="width:300px">
+							<f:facet name="header">
+								Detalle de la Cita
+							</f:facet>
+
+							<h:outputText value="Fecha Inicio:" />
+							<h:outputText value="#{cita.horaInicio}" />
+							<h:outputText value="Fecha Fin:" />
+							<h:outputText value="#{cita.horaFin}" />
+							
+						</p:panelGrid>
+					</p:rowExpansion>
+				</p:dataTable>
+			</h:form>
+	
+	
+	
+	
+	
+	
 	</ui:define>
 
 	</ui:composition>

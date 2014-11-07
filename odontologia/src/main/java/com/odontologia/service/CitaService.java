@@ -3,6 +3,7 @@ package com.odontologia.service;
 import java.util.List;
 import com.odontologia.model.Cita;
 import com.odontologia.model.EstadoCita;
+import com.odontologia.model.Odontologo;
 
 public interface CitaService {
 
@@ -39,5 +40,7 @@ public interface CitaService {
 	public void enviarEmailModifCitaPaciente(Cita cita);
 	
 	public void enviarEmailModifCitaOdontologo(Cita cita);
+	
+	public void enviarEmailModifCitaOdontologo2(Odontologo odonto, Cita cita);
 	
 }
