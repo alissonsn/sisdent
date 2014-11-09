@@ -24,6 +24,9 @@ public class Mensaje {
 	@Column(name="fecha", nullable=true)
 	private Timestamp fecha;	
 	
+	@Column(name="leido", nullable=true)
+	private Boolean leido;
+	
 	@ManyToOne @JoinColumn(name="idemisor", nullable=false)
 	private Usuario mensajeUsuarioEmisor;
 	
@@ -76,6 +79,14 @@ public class Mensaje {
 
 	public void setIdMensaje(Integer idMensaje) {
 		this.idMensaje = idMensaje;
+	}
+
+	public Boolean getLeido() {
+		return leido;
+	}
+
+	public void setLeido(Boolean leido) {
+		this.leido = leido;
 	}
 	
 	
