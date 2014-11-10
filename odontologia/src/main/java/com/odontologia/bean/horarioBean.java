@@ -174,6 +174,7 @@ public class horarioBean {
 		cita.setHoraInicio(inicio);
 		cita.setHoraFin(fin);		
 		citaService.insertarCita(cita);
+		citaService.enviarEmailRegistCitaPaciente(cita.getIdCita());
 		recargaHorario();
 		cita = new Cita();
 		dataInsert = new citaData();

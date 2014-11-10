@@ -40,6 +40,12 @@
 						<h:outputText value="#{cita.citaEstadoCita.nombre}" />
 					</p:column>
 
+					<p:column style="width:32px;text-align: center">
+					             <p:commandButton update=":frmConsultarCitaPersonal:carDetail" oncomplete="PF('dlgCancelarW').show()" icon="ui-icon-close" >
+					                <f:setPropertyActionListener value="#{cita}" target="#{citaBean.cita}" />
+					            </p:commandButton>
+					</p:column>
+
 					<p:rowExpansion>
 						<p:panelGrid columns="2" columnClasses="label,value"
 							style="width:300px">
@@ -55,6 +61,20 @@
 						</p:panelGrid>
 					</p:rowExpansion>
 				</p:dataTable>
+				
+				<p:dialog header="¿Desea cancelar esta cita?" widgetVar="dlgCancelarW" modal="false"
+					showEffect="pop" >
+					<p:outputPanel id="carDetail" style="text-align:center;">			
+						<p:commandButton value="Si"
+							actionListener="#{citaBean.cancelarCita}"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+							update="frmConsultarCitaPersonal"
+							oncomplete="PF('dlgCancelarW').hide()" />
+						<p:commandButton value="No" styleClass="ui-icon-delete"
+							icon="ui-icon-close" oncomplete="PF('dlgCancelarW').hide()" />
+					</p:outputPanel>
+				</p:dialog>
+				
 			</h:form>
 
 

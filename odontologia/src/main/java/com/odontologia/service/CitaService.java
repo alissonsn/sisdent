@@ -42,4 +42,8 @@ public interface CitaService {
 	public void enviarEmailModifCitaOdontologo(Odontologo odonto, Cita cita);
 	
 	public void enviarEmailRegistCitaPaciente(Integer idcita);
+	
+	public void enviarEmailCancelarCita(Integer idcita);
+	
+	public void enviarEmailCancelarCitaOdon(Integer idcita);
 }

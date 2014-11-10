@@ -251,7 +251,7 @@ public class CitaServiceImpl implements CitaService{
 		              "Codigo de paciente :"+ci.getCitaPaciente().getIdPaciente()+"<br />"+
 					  "Sr. o Sra. : "+ci.getCitaPaciente().getPacientePersona().getNombre()+" "+ci.getCitaPaciente().getPacientePersona().getApellidoPaterno()+" "+ci.getCitaPaciente().getPacientePersona().getApellidoMaterno()+"<br />"+
 					  "Estado de su cita: "+ci.getCitaEstadoCita().getNombre()+"<br />"+
-					  "Fecha y hora de la cita : "+ci.getHoraFin()+"<br />"+"<br />"+				  
+					  "Fecha y hora de la cita : "+ci.getHoraInicio()+"<br />"+"<br />"+				  
 					  "Agradecemos su preferencia por confiar en clinica odontologica SPADENT"+"<br/>";
 		
 		
@@ -319,6 +319,44 @@ public class CitaServiceImpl implements CitaService{
 		preparaEnviar(email, asunto, body);
 	}
     
+	@Transactional
+	public void enviarEmailCancelarCita(Integer idcita) {
+		Cita ci = em.find(Cita.class, idcita);
+		
+		String email="odontologospadent@gmail.com";
+		String asunto ="Notificacion de cita cancelada";
+		String body = "Se notifica que el paciente : <br/>"+"<br />"+
+		              "Codigo de paciente :"+ci.getCitaPaciente().getIdPaciente()+"<br />"+
+					  "Sr. o Sra. : "+ci.getCitaPaciente().getPacientePersona().getNombre()+" "+ci.getCitaPaciente().getPacientePersona().getApellidoPaterno()+" "+ci.getCitaPaciente().getPacientePersona().getApellidoMaterno()+"<br />"+
+					  "Telefono :"+ci.getCitaPaciente().getPacientePersona().getCelular() +"<br />"+
+					  "Estado de su cita : "+ci.getCitaEstadoCita().getNombre()+"<br />"+
+					  "Fecha y hora de la cita : "+ci.getHoraInicio()+"<br />"+"<br />";
+		
+		
+		
+		
+		propiedades();
+		preparaEnviar(email, asunto, body);
+	}
+	
+	public void enviarEmailCancelarCitaOdon(Integer idcita){
+		Cita ci = em.find(Cita.class, idcita);
+		
+		String email="odontologospadent@gmail.com";
+		String asunto ="Notificacion de cita cancelada";
+		String body = "Se notifica que el odontologo : <br/>"+"<br />"+
+					  "Codigo Odontologo:"+ci.getCitaOdontologo().getIdOdontologo()+"<br />"+
+					  "Odontologo : "+ci.getCitaOdontologo().getOdontologoPersona().getNombre()+" "+ci.getCitaOdontologo().getOdontologoPersona().getApellidoPaterno()+" "+ci.getCitaOdontologo().getOdontologoPersona().getApellidoMaterno()+"<br />"+
+					  "Especialidad : "+ci.getCitaOdontologo().getEspecialidad()+"<br />"+
+					  "Telefono :"+ci.getCitaOdontologo().getOdontologoPersona().getCelular() +"<br />"+
+					  "Estado de su cita: "+ci.getCitaEstadoCita().getNombre()+"<br />"+
+				      "Fecha y hora de la cita : "+ci.getHoraInicio()+"<br />";
+		
+		propiedades();
+		preparaEnviar(email, asunto, body);
+	}
+	
+	
 	public void propiedades() {
 		emailProperties = System.getProperties();
 		emailProperties.put("mail.smtp.port", "587");

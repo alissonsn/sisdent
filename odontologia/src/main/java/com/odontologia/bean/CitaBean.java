@@ -4,14 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -52,7 +48,7 @@ public class CitaBean {
 	private List<Cita> citasListasHorInic;
 	private List<Cita> citasFiltradas; //para el indexRecepcionista
 	private EstadoCita estadoCita;
-	private Cita selectedCita;
+	private List<Cita> citaElegida;
 	private List<Cita> elegidos;
 	private List<EstadoCita> estadoCitas;
 	
@@ -70,7 +66,7 @@ public class CitaBean {
 		elegidos=new ArrayList<>();
 		estadoCitas = new ArrayList<>();
 		citasFiltradas = new ArrayList<>();
-		
+		citaElegida = new ArrayList<>();
 	}
 
 	public Cita getCita() {
@@ -99,7 +95,24 @@ public class CitaBean {
 		cita.setCitaEstadoCita(estadoCita);
 		if (citaService.modificarCita(cita)) {
 			StaticHelp.correctMessage("Se ha cancelado la cita", "");
-			RequestContext.getCurrentInstance().update("frmNuevoo:growl");
+			RequestContext.getCurrentInstance().update("frmNuevoo:growl");			
+			citaService.enviarEmailCancelarCita(cita.getIdCita());				
+			
+		}
+		cita = new Cita();
+		estadoCita = new EstadoCita();
+
+	}
+	
+	public void cancelarCitaOdontologo(ActionEvent actionEvent) {
+		// ID DE ESTADO DE CITA = 3 (CANCELADO)
+		estadoCita = citaService.estadoCitaFromNombre("CANCELADO");
+		cita.setCitaEstadoCita(estadoCita);
+		if (citaService.modificarCita(cita)) {
+			StaticHelp.correctMessage("Se ha cancelado la cita", "");
+			RequestContext.getCurrentInstance().update("frmNuevoo:growl");			
+		    citaService.enviarEmailCancelarCitaOdon(cita.getIdCita());				
+			
 		}
 		cita = new Cita();
 		estadoCita = new EstadoCita();
@@ -250,19 +263,6 @@ public class CitaBean {
 		this.citasListasHorInic = citasListasHorInic;
 	}
 	
-	public Cita getSelectedCita() {
-		return selectedCita;
-	}
-
-	public void setSelectedCita(Cita selectedCita) {
-		this.selectedCita = selectedCita;
-	}
-	
-	 public void onRowSelect(SelectEvent event) {
-	        FacesMessage msg = new FacesMessage("Cita selectedCita", ((Cita) event.getObject()).getIdCita().toString());
-	        FacesContext.getCurrentInstance().addMessage(null, msg);
-	    }
-
 	public List<Cita> getElegidos() {
 		return elegidos;
 	}
@@ -296,5 +296,13 @@ public class CitaBean {
 
 	public void setCitasFiltradas(List<Cita> citasFiltradas) {
 		this.citasFiltradas = citasFiltradas;
+	}
+
+	public List<Cita> getCitaElegida() {
+		return citaElegida;
+	}
+
+	public void setCitaElegida(List<Cita> citaElegida) {
+		this.citaElegida = citaElegida;
 	}
 }
