@@ -120,6 +120,7 @@ public class ReporteBean {
 		Map<String, Object> parametros = new HashMap<String, Object>();		
 		parametros.put("ID_PACIENTE", idPaciente);
 		parametros.put("IMAGEN_LOGO", this.getClass().getResourceAsStream("../../../../../resources/images/logo.jpg"));
+		parametros.put("RUTA_IMAGEN_DIENTE_O", this.getClass().getResourceAsStream("../../../../../resources/images/"));
 		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reportes/report1.jasper"));
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros, GetConnection());
 		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();

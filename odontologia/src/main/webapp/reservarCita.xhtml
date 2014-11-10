@@ -15,8 +15,16 @@
 		template="/WEB-INF/facelets/templates/plantillaRecepcionista.xhtml">
 
 		<ui:define name="west">
-	OPCIONES DE FILTRO
-	</ui:define>
+			<h:form>
+				<h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
+					<p:selectManyCheckbox id="grid"
+						value="#{citaBean.estadoCitasSeleccionados}" layout="grid" columns="1">
+						<f:selectItems value="#{citaBean.estadoCitas}" var="estado"
+							itemLabel="#{estado.nombre}" itemValue="#{estado.idEstadoCita}" />
+					</p:selectManyCheckbox>
+				</h:panelGrid>
+			</h:form>
+		</ui:define>
 
 		<ui:define name="center">
 
@@ -110,7 +118,7 @@
 
 				</h:panelGrid>
 			</h:form>
-			
+
 			<p:dialog widgetVar="eventDialog" id="dialogoModificar"
 				header="Modificar cita" showEffect="clip" hideEffect="clip"
 				appendTo="@(body)">
@@ -164,14 +172,16 @@
 								itemLabel="#{odontologo.odontologoPersona.nombre}"
 								itemValue="#{odontologo.idOdontologo}" />
 						</p:selectOneMenu>
-						
-						<p:outputLabel value="Estado:"> </p:outputLabel>
-						<p:outputLabel value="#{horarioBean.estadoCita.nombre}"> </p:outputLabel>
+
+						<p:outputLabel value="Estado:">
+						</p:outputLabel>
+						<p:outputLabel value="#{horarioBean.estadoCita.nombre}">
+						</p:outputLabel>
 
 
 					</h:panelGrid>
 					<p:separator></p:separator>
-					
+
 					<h:panelGrid columns="3">
 						<p:commandButton actionListener="#{horarioBean.eliminar}"
 							value="Eliminar Cita"
