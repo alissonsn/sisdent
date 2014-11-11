@@ -51,6 +51,7 @@ public class CitaBean {
 	private List<Cita> citaElegida;
 	private List<Cita> elegidos;
 	private List<EstadoCita> estadoCitas;
+	private List<EstadoCita> estadoCitasSeleccionados;
 	
 	public CitaBean() {
 		cita = new Cita();
@@ -67,6 +68,7 @@ public class CitaBean {
 		estadoCitas = new ArrayList<>();
 		citasFiltradas = new ArrayList<>();
 		citaElegida = new ArrayList<>();
+		estadoCitasSeleccionados = new ArrayList<>();
 	}
 
 	public Cita getCita() {
@@ -304,5 +306,13 @@ public class CitaBean {
 
 	public void setCitaElegida(List<Cita> citaElegida) {
 		this.citaElegida = citaElegida;
+	}
+
+	public List<EstadoCita> getEstadoCitasSeleccionados() {
+		return estadoCitasSeleccionados;
+	}
+
+	public void setEstadoCitasSeleccionados(List<EstadoCita> estadoCitasSeleccionados) {
+		this.estadoCitasSeleccionados = estadoCitasSeleccionados;
 	}
 }

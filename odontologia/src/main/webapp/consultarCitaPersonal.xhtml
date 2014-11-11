@@ -69,7 +69,7 @@
 							actionListener="#{citaBean.cancelarCita}"
 							styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
 							update="frmConsultarCitaPersonal"
-							oncomplete="PF('dlgCancelarW').hide()" />
+							oncomplete="PF('dlgCancelarW').hide()"  disabled="#{empty citaBean.cita}"/>
 						<p:commandButton value="No" styleClass="ui-icon-delete"
 							icon="ui-icon-close" oncomplete="PF('dlgCancelarW').hide()" />
 					</p:outputPanel>
