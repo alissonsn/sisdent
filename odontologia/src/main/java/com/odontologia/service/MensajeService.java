@@ -10,6 +10,10 @@ public interface MensajeService {
 
 	public boolean eliminarMensaje(Mensaje mensaje);
 	
+	public boolean modificarMensaje(Mensaje mensaje);
+	
 	public List<Mensaje> getMensajesEmisorReceptor(Integer idPersona);
+	
+	public boolean getMensajesReceptorLeido(Integer idPersona, boolean leido);
 	
 }

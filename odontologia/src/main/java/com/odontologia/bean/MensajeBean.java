@@ -37,7 +37,7 @@ public class MensajeBean {
 
 	private List<Odontologo> odontologos;
 	private List<Mensaje> mensajeReceptor;
-	
+	private boolean mensajePaciente;
 	@Autowired
 	PacienteService pacienteService;
 	
@@ -52,6 +52,7 @@ public class MensajeBean {
         paciente = new Paciente();
         odontologos = new ArrayList<>();
         mensajeReceptor = new ArrayList<>();
+        mensajePaciente = true;
 	}
 	
 	public Mensaje getMensaje() {
@@ -120,4 +121,25 @@ public class MensajeBean {
 	public void setMensajeReceptor(List<Mensaje> mensajeReceptor) {
 		this.mensajeReceptor = mensajeReceptor;
 	}
+
+	public boolean getMensajePaciente() {
+		Persona persona = new Persona();
+		HttpSession session = StaticHelp.getSession();
+		persona = (Persona) session.getAttribute("personaSesion");
+		mensajePaciente= mensajeservice.getMensajesReceptorLeido(persona.getIdPersona(),true);
+		
+		return mensajePaciente;
+	}
+	
+	public boolean MensajePacienteLeido() {
+
+		mensaje.getLeido().equals(false);
+		if(mensajeservice.modificarMensaje(mensaje)){
+			RequestContext.getCurrentInstance().update("frmNuevoo:growl");
+		}
+		  mensaje = new Mensaje();     
+
+	        return false;
+	}
+
 }
