@@ -15,4 +15,6 @@ public interface DienteOdontogramaService {
 	
 	public boolean merge(DienteOdontograma dienteOdontograma);
 
+	public List<DienteOdontograma> getModified(Odontograma odontograma);
+	
 }

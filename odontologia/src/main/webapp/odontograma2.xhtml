@@ -40,9 +40,34 @@
 				</p:dataGrid>
 			</h:form>
 
+			<h:form id="formDientesModificados">
+				<p:dataTable var="dienteMod" resizableColumns="true" widgetVar="t"
+					emptyMessage="No se ha modificado el odontograma"
+					paginatorPosition="top" rowKey="#{dienteMod.idDienteOdontograma}"
+					value="#{odontogramaBean.dientesModificados}" paginator="true"
+					rows="10"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,15">
 
-			<p:dialog widgetVar="dienteDialog" id="dialogDetalle" appendTo="@(body)"
-				header="Detalles del diente" showEffect="clip" hideEffect="clip">
+					<p:column headerText="Diente">
+						<h:outputText value="#{dienteMod.dienteOdontogramaDiente.numeracionFdi}" />
+					</p:column>
+
+					<p:column headerText="Superficie dental">
+						<h:outputText value="#{dienteMod.dienteOdontogramaSuperficieDental.nombre}" />
+					</p:column>
+					
+					<p:column headerText="Situacion dental">
+						<h:outputText value="#{dienteMod.dienteOdontogramaSituacionDental.nombre}" />
+					</p:column>					
+
+				</p:dataTable>
+			</h:form>
+
+
+			<p:dialog widgetVar="dienteDialog" id="dialogDetalle"
+				appendTo="@(body)" header="Detalles del diente" showEffect="clip"
+				hideEffect="clip">
 				<h:form id="dlg">
 					<h:panelGrid>
 						<p:outputLabel for="txtDetalle" value="Detalle del diente" />
@@ -71,7 +96,7 @@
 
 						<h:panelGrid columns="2">
 							<p:commandButton id="btnModificarDiente" process="@form"
-								update=":form:odontogramaGrid:idPanel" value="Guardar"
+								update=":form:odontogramaGrid:idPanel :formDientesModificados" value="Guardar"
 								action="#{odontogramaBean.actualizarDiente2}"
 								oncomplete="PF('dienteDialog').hide();" />
 

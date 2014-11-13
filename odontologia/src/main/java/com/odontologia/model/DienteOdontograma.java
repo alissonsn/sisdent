@@ -24,6 +24,9 @@ public class DienteOdontograma {
 	@Column(name="urlimagen", nullable=true, length=200)
 	private String urlImagen;
 	
+	@Column(name="esmodificado", nullable=true)
+	private Boolean esModificado;
+	
 	@ManyToOne @JoinColumn(name="idodontograma", nullable=false)
 	private Odontograma dienteOdontogramaOdontograma;
 	
@@ -105,6 +108,14 @@ public class DienteOdontograma {
 
 	public void setUrlImagen(String urlImagen) {
 		this.urlImagen = urlImagen;
+	}
+
+	public Boolean getEsModificado() {
+		return esModificado;
+	}
+
+	public void setEsModificado(Boolean esModificado) {
+		this.esModificado = esModificado;
 	}		
-	
+		
 }

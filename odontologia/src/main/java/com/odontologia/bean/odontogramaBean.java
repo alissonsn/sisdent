@@ -76,6 +76,8 @@ public class odontogramaBean {
 	public List<Paciente> pacientes;
 	public List <Odontograma> odontogramasPorPaciente;
 	
+	public List<DienteOdontograma> dientesModificados;
+	
 	//Detalle de Diente
 	private DienteOdontograma dienteSeleccionado;
 	private List<SituacionDental> situaciones;
@@ -87,6 +89,8 @@ public class odontogramaBean {
 	private long date;
 	
 	private StreamedContent image;
+	
+	private Odontograma odonto;
 	
 	public odontogramaBean(){		
 		paciente = new Paciente();
@@ -123,6 +127,7 @@ public class odontogramaBean {
 			Diente diente = dienteService.dientePorId(i);
 			var.setUrlImagen(imagenOdontogramaService.getUrlImagen(i, 1, 1));
 			var.setDienteOdontogramaDiente(diente);
+			var.setEsModificado(false);
 			var.setDienteOdontogramaSituacionDental(situacionDental);
 			var.setDienteOdontogramaSuperficieDental(superficieDental);
 			var.setDienteOdontogramaOdontograma(last);
@@ -138,17 +143,17 @@ public class odontogramaBean {
 	
 	public String cargarOdontogramaEspecifico(int id){
 		Odontograma odontograma = odontogramaService.buscarPorId(id);
+		odonto = odontogramaService.buscarPorId(id);
 		odontogramaPaciente = dienteOdontogramaService.getByOdontograma(odontograma);
 		return "toOdontograma";
 	}
 	
 	public String cargarOdontogramaEspecifico2(int id){
 		Odontograma odontograma = odontogramaService.buscarPorId(id);
+		odonto = odontogramaService.buscarPorId(id);
 		odontogramaPaciente = dienteOdontogramaService.getByOdontograma(odontograma);
 		return "odontograma2";
-	}
-	
-	
+	}		
 
 	public String cargaDiente(int id){
 		dienteSeleccionado = dienteOdontogramaService.buscarPorId(id);		
@@ -164,6 +169,7 @@ public class odontogramaBean {
 		dienteSeleccionado.setDienteOdontogramaSuperficieDental(superficieDental);
 		dienteSeleccionado.setUrlImagen(imagenOdontogramaService.getUrlImagen(dienteSeleccionado.getDienteOdontogramaDiente().getIdDiente(), superficieDental.getIdSuperficieDental(), situacionDental.getIdSituacionDental()));
 		//+"?cache="+System.currentTimeMillis()
+		dienteSeleccionado.setEsModificado(true);
 		dienteOdontogramaService.merge(dienteSeleccionado);
 		dienteSeleccionado = new DienteOdontograma();
 		situacionDental = new SituacionDental();
@@ -177,6 +183,7 @@ public class odontogramaBean {
 		dienteSeleccionado.setDienteOdontogramaSuperficieDental(superficieDental);
 		dienteSeleccionado.setUrlImagen(imagenOdontogramaService.getUrlImagen(dienteSeleccionado.getDienteOdontogramaDiente().getIdDiente(), superficieDental.getIdSuperficieDental(), situacionDental.getIdSituacionDental()));
 		//+"?cache="+System.currentTimeMillis()
+		dienteSeleccionado.setEsModificado(true);
 		dienteOdontogramaService.merge(dienteSeleccionado);
 		dienteSeleccionado = new DienteOdontograma();
 		situacionDental = new SituacionDental();
@@ -203,6 +210,14 @@ public class odontogramaBean {
 		    }						
 	}
 	
+	public List<DienteOdontograma> getDientesModificados() {		
+		return dienteOdontogramaService.getModified(odonto);
+	}
+
+	public void setDientesModificados(List<DienteOdontograma> dientesModificados) {
+		this.dientesModificados = dientesModificados;
+	}
+
 	public void setImage(StreamedContent image) {
 		this.image = image;
 	}

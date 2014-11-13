@@ -70,4 +70,20 @@ public class DienteOdontogramaServiceImpl implements DienteOdontogramaService{
 		return resultado;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<DienteOdontograma> getModified(Odontograma odontograma) {
+		List<DienteOdontograma> result = new ArrayList<>();
+		try{			
+			Query q = em.createQuery("SELECT d FROM DienteOdontograma d WHERE d.dienteOdontogramaOdontograma=:odontograma and d.esModificado=true");
+			q.setParameter("odontograma", odontograma);
+			result = q.getResultList();		
+		}
+		catch(Exception e){
+			System.out.println("ERROR: "+e.getMessage());
+			result = null;
+		}
+		return result;
+	}
+
 }
