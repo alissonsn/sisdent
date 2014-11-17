@@ -7,36 +7,38 @@
 <f:view renderKitId="PRIMEFACES_MOBILE" />
 
 <h:head>
-	<link href="/odontologia/resources/css/estilosIndexMovil.css"
-		media="only screen" type="text/css" rel="stylesheet" />
+	<link href="/odontologia/resources/css/estilos.css" type="text/css"
+		rel="stylesheet" />
 </h:head>
 
 <h:body>
 	<pm:page id="wrapper">
-		<pm:header title="BANDEJA DE MENSAJE" swatch="b">
-			<p:button styleClass="ui-btn-right ui-btn-inline"
-				value="Enviar Mensaje"
-				icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-navigation"
-				outcome="pm:enviarMensaje" />
-		</pm:header>
-		<h:form>
+		<h:form id="form">
+			<p
+				style="margin-top: 0px; text-align: center; font-weight: bold; font-size: 1.7em; border-bottom: 1px solid #ddd; color: #2142EE; background-color: #FDE31E; text-shadow: none; font-family: Book Antiqua;">BANDEJA
+				DE MENSAJE</p>
 			<p:accordionPanel dynamic="true"
-				value="#{mensajeBean.mensajeReceptorLeido}" var="men">
+				value="#{mensajeBean.mensajeReceptorNoLeido}" var="men"
+				activeIndex="-1">
 				<p:tab
 					title="#{men.titulo} - #{men.mensajeUsuarioEmisor.usuarioPersona.nombre} #{men.mensajeUsuarioEmisor.usuarioPersona.apellidoPaterno}">
-					<h:panelGrid columns="2" cellpadding="10">
+					<h:panelGrid columns="3" cellpadding="10">
 						<p:graphicImage name="demo/images/car/#{car.brand}.gif" />
 						<h:outputText value="#{men.texto}" />
+						<p:button value="Responder Mensaje"
+							icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-navigation"
+							outcome="pm:enviarMensaje" />
 					</h:panelGrid>
 				</p:tab>
 			</p:accordionPanel>
 
 			<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
-				<p:commandButton value="Atras"
-					onclick="location.href='indexOdontologoMovil.xhtml'" />
+				<p:commandButton value="Atras" action="#{mensajeBean.mensajeVisto}"
+					onclick="location.href='indexOdontologoMovil.xhtml'" update="form" />
 			</p:panelGrid>
 		</h:form>
 	</pm:page>
+
 	<pm:page id="enviarMensaje">
 		<pm:header title="Enviar Mensaje" swatch="b">
 			<p:button styleClass="ui-btn-left ui-btn-inline" value="Regresar"
@@ -61,8 +63,6 @@
 					</p:selectOneMenu>
 				</pm:field>
 
-
-
 				<pm:field>
 					<p:outputLabel for="asunto" value="Asunto:"
 						styleClass="ui-field-contain > label" />
@@ -81,7 +81,6 @@
 						requiredMessage="Se requiere un texto " />
 				</pm:field>
 
-
 				<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
 					<p:commandButton value="Enviar" style="width:120px"
 						actionListener="#{mensajeBean.insertarMensaje}"
@@ -92,5 +91,6 @@
 		</h:form>
 
 	</pm:page>
+
 </h:body>
 </html>

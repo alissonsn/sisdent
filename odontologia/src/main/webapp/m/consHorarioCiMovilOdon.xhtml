@@ -59,13 +59,13 @@
 
 
 			<p:dialog id="dlgCancelar" header="Cancelar" widgetVar="dlgCancelarW"
-				showEffect="pop">
+				showEffect="pop" >
 
 				<h:outputText value="¿Desea cancelar esta cita?" />
 				<p:commandButton value="Si"
-					actionListener="#{citaBean.cancelarCita}"
+					actionListener="#{citaBean.cancelarCitaOdontologo}"
 					styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
-					update="frmPrincipal" oncomplete="PF('dlgCancelarW').hide()" />
+					update="frmPrincipal" oncomplete="PF('dlgCancelarW').hide()"/>
 				<p:commandButton value="No" styleClass="ui-icon-delete"
 					icon="ui-icon-close" oncomplete="PF('dlgCancelarW').hide()" />
 

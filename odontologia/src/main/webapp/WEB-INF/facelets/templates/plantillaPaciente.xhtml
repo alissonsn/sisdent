@@ -26,6 +26,9 @@
 					<p:growl id="messages" />
 
 					<p:menubar>
+						
+					   <p:menuitem  icon="ui-icon-home" value="Home" url="indexPaciente.jsf" />					
+					
 						<p:submenu label="Perfil" icon="ui-icon-person">
 							<p:menuitem value="Datos Personales" url="consultarInformacionPersonalPaciente.jsf" />
 						</p:submenu>
@@ -40,14 +43,16 @@
 						</p:submenu>
 
 						<p:submenu label="Contacto" icon="ui-icon-mail-closed">
-							<p:menuitem value="Mensajes" url="enviarMensajePaciente.jsf" />
-							<p:menuitem value="Bandeja" url="bandejaMensajePaciente.jsf" />
+							<p:menuitem value="Bandeja de Mensajes" url="bandejaMensajePaciente.jsf" />
 						</p:submenu>
+						
+						 <p:menuitem rendered="#{mensajeBean.mensajePersona}" icon="ui-icon-mail-closed" value="Notificacion de Nuevo Mensaje" url="bandejaNuevoMen.jsf" />						
+						
 						<f:facet name="options">
 							<p:commandButton action="#{loginBean.cerrarSesion}"
-								value="Cerrar sesión" icon="ui-icon-extlink" />
-
+								value="Cerrar sesión" icon="ui-icon-extlink"   actionListener="#{mensajeBean.mensajeVisto}"/>
 						</f:facet>
+						
 					</p:menubar>
 				</h:form>
 			</ui:insert>

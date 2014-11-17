@@ -1,19 +1,15 @@
 package com.odontologia.bean;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.odontologia.model.Cita;
 import com.odontologia.model.Mensaje;
 import com.odontologia.model.Odontologo;
 import com.odontologia.model.Paciente;
@@ -23,7 +19,6 @@ import com.odontologia.service.CitaService;
 import com.odontologia.service.MensajeService;
 import com.odontologia.service.PacienteService;
 import com.odontologia.util.StaticHelp;
-import com.odontologia.util.citaData;
 
 @Controller
 public class MensajeBean {
@@ -31,13 +26,13 @@ public class MensajeBean {
 	private Odontologo odontologo;
 	private Paciente paciente;
 	private Mensaje mensaje;	
-    
 	@Autowired
 	MensajeService mensajeservice;
 
 	private List<Odontologo> odontologos;
-	private List<Mensaje> mensajeReceptor;
-	private boolean mensajePaciente;
+	private List<Mensaje> mensajeReceptorLeido;
+	private List<Mensaje> mensajeReceptorNoLeido;
+	private boolean mensajePersona;
 	@Autowired
 	PacienteService pacienteService;
 	
@@ -51,8 +46,9 @@ public class MensajeBean {
         mensaje.setMensajeUsuarioReceptor(new Usuario());
         paciente = new Paciente();
         odontologos = new ArrayList<>();
-        mensajeReceptor = new ArrayList<>();
-        mensajePaciente = true;
+        mensajeReceptorLeido = new ArrayList<>();
+        mensajeReceptorNoLeido = new ArrayList<>();
+        mensajePersona = true;
 	}
 	
 	public Mensaje getMensaje() {
@@ -73,6 +69,7 @@ public class MensajeBean {
 		Timestamp fecha= new Timestamp(System.currentTimeMillis());
 		mensaje.setMensajeUsuarioEmisor(usuario);	
 		mensaje.setFecha(fecha);
+		mensaje.setLeido(true);
 		
 		if(mensajeservice.insertarMensaje(mensaje)){
 			StaticHelp.correctMessage("Se ha registrado con éxito el mensaje", "");
@@ -86,14 +83,30 @@ public class MensajeBean {
 		
 	}
 	
-	public List<Mensaje> getMensajeReceptor() {
+	public List<Mensaje> getMensajeReceptorLeido() {
 		Persona persona = new Persona();
 		HttpSession session = StaticHelp.getSession();
 		persona = (Persona) session.getAttribute("personaSesion");
-		mensajeReceptor = mensajeservice.getMensajesEmisorReceptor(persona.getIdPersona());
-		return mensajeReceptor;
+		mensajeReceptorLeido = mensajeservice.getMensajesReceptorEst(persona.getIdPersona(),false);
+		return mensajeReceptorLeido;
 	}
 	
+	public void setMensajeReceptorLeido(List<Mensaje> mensajeReceptorLeido) {
+		this.mensajeReceptorLeido= mensajeReceptorLeido;
+	}
+	
+	public List<Mensaje> getMensajeReceptorNoLeido() {
+		Persona persona = new Persona();
+		HttpSession session = StaticHelp.getSession();
+		persona = (Persona) session.getAttribute("personaSesion");
+		mensajeReceptorNoLeido = mensajeservice.getMensajesReceptorEst(persona.getIdPersona(),true);
+		return mensajeReceptorNoLeido;
+	}
+
+	public void setMensajeReceptorNoLeido(List<Mensaje> mensajeReceptorNoLeido) {
+		this.mensajeReceptorNoLeido = mensajeReceptorNoLeido;
+	}
+		
 	public Odontologo getOdontologo() {
 		return odontologo;
 	}
@@ -118,28 +131,24 @@ public class MensajeBean {
 		this.paciente = paciente;
 	}
 	
-	public void setMensajeReceptor(List<Mensaje> mensajeReceptor) {
-		this.mensajeReceptor = mensajeReceptor;
-	}
-
-	public boolean getMensajePaciente() {
+	public boolean getMensajePersona() {
 		Persona persona = new Persona();
 		HttpSession session = StaticHelp.getSession();
 		persona = (Persona) session.getAttribute("personaSesion");
-		mensajePaciente= mensajeservice.getMensajesReceptorLeido(persona.getIdPersona(),true);
+		mensajePersona= mensajeservice.getMensajesAvisoReceptor(persona.getIdPersona(),true);
 		
-		return mensajePaciente;
+		return mensajePersona;
 	}
-	
-	public boolean MensajePacienteLeido() {
-
-		mensaje.getLeido().equals(false);
+		
+ public void mensajeVisto(){
+	 
+	  for(Mensaje mensaje : mensajeReceptorNoLeido){
+		mensaje.setLeido(false);
+		mensaje.setTitulo(mensaje.getTitulo()+" -'Mensaje Visto'");
 		if(mensajeservice.modificarMensaje(mensaje)){
 			RequestContext.getCurrentInstance().update("frmNuevoo:growl");
 		}
-		  mensaje = new Mensaje();     
-
-	        return false;
-	}
-
+	  }
+ }
+	
 }

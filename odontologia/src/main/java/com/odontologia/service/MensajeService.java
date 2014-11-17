@@ -12,8 +12,9 @@ public interface MensajeService {
 	
 	public boolean modificarMensaje(Mensaje mensaje);
 	
-	public List<Mensaje> getMensajesEmisorReceptor(Integer idPersona);
+	public List<Mensaje> getMensajesReceptorEst(Integer idPersona,boolean leido);
+		
+	public boolean getMensajesAvisoReceptor(Integer idPersona,boolean leido);
 	
-	public boolean getMensajesReceptorLeido(Integer idPersona, boolean leido);
-	
+	public List<Mensaje> getMensajesReceptorList();
 }

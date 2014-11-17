@@ -15,7 +15,7 @@ xmlns:pm="http://primefaces.org/mobile" >
 <pm:page id="wrapper">
  <pm:header title="Weather" swatch="b">
                 <p:button value="Bienvenido a SPADENT, #{loginBean.persona.nombre}"   />
-                <p:button icon="ui-btn ui-icon-mail ui-btn-icon-left ui-shadow ui-corner-all" outcome="bandejaMenMovilOdon.xhtml" rendered="true" />
+                <p:button icon="ui-btn ui-icon-mail ui-btn-icon-left ui-shadow ui-corner-all" outcome="bandejaNuevMenMovilOdon.xhtml" rendered="#{mensajeBean.mensajePersona}" />
  </pm:header>
  <h:form>
    <p:graphicImage url="/resources/images/Fondo Cabecera.jpg" styleClass="ui-imagen" ></p:graphicImage>
@@ -23,7 +23,7 @@ xmlns:pm="http://primefaces.org/mobile" >
    <h:form styleClass="ui-form">
    <p:commandButton value="Consultar Horario de Citas" icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-search" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" onclick="location.href='consHorarioCiMovilOdon.xhtml'"/>  
    <p:commandButton value="Perfil"  icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user"  iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" onclick="location.href='consInformPerMovilOdon.xhtml'"/> 
-   <p:commandButton value="Mensajes" icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-navigation" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" onclick="location.href='enviarMenMovilOdon.xhtml'"/>    
+   <p:commandButton value="Bandeja de Mensajes" icon="ui-btn ui-icon-mail ui-btn-icon-left ui-shadow ui-corner-all" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" onclick="location.href='bandejaMenMovilOdon.xhtml'"/>    
    <p:commandButton value="Salir" icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-forward" iconPos="right" style="background-color: rgba(16, 15, 39, 0.45);color:rgba(243, 242, 242, 0.76);font-size: 19px" onclick="location.href='loginMovil.xhtml'"/>
    </h:form> 
     

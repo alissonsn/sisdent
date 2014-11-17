@@ -1,38 +1,45 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:p="http://primefaces.org/ui"
-xmlns:pm="http://primefaces.org/mobile" >
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
 <f:view renderKitId="PRIMEFACES_MOBILE" />
-  
+
 <h:head>
-<link href="/odontologia/resources/css/estilos.css" type="text/css" rel="stylesheet"/>
+	<link href="/odontologia/resources/css/estilos.css" type="text/css"
+		rel="stylesheet" />
 </h:head>
 
-<h:body >
-<pm:page id="wrapper">
- <h:form id="form">
-    <pm:header title="BANDEJA DE MENSAJE" swatch="b">
-                <p:button styleClass="ui-btn-right ui-btn-inline" value="Enviar Mensaje" icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-navigation" outcome="pm:enviarMensaje" />
-       </pm:header>
+<h:body>
+	<pm:page id="wrapper">
+		<h:form id="form">
+			<p
+				style="margin-top: 0px; text-align: center; font-weight: bold; font-size: 1.7em; border-bottom: 1px solid #ddd; color: #2142EE; background-color: #FDE31E; text-shadow: none; font-family: Book Antiqua;">BANDEJA
+				DE MENSAJE</p>
+			<p:accordionPanel dynamic="true"
+				value="#{mensajeBean.mensajeReceptorNoLeido}" var="men"
+				activeIndex="-1">
+				<p:tab
+					title="#{men.titulo} - #{men.mensajeUsuarioEmisor.usuarioPersona.nombre} #{men.mensajeUsuarioEmisor.usuarioPersona.apellidoPaterno}">
+					<h:panelGrid columns="2" cellpadding="10">
+					<p:graphicImage name="demo/images/car/#{car.brand}.gif"/> 
+						<h:outputText value="#{men.texto}" />
+						<p:button value="Responder Mensaje"
+							icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-navigation"
+							outcome="pm:enviarMensaje" />
+					</h:panelGrid>
+				</p:tab>
+			</p:accordionPanel>
 
-<p:accordionPanel dynamic="true" value="#{mensajeBean.mensajeReceptorLeido}" var="men" activeIndex="-1"  >      
-    <p:tab title="#{men.titulo} - #{men.mensajeUsuarioEmisor.usuarioPersona.nombre} #{men.mensajeUsuarioEmisor.usuarioPersona.apellidoPaterno}">
-         <h:panelGrid columns="2" cellpadding="10" >
-						<p:graphicImage name="demo/images/car/#{car.brand}.gif" />
-						<h:outputText value="#{men.texto}"/>
-         </h:panelGrid>
-    </p:tab>
-</p:accordionPanel>
+			<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
+				<p:commandButton value="Atras" action="#{mensajeBean.mensajeVisto}"
+					onclick="location.href='indexPacienteMovil.xhtml'" update="form" />
+			</p:panelGrid>
+		</h:form>
+	</pm:page>
 
-   
-<p:panelGrid columns="2" styleClass="ui-btnPanelGrid"   > 
-<p:commandButton value="Atras" onclick="location.href='indexPacienteMovil.xhtml'"/>
-</p:panelGrid>
-</h:form>  
-</pm:page>
-<pm:page id="enviarMensaje">
+	<pm:page id="enviarMensaje">
 		<pm:header title="Enviar Mensaje" swatch="b">
 			<p:button styleClass="ui-btn-left ui-btn-inline" value="Regresar"
 				icon="ui-icon-arrow-l" outcome="pm:wrapper" />
@@ -83,5 +90,6 @@ xmlns:pm="http://primefaces.org/mobile" >
 		</h:form>
 
 	</pm:page>
+
 </h:body>
 </html>

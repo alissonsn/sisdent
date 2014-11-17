@@ -19,7 +19,7 @@
 	
 	<ui:define name="center">
 	<h:form id="frmConsultarCitaOdontologo">
-				<p:dataTable var="cita" value="#{citaBean.citasPorOdontologo}" rowKey="#{cita.idCita}" emptyMessage="No hay citas registradas">
+				<p:dataTable var="cita" value="#{citaBean.citasDeOdontologoEnEspera}" rowKey="#{cita.idCita}" emptyMessage="No hay citas registradas">
 					<f:facet name="header">
             Citas 
         </f:facet>

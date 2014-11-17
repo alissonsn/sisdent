@@ -28,6 +28,8 @@
 					<p:growl id="messages" />
 
 					<p:menubar>
+					<p:menuitem  icon="ui-icon-home" value="Home" url="indexOdontologo.jsf" />
+					
 						<p:submenu label="Perfil" icon="ui-icon-person">
 							<p:menuitem value="Datos Personales"
 								url="consultarInformacionPersonalOdontologo.jsf" />
@@ -46,12 +48,14 @@
 						</p:submenu>
 
 						<p:submenu label="Contacto" icon="ui-icon-mail-closed">
-							<p:menuitem value="Mensajes" url="enviarMensajeOdontologo.jsf" />
-							<p:menuitem value="Bandeja" url="bandejaMensajeOdontologo.jsf" />
+							<p:menuitem value="Bandeja de Mensajes" url="bandejaMensajeOdontologo.jsf" />
 						</p:submenu>
+						
+						<p:menuitem rendered="#{mensajeBean.mensajePersona}" icon="ui-icon-mail-closed" value="Notificacion de Nuevo Mensaje" url="bandejaNuevoMenOdontologo.jsf" />						
+						
 						<f:facet name="options">
 							<p:commandButton action="#{loginBean.cerrarSesion}"
-								value="Cerrar sesión" icon="ui-icon-extlink" />
+								value="Cerrar sesión" icon="ui-icon-extlink"  actionListener="#{mensajeBean.mensajeVisto}"/>
 
 						</f:facet>
 					</p:menubar>

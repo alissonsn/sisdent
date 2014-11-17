@@ -19,7 +19,7 @@
 	<ui:define name="center">
 	
 	<h:form id="frmConsultarCitaPersonal">
-				<p:dataTable var="cita" value="#{citaBean.citasPorPaciente}" rowKey="#{cita.idCita}" emptyMessage="No hay citas registradas">
+				<p:dataTable var="cita" value="#{citaBean.citasDePacienteEnEspera}" rowKey="#{cita.idCita}" emptyMessage="No hay citas registradas">
 					<f:facet name="header">
             Citas 
         </f:facet>
@@ -55,11 +55,6 @@
 					</p:rowExpansion>
 				</p:dataTable>
 			</h:form>
-	
-	
-	
-	
-	
 	
 	</ui:define>
 

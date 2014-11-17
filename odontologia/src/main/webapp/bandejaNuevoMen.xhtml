@@ -1,48 +1,43 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:p="http://primefaces.org/ui"
-xmlns:pm="http://primefaces.org/mobile" >
-<f:view renderKitId="PRIMEFACES_MOBILE" />
-  
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
 <h:head>
-<link href="/odontologia/resources/css/estilos.css" type="text/css" rel="stylesheet"/>
+	<h:outputStylesheet name="css/estilos.css" />
+
 </h:head>
+<h:body>
+	<ui:composition     
+		template="/WEB-INF/facelets/templates/plantillaPaciente.xhtml">
 
-<h:body >
-<pm:page id="wrapper">
+		<ui:define name="west">
+	INDEX
+	</ui:define>
+
+		<ui:define name="center" >
+
  <h:form id="form">
-    <pm:header title="BANDEJA DE MENSAJE" swatch="b">
-                <p:button styleClass="ui-btn-right ui-btn-inline" value="Enviar Mensaje" icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-navigation" outcome="pm:enviarMensaje" />
-       </pm:header>
-
-<p:accordionPanel dynamic="true" value="#{mensajeBean.mensajeReceptorLeido}" var="men" activeIndex="-1"  >      
+       <p:growl id="growl" sticky="true" />
+<p:accordionPanel dynamic="true" value="#{mensajeBean.mensajeReceptorNoLeido}" var="men" activeIndex="-1"  >      
     <p:tab title="#{men.titulo} - #{men.mensajeUsuarioEmisor.usuarioPersona.nombre} #{men.mensajeUsuarioEmisor.usuarioPersona.apellidoPaterno}">
          <h:panelGrid columns="2" cellpadding="10" >
 						<p:graphicImage name="demo/images/car/#{car.brand}.gif" />
 						<h:outputText value="#{men.texto}"/>
-         </h:panelGrid>
+						<p:commandButton value="Responder Mensaje"  update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-navigation">
+                    <f:setPropertyActionListener value="#{mensaje}" target="#{mensajeBean.mensaje}" />            
+                </p:commandButton>               
+         </h:panelGrid>        
     </p:tab>
 </p:accordionPanel>
 
-   
-<p:panelGrid columns="2" styleClass="ui-btnPanelGrid"   > 
-<p:commandButton value="Atras" onclick="location.href='indexPacienteMovil.xhtml'"/>
-</p:panelGrid>
-</h:form>  
-</pm:page>
-<pm:page id="enviarMensaje">
-		<pm:header title="Enviar Mensaje" swatch="b">
-			<p:button styleClass="ui-btn-left ui-btn-inline" value="Regresar"
-				icon="ui-icon-arrow-l" outcome="pm:wrapper" />
-		</pm:header>
-
-		<h:form id="frmEnviarMen">
-			<p:growl id="growl" sticky="true" />
-			<p:panel header="Ingrese su mensaje">
-				<p:messages />
-				<pm:field>
+<p:dialog position="bottom"  header="Enviar Mensaje" widgetVar="carDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="carDetail" style="text-align:center;">
+          
+            <p:panelGrid    columns="1" columnClasses="label,value">
+                
 					<h:outputLabel for="odontologoSelectMenu" value="Odontologo" />
 
 					<p:selectOneMenu id="odontologoSelectMenu"
@@ -54,34 +49,39 @@ xmlns:pm="http://primefaces.org/mobile" >
 							itemLabel="#{cita.citaOdontologo.odontologoPersona.nombre} #{cita.citaOdontologo.odontologoPersona.apellidoPaterno}"
 							itemValue="#{cita.citaOdontologo.odontologoPersona.personaUsuario.idUsuario}" />
 					</p:selectOneMenu>
-				</pm:field>
-				<pm:field>
+				
+				
 					<p:outputLabel for="asunto" value="Asunto:"
 						styleClass="ui-field-contain > label" />
 					<p:inputText id="asunto"
 						styleClass="ui-field-contain > label ~ [class*='ui-']"
 						value="#{mensajeBean.mensaje.titulo}" required="true"
 						requiredMessage="Se requiere un asunto" />
-				</pm:field>
+			
 
-				<pm:field>
+				
 					<p:outputLabel for="textarea" value="Mensaje"
 						styleClass="ui-field-contain > label" />
 					<p:inputTextarea id="textarea"
 						styleClass="ui-field-contain > label ~ [class*='ui-']"
 						value="#{mensajeBean.mensaje.texto}" required="true"
 						requiredMessage="Se requiere un texto " />
-				</pm:field>
+				
 
-				<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
+				
+			
+            </p:panelGrid>
+           
 					<p:commandButton value="Enviar" style="width:120px"
 						actionListener="#{mensajeBean.insertarMensaje}"
-						update="frmEnviarMen,growl" />
+						update="carDetail,growl" />
+				
+        </p:outputPanel>
+    </p:dialog>
 
-				</p:panelGrid>
-			</p:panel>
-		</h:form>
+</h:form>  
+		</ui:define>
 
-	</pm:page>
+	</ui:composition>
 </h:body>
 </html>

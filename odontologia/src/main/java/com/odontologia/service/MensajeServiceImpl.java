@@ -65,11 +65,12 @@ public class MensajeServiceImpl implements MensajeService {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<Mensaje> getMensajesEmisorReceptor(Integer idPersona) {
+	public List<Mensaje> getMensajesReceptorEst(Integer idPersona,boolean leido) {
 		List<Mensaje> result = new ArrayList<>();
 		try{
-			Query q = em.createQuery("SELECT m FROM Mensaje m JOIN m.mensajeUsuarioReceptor mu JOIN mu.usuarioPersona up WHERE up.idPersona=:idPersona");
-			q.setParameter("idPersona", idPersona);			
+			Query q = em.createQuery("SELECT m FROM Mensaje m JOIN m.mensajeUsuarioReceptor mu JOIN mu.usuarioPersona up WHERE up.idPersona=:idPersona and m.leido=:leido");
+			q.setParameter("idPersona", idPersona);	
+			q.setParameter("leido", leido);
 			result = q.getResultList();
 		}
 		catch(NoResultException e){
@@ -80,7 +81,7 @@ public class MensajeServiceImpl implements MensajeService {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public boolean getMensajesReceptorLeido(Integer idPersona, boolean leido) {
+	public boolean getMensajesAvisoReceptor(Integer idPersona,boolean leido) {
 		List<Mensaje> result = new ArrayList<>();
 		try{
 			Query q = em.createQuery("SELECT m FROM Mensaje m JOIN m.mensajeUsuarioReceptor mu JOIN mu.usuarioPersona up WHERE up.idPersona=:idPersona and m.leido=:leido");
@@ -97,4 +98,20 @@ public class MensajeServiceImpl implements MensajeService {
 		}
 		else{return false;}
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Mensaje> getMensajesReceptorList() {
+		List<Mensaje> result = new ArrayList<>();
+		try{
+			Query q = em.createQuery("SELECT m FROM Mensaje m JOIN m.mensajeUsuarioReceptor mu group by mu.idUsuario");
+			result = q.getResultList();
+		}
+		catch(NoResultException e){
+			System.out.println("ERROR: "+e.getMessage());
+		}
+		return result;
+	}
+	
+	
 }
