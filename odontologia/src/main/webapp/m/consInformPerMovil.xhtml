@@ -20,8 +20,8 @@
 				Generales</p>
 			<p:panel header="Informacion:">
 			<p:messages />
-			<p:graphicImage
-				url="/resources/images/4.jpg"
+			<p:graphicImage 
+				url="#{loginBean.persona.personaUsuario.urlFoto}"
 				styleClass="ui-imagen"></p:graphicImage>
    		 	
 			<pm:field>
@@ -31,7 +31,6 @@
 					styleClass="ui-field-contain > label ~ [class*='ui-']"
 					value="#{loginBean.persona.nombre}" disabled="#{loginBean.activar}"  required="true" requiredMessage="Se requiere un nombre"/>
 			</pm:field>
-
 			<pm:field>
 				<p:outputLabel for="apellidopat" value="Apellido Paterno:"
 					styleClass="ui-field-contain > label" />

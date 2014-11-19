@@ -5,30 +5,28 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pm="http://primefaces.org/mobile">
 <f:view renderKitId="PRIMEFACES_MOBILE" />
-
-
 <h:head>
 	<link href="/odontologia/resources/css/estilosLoginMovil.css"
 		media="only screen" type="text/css" rel="stylesheet" />
 </h:head>
 <h:body>
-	<pm:page id="wrapper">
-
-		<h:form id="frmLoginMovil">
+	<pm:page  id="wrapper">
+		<h:form id="frmLoginMovil" >
 			<p:growl id="growl" sticky="true" />
-
 			<p
 				style="margin-top:0px;text-align: center; font-weight: bold; font-size: 1.7em; border-bottom: 1px solid #ddd; color: whitesmoke; background-color: darkslateblue; text-shadow: none; font-family: Book Antiqua;">BIENVENIDO
 				AL SISTEMA DE CONTROL DE PACIENTES PARA CONSULTORIOS ODONTOLÓGICOS</p>
 			<p:panel header="Inicio de Sesión">
-				<p:messages />
+			
 				<pm:field>
 					<p:outputLabel for="usuario" value="Usuario:"
 						styleClass="ui-field-contain > label" />
 					<p:inputText id="usuario"
 						styleClass="ui-field-contain>label  ~ [class*='ui-'] "
 						value="#{loginBean.usuario}" required="true"
-						requiredMessage="Se requiere un usuario" />
+						requiredMessage = "Se requiere un usuario"
+						>
+					</p:inputText>
 				</pm:field>
 
 				<pm:field>
@@ -41,12 +39,14 @@
 				</pm:field>
 
 				<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
-					<p:commandButton value="Cancelar" style="width:140px" />
+					<p:commandButton value="Cancelar" style="width:140px; margin-top:6%;" />
 
-					<p:commandButton value="Aceptar" style="width:140px"
+					<p:commandButton value="Aceptar" style="width:140px; margin-top:6%; "
 						action="#{loginBean.usuarioLoginMovil}" update="frmLoginMovil,growl" />
 				</p:panelGrid>
+					
 			</p:panel>
+			<p:messages />
 		</h:form>
 	</pm:page>
 </h:body>

@@ -19,6 +19,7 @@
 
 		<ui:define name="center">
 
+<p:growl autoUpdate="true" ></p:growl>
 			<h:form id="frmAdmOdon">
 
 
@@ -99,19 +100,32 @@
 					<p:panelGrid columns="2">
 
 						<p:outputLabel value="Nombre:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.persona.nombre}">
+						<p:inputText value="#{odontologoBean.persona.nombre}"
+						required="true" requiredMessage="Se requiere un nombre"
+						validatorMessage="El nombre no debe contener números ni simbolos ni espacios vacios al inicio">
+							<f:validateRegex pattern="^(([A-Za-zñÑ])+([A-Za-zñÑ ]))*"></f:validateRegex>
 						</p:inputText>
 
 						<p:outputLabel value="Apellido Paterno:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.persona.apellidoPaterno}">
+						<p:inputText value="#{odontologoBean.persona.apellidoPaterno}"
+						required="true" requiredMessage="Se requiere un Apellido Paterno"
+						validatorMessage="El apellido paterno no debe contener números ni simbolos ni espacios vacios al inicio">
+							<f:validateRegex pattern="^(([A-Za-zñÑ])+([A-Za-zñÑ ]))*"></f:validateRegex>
 						</p:inputText>
 
 						<p:outputLabel value="Apellido Materno:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.persona.apellidoMaterno}">
+						<p:inputText value="#{odontologoBean.persona.apellidoMaterno}"
+						required="true" requiredMessage="Se requiere un Apellido Materno"
+					    validatorMessage="El apellido materno no debe contener números ni simbolos ni espacios vacios al inicio">
+							<f:validateRegex pattern="^(([A-Za-zñÑ])+([A-Za-zñÑ ]))*"></f:validateRegex>
 						</p:inputText>
 
 						<p:outputLabel value="Dirección:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.persona.direccion}">
+						<p:inputText value="#{odontologoBean.persona.direccion}"
+						required="true"
+						requiredMessage="Se debe ingresar una dirección"
+						validatorMessage="La Direccion acepta (jr.-av.-prol.-calle) y detalles de la dirección ">
+							<f:validateRegex pattern="(^jr.|jr|JR|Jr|JR.|Jr.|av|AV|Av|AV.|Av.|av.|Prol|PROL|prol|Prol.|PROL.|prol.|calle|Calle|CALLE)+( )+([A-Za-z0-9. ]*)"></f:validateRegex>
 						</p:inputText>
 
 						<p:outputLabel value="Distrito:"></p:outputLabel>
@@ -124,27 +138,47 @@
 						</p:selectOneMenu>
 
 						<p:outputLabel value="Celular:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.persona.celular}">
+						<p:inputText value="#{odontologoBean.persona.celular}"
+						required="true" requiredMessage="Se requiere un numero de celular"
+						validatorMessage="El celular solo acepta 9 números y ninguna letra o símbolo">
+						<f:validateRegex pattern="[0-9]{9}"></f:validateRegex>
 						</p:inputText>
 
 						<p:outputLabel value="Teléfono Fijo:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.persona.telefono}">
+						<p:inputText value="#{odontologoBean.persona.telefono}"
+						validatorMessage="El teléfono debe tener solo números y en el formato (111-1111)">
+						<f:validateRegex pattern="[0-9]{7}"></f:validateRegex>
 						</p:inputText>
 
 						<p:outputLabel value="Correo Electrónico:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.persona.correoElectronico}">
+						<p:inputText value="#{odontologoBean.persona.correoElectronico}"
+						required="true" requiredMessage="Se requiere un correo electrónico"
+						validatorMessage="El formato de correo debe ser (ejemplo@correo.com)">
+						<f:validateRegex
+						pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})" />
 						</p:inputText>
 
 						<p:outputLabel value="Usuario:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.usuario.usuario}">
+						<p:inputText value="#{odontologoBean.usuario.usuario}"
+						required="true"
+						requiredMessage="Se requiere un usuario" 
+						validatorMessage="El usuario solo acepta letras o números">
+						<f:validateRegex pattern="^[A-Za-z0-9]*"/>
 						</p:inputText>
 
 						<p:outputLabel value="Contraseña:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.usuario.password}">
+						<p:inputText value="#{odontologoBean.usuario.password}"
+						required="true"
+						requiredMessage="Se requiere una contraseña"
+						validatorMessage="La contraseña solo acepta letras en minúscula y números">
+						<f:validateRegex pattern="[^A-Z\W]*" ></f:validateRegex>
 						</p:inputText>
 
 						<p:outputLabel value="Especialidad:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.odontologo.especialidad}">
+						<p:inputText value="#{odontologoBean.odontologo.especialidad}"
+						required="true" requiredMessage="Se requiere una especialidad"
+						validatorMessage="La especialidad no debe contener números ni simbolos ni espacios vacios al inicio">
+							<f:validateRegex pattern="^(([A-Za-zñÑ])+([A-Za-zñÑ ]))*"></f:validateRegex>
 						</p:inputText>
 
 					</p:panelGrid>
@@ -174,19 +208,30 @@
 					<p:panelGrid columns="2">
 
 						<p:outputLabel value="Nombre:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.persona.nombre}">
+						<p:inputText value="#{odontologoBean.persona.nombre}" required="true" requiredMessage="Se requiere un nombre"
+						validatorMessage="El nombre no debe contener números ni simbolos ni espacios vacios al inicio">
+							<f:validateRegex pattern="^(([A-Za-zñÑ])+([A-Za-zñÑ ]))*"></f:validateRegex>
 						</p:inputText>
 
 						<p:outputLabel value="Apellido Paterno:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.persona.apellidoPaterno}">
+						<p:inputText value="#{odontologoBean.persona.apellidoPaterno}" required="true" requiredMessage="Se requiere un Apellido Paterno"
+						validatorMessage="El apellido paterno no debe contener números ni simbolos ni espacios vacios al inicio">
+							<f:validateRegex pattern="^(([A-Za-zñÑ])+([A-Za-zñÑ ]))*"></f:validateRegex>
 						</p:inputText>
 
 						<p:outputLabel value="Apellido Materno:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.persona.apellidoMaterno}">
+						<p:inputText value="#{odontologoBean.persona.apellidoMaterno}"
+						required="true" requiredMessage="Se requiere un Apellido Materno"
+					    validatorMessage="El apellido materno no debe contener números ni simbolos ni espacios vacios al inicio">
+							<f:validateRegex pattern="^(([A-Za-zñÑ])+([A-Za-zñÑ ]))*"></f:validateRegex>
 						</p:inputText>
 
 						<p:outputLabel value="Dirección:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.persona.direccion}">
+						<p:inputText value="#{odontologoBean.persona.direccion}"
+						required="true"
+							requiredMessage="Se debe ingresar una dirección"
+							validatorMessage="La Direccion acepta (jr.-av.-prol.-calle) y detalles de la dirección ">
+							<f:validateRegex pattern="(^jr.|jr|JR|Jr|JR.|Jr.|av|AV|Av|AV.|Av.|av.|Prol|PROL|prol|Prol.|PROL.|prol.|calle|Calle|CALLE)+( )+([A-Za-z0-9. ]*)"></f:validateRegex>
 						</p:inputText>
 
 						<p:outputLabel value="Distrito:"></p:outputLabel>
@@ -199,27 +244,47 @@
 						</p:selectOneMenu>
 
 						<p:outputLabel value="Celular:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.persona.celular}">
+						<p:inputText value="#{odontologoBean.persona.celular}" 
+						required="true" requiredMessage="Se requiere un numero de celular"
+						validatorMessage="El celular solo acepta 9 números y ninguna letra o símbolo">
+						<f:validateRegex pattern="[0-9]{9}"></f:validateRegex>
 						</p:inputText>
 
 						<p:outputLabel value="Teléfono Fijo:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.persona.telefono}">
+						<p:inputText value="#{odontologoBean.persona.telefono}"
+						validatorMessage="El teléfono debe tener solo números y en el formato (111-1111)">
+						<f:validateRegex pattern="[0-9]{7}"></f:validateRegex>
 						</p:inputText>
 
 						<p:outputLabel value="Correo Electrónico:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.persona.correoElectronico}">
+						<p:inputText value="#{odontologoBean.persona.correoElectronico}"
+						validatorMessage="El formato del correo es (ejemplo@correo.com)"
+						required="true" requiredMessage="Se requiere un correo electrónico">
+						<f:validateRegex
+						pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})" />
 						</p:inputText>
 
 						<p:outputLabel value="Usuario:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.usuario.usuario}">
+						<p:inputText value="#{odontologoBean.usuario.usuario}"
+						required="true"
+						requiredMessage="Se requiere un usuario" 
+						validatorMessage="El usuario solo acepta letras o números">
+						<f:validateRegex pattern="^[A-Za-z0-9]*"/>
 						</p:inputText>
 
 						<p:outputLabel value="Contraseña:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.usuario.password}">
+						<p:inputText value="#{odontologoBean.usuario.password}"
+						required="true"
+						requiredMessage="Se requiere una contraseña"
+						validatorMessage="La contraseña solo acepta letras en minúscula y números">
+						<f:validateRegex pattern="[^A-Z\W]*" ></f:validateRegex>
 						</p:inputText>
 
 						<p:outputLabel value="Especialidad:"></p:outputLabel>
-						<p:inputText value="#{odontologoBean.odontologo.especialidad}">
+						<p:inputText value="#{odontologoBean.odontologo.especialidad}"
+						required="true" requiredMessage="Se requiere una especialidad"
+						validatorMessage="La especialidad no debe contener números ni simbolos ni espacios vacios al inicio">
+							<f:validateRegex pattern="^(([A-Za-zñÑ])+([A-Za-zñÑ ]))*"></f:validateRegex>
 						</p:inputText>
 
 					</p:panelGrid>

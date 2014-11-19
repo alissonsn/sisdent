@@ -26,22 +26,30 @@
 
 					<p:outputLabel value="Nombre:"></p:outputLabel>
 					<p:inputText value="#{loginBean.persona.nombre}" disabled="#{loginBean.activar}"
-					required="true" requiredMessage="se requiere un nombre">
+					required="true" requiredMessage="se requiere un nombre"
+					validatorMessage="El nombre no debe contener números ni simbolos ni espacios vacios al inicio">
+							<f:validateRegex pattern="^(([A-Za-zñÑ])+([A-Za-zñÑ ]))*"></f:validateRegex>
 					</p:inputText>
 
 					<p:outputLabel value="Apellido Paterno:"></p:outputLabel>
 					<p:inputText value="#{loginBean.persona.apellidoPaterno}" disabled="#{loginBean.activar}"
-					required="true" requiredMessage="se requiere un apellido paterno">
+					required="true" requiredMessage="se requiere un apellido paterno"
+					validatorMessage="El apellido materno no debe contener números ni simbolos ni espacios vacios al inicio">
+							<f:validateRegex pattern="^(([A-Za-zñÑ])+([A-Za-zñÑ ]))*"></f:validateRegex>
 					</p:inputText>
 
 					<p:outputLabel value="Apellido Materno:"></p:outputLabel>
 					<p:inputText value="#{loginBean.persona.apellidoMaterno}" disabled="#{loginBean.activar}"
-					required="true" requiredMessage="se requiere un apellido materno">
+					required="true" requiredMessage="se requiere un apellido materno"
+					validatorMessage="El apellido materno no debe contener números ni simbolos ni espacios vacios al inicio">
+							<f:validateRegex pattern="^(([A-Za-zñÑ])+([A-Za-zñÑ ]))*"></f:validateRegex>
 					</p:inputText>
 
 					<p:outputLabel value="Dni:"></p:outputLabel>
 					<p:inputText value="#{loginBean.persona.dni}" disabled="#{loginBean.activar}"
-					required="true" requiredMessage="Se debe ingresar un Dni" >
+					required="true" requiredMessage="Se debe ingresar un Dni" 
+					validatorMessage="Solo se aceptan 8 números ">
+				    <f:validateRegex pattern="[0-9]{8}"></f:validateRegex>
 					</p:inputText>
 
 					<p:outputLabel value="Fecha de Nacimiento:"></p:outputLabel>
@@ -52,7 +60,9 @@
 
 					<p:outputLabel value="Dirección:"></p:outputLabel>
 					<p:inputText value="#{loginBean.persona.direccion}" disabled="#{loginBean.activar}"
-					required="true" requiredMessage="Se requiere una direccion">
+					required="true" requiredMessage="Se requiere una direccion"
+					validatorMessage="La Direccion acepta (jr.-av.-prol.-calle) y detalles de la dirección">
+					<f:validateRegex pattern="(^jr.|jr|JR|Jr|JR.|Jr.|av|AV|Av|AV.|Av.|av.|Prol|PROL|prol|Prol.|PROL.|prol.|calle|Calle|CALLE)+( )+([A-Za-z0-9. ]*)"></f:validateRegex>
 					</p:inputText>
 
 					<p:outputLabel value="Distrito:"></p:outputLabel>
@@ -65,17 +75,24 @@
 
 					<p:outputLabel value="Celular:"></p:outputLabel>
 					<p:inputText value="#{loginBean.persona.celular}" disabled="#{loginBean.activar}"
-					required="true" requiredMessage="Se requiere un numero de celular">
+					required="true" requiredMessage="Se requiere un numero de celular"
+					validatorMessage="El celular solo acepta 9 números y ninguna letra o símbolo">
+					<f:validateRegex pattern="[0-9]{9}"></f:validateRegex>
 					</p:inputText>
 
 					<p:outputLabel value="Teléfono Fijo:"></p:outputLabel>
 					<p:inputText value="#{loginBean.persona.telefono}" disabled="#{loginBean.activar}"
-					required="true" requiredMessage="Se requiere un numero de telefono">
+					required="true" requiredMessage="Se requiere un numero de telefono"
+					validatorMessage="El teléfono debe tener solo números y en el formato (111-1111)">
+					<f:validateRegex pattern="([0-9]{3})+(-)+([0-9]{4})"></f:validateRegex>
 					</p:inputText>
 
 					<p:outputLabel value="Correo Electrónico:"></p:outputLabel>
 					<p:inputText value="#{loginBean.persona.correoElectronico}" disabled="#{loginBean.activar}"
-					required="true" requiredMessage="Se requiere un correo electrónico">
+					required="true" requiredMessage="Se requiere un correo electrónico"
+					validatorMessage="El formato del correo es (ejemplo@correo.com)">
+					<f:validateRegex
+					pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})" />
 					</p:inputText>
 
 

@@ -39,7 +39,10 @@
 					<h:panelGrid columns="2">
 						<h:outputLabel for="tituloInsert" value="Titulo:" />
 						<p:inputText id="tituloInsert" value="#{horarioBean.event.title}"
-							required="true" />
+						required="true" requiredMessage="Se requiere un titulo"
+						validatorMessage="El título no debe contener números ni simbolos ni espacios vacios al inicio">
+							<f:validateRegex pattern="^(([A-Za-zñÑ])+([A-Za-zñÑ ]))*"></f:validateRegex>
+							</p:inputText>
 
 						<h:outputLabel for="inicioInsert" value="Dia: " />
 						<p:calendar id="inicioInsert" pattern="dd-MM-yyyy"
@@ -49,10 +52,18 @@
 						<h:panelGrid columns="2">
 							<pe:inputNumber id="horaInicioInsert" style="width: 50px;"
 								value="#{horarioBean.dataInsert.horaInicio}" minValue="0"
-								maxValue="23" />
+								maxValue="23" 
+								requiredMessage="requiere que ingrese una hora"
+								validatorMessage="La hora solo acepta números, horario de atencion 9:00-20:00">
+							<f:validateRegex pattern="[0-9]{2}"></f:validateRegex>
+							</pe:inputNumber>
 							<pe:inputNumber id="minInicioInsert" style="width: 50px;"
 								value="#{horarioBean.dataInsert.minInicio}" minValue="0"
-								maxValue="59" />
+								maxValue="59" 
+								requiredMessage="requiere que ingrese un minuto"
+								validatorMessage="La hora solo acepta números, horario de atencion 9:00-20:00">
+								<f:validateRegex pattern="[0-9]{2}"></f:validateRegex>
+							</pe:inputNumber>
 						</h:panelGrid>
 
 						<h:outputLabel for="horaFinInsert" value="Hora de Fin: " />
@@ -126,7 +137,11 @@
 					<h:panelGrid columns="2">
 						<h:outputLabel for="titulo" value="Titulo:" />
 						<p:inputText id="titulo" value="#{horarioBean.event.title}"
-							required="true" />
+							required="true" requiredMessage="Se requiere un titulo"
+							validatorMessage="El título no debe contener números ni simbolos ni espacios vacios al inicio">
+							<f:validateRegex pattern="^(([A-Za-zñÑ])+([A-Za-zñÑ ]))*"></f:validateRegex>
+						</p:inputText>
+							
 
 						<h:outputLabel for="inicio" value="Dia: " />
 						<p:calendar id="inicioInsert" pattern="dd-MM-yyyy"

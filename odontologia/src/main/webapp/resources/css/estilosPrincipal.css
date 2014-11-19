@@ -1,0 +1,115 @@
+.ui-widget .ui-widget {
+margin-top: 2%;
+margin-left: 2%;
+}
+.ui-widget-content{
+	background: rgb(217, 217, 217);
+}
+
+.ui-imagenIndex{
+margin-left: 45%;
+margin-top: -24%;
+border-bottom-left-radius: 25px;
+border-bottom-right-radius: 25px;
+border-top-left-radius: 25px;
+border-top-right-radius: 25px;
+}
+
+
+.ui-widget-header .ui-inputfield, .ui-widget-content .ui-inputfield {
+margin-top: 4%;
+height: 102%;
+}
+
+.ui-layout-unit .ui-layout-unit-content {
+background: rgb(217, 217, 217);;
+borde-color: transparent!important;
+}
+
+#j_idt17{
+	margin-left:15%!important;
+	borde-color: transparent!important;
+	width: 84%!important;
+	background: rgba(76, 163, 200, 0.9);
+}
+
+.ui-menu {
+	margin-top:10.4%!important;
+}
+#j_idt9{
+	background:rgba(76, 163, 200, 0.9);
+	border-color: transparent;	
+}
+#j_idt94{
+	margin-left:15%!important;
+	width:67%!important;	
+}
+
+#j_idt7{
+	height: 19%!important;
+	background:rgba(76, 163, 200, 0.9);
+	border-color: transparent;
+}
+
+
+#j_idt95{
+	width: 84%!important;
+	border-color: transparent;
+}
+
+
+.ui-layout-container{
+	background: rgba(76, 163, 200, 0.9);
+	
+}
+.ui-layout-unit ui-widget ui-widget-content ui-corner-all ui-layout-north ui-panelsuperior ui-layout-pane ui-layout-pane-north ui-layout-pane-hover ui-layout-pane-north-hover ui-layout-pane-open-hover ui-layout-pane-north-open-hover{
+	height: 25%;
+}
+#header {
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-image: url("../../resources/images/bannerDent.png");
+	height: 200px;
+	background-size: cover;
+}
+
+/* Para que el menubar no esté atrás del layout  */
+
+.element.style {
+position: absolute;
+margin: 0px;
+bottom: auto;
+width: auto;
+z-index: 0;
+top: 0px;
+left: 0px;
+right: 0px;
+height: 25%;
+display: block;
+visibility: visible;
+}
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+	background: rgb(46, 61, 81)!important;
+}
+#frmDiv{
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 300px;
+    height: 140px;
+    margin: auto;
+    background-color: #FFCC99;
+}
+
+.ui-imagen {
+width: 100.38%;
+height: 125%;
+margin-left: -0.2%;
+margin-top: -1%;
+border-bottom-left-radius: 10px;
+border-bottom-right-radius: 10px;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+}

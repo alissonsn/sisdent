@@ -43,7 +43,10 @@
 					<p:inputText id="asunto"
 						styleClass="ui-field-contain > label ~ [class*='ui-']"
 						value="#{mensajeBean.mensaje.titulo}" required="true"
-						requiredMessage="Se requiere un asunto" />
+						requiredMessage="Se requiere un asunto"
+						validatorMessage="El asunto no debe contener números ni simbolos ni espacios vacios al inicio">
+							<f:validateRegex pattern="^(([A-Za-zñÑ])+([A-Za-zñÑ ]))*"></f:validateRegex>
+						</p:inputText>
 
 
 
@@ -52,7 +55,8 @@
 					<p:inputTextarea id="textarea"
 						styleClass="ui-field-contain > label ~ [class*='ui-']"
 						value="#{mensajeBean.mensaje.texto}" required="true"
-						requiredMessage="Se requiere un texto " />
+						requiredMessage="Se requiere un texto ">
+					</p:inputTextarea>
 
 					<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
 						<p:commandButton value="Enviar" style="width:120px"

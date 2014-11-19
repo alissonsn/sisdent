@@ -20,6 +20,7 @@ public class loginBean {
 	private Persona persona;
 	private Distrito distrito;
 	private Boolean activar = true;
+	
 	@Autowired
 	UsuarioService usuarioservice;
 
