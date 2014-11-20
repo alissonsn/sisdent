@@ -57,6 +57,9 @@ public class Persona {
 	@ManyToOne @JoinColumn(name="iddistrito", nullable=false)
 	private Distrito personaDistrito;	
 	
+	@Column(name="urlimagen", nullable=true, length=200)
+	private String urlImagen;
+	
 	public Odontologo getPersonaOdontologo() {
 		return personaOdontologo;
 	}
@@ -167,6 +170,14 @@ public class Persona {
 
 	public void setDni(Integer dni) {
 		this.dni = dni;
+	}
+
+	public String getUrlImagen() {
+		return urlImagen;
+	}
+
+	public void setUrlImagen(String urlImagen) {
+		this.urlImagen = urlImagen;
 	}
 	
 	

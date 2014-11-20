@@ -17,4 +17,6 @@ public interface MensajeService {
 	public boolean getMensajesAvisoReceptor(Integer idPersona,boolean leido);
 	
 	public List<Mensaje> getMensajesReceptorList();
+	
+	public Mensaje getById(Integer id);
 }

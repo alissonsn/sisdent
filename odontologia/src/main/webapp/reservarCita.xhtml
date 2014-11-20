@@ -35,8 +35,10 @@
 
 			<p:dialog header="Crear nuevo Evento" widgetVar="dlg2" modal="true"
 				appendTo="@(body)">
-				<h:form>
+				<h:form id="frmReservaCita">				
 					<h:panelGrid columns="2">
+					<p:spacer></p:spacer>
+					<p:messages id="msg"></p:messages>
 						<h:outputLabel for="tituloInsert" value="Titulo:" />
 						<p:inputText id="tituloInsert" value="#{horarioBean.event.title}"
 						required="true" requiredMessage="Se requiere un titulo"
@@ -45,7 +47,7 @@
 							</p:inputText>
 
 						<h:outputLabel for="inicioInsert" value="Dia: " />
-						<p:calendar id="inicioInsert" pattern="dd-MM-yyyy"
+						<p:calendar id="inicioInsert" pattern="dd-MM-yyyy" mindate="today"
 							value="#{horarioBean.dataInsert.inicio}" mask="true" />
 
 						<h:outputLabel for="horaInicioInsert" value="Hora de Inicio: " />
@@ -105,6 +107,7 @@
 
 						<p:commandButton actionListener="#{horarioBean.insertarEvento}"
 							value="Crear evento"
+							update="frmReservaCita"
 							oncomplete="PF('horario').update();PF('dlg2').hide();" />
 					</h:panelGrid>
 				</h:form>

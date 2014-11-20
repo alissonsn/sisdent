@@ -112,6 +112,11 @@ public class MensajeServiceImpl implements MensajeService {
 		}
 		return result;
 	}
+
+	@Transactional
+	public Mensaje getById(Integer id) {
+		return em.find(Mensaje.class, id);
+	}
 	
 	
 }

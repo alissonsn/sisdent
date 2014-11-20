@@ -32,11 +32,11 @@
 			<pm:field>
 				<h:outputLabel for="inicioInsert" value="Dia: " />
 				<p:calendar id="inicioInsert" pattern="dd-MM-yyyy"
-					value="#{horarioBean.dataInsert.inicio}" mask="true"
+					value="#{horarioBean.dataInsert.inicio}" mask="true" mindate="today"
 					styleClass="ui-datepicker  ui-marginCalendar" required="true" requiredMessage="Se requiere una fecha" />
 			</pm:field>
 
-			<pm:field>
+		<!-- <pm:field>
 				<h:outputLabel for="horaInicioInsert" value="Hora de Inicio: " />
 				<h:panelGrid columns="2">
 					<pe:inputNumber id="horaInicioInsert" style="width: 50px;"
@@ -46,9 +46,31 @@
 						value="#{horarioBean.dataInsert.minInicio}" minValue="0"
 						maxValue="59" required="true"  requiredMessage="requiere que ingrese un minuto"/>
 				</h:panelGrid>
+			</pm:field> -->
+			
+			<pm:field>
+				<h:outputLabel for="horaInicioInsert" value="Hora de Inicio: " />
+				<h:panelGrid columns="2">
+					<p:selectOneMenu id="horaInicioInsert" style="width: 50px;"
+						value="#{horarioBean.dataInsert.horaInicio}" required="true" 
+						requiredMessage="requiere que ingrese una hora">
+						<f:selectItem itemLabel="Elija una hora"></f:selectItem>
+						<f:selectItem itemLabel="10:00 am." itemValue="10"></f:selectItem>
+						<f:selectItem itemLabel="11:00 am" itemValue="11"></f:selectItem>
+						<f:selectItem itemLabel="12:00 pm" itemValue="12"></f:selectItem>
+						<f:selectItem itemLabel="2:00 pm" itemValue="14"></f:selectItem>
+						<f:selectItem itemLabel="3:00 pm" itemValue="15"></f:selectItem>
+						<f:selectItem itemLabel="4:00 pm" itemValue="16"></f:selectItem>
+						<f:selectItem itemLabel="5:00 pm" itemValue="17"></f:selectItem>
+						<f:selectItem itemLabel="6:00 pm" itemValue="18"></f:selectItem>
+						<f:selectItem itemLabel="7:00 pm" itemValue="19"></f:selectItem>
+						<f:selectItem itemLabel="8:00 pm" itemValue="20"></f:selectItem>
+						<f:selectItem itemLabel="9:00 pm" itemValue="21"></f:selectItem>						
+						</p:selectOneMenu>
+				</h:panelGrid>
 			</pm:field>
 
-			<pm:field>
+		<!-- <pm:field>
 				<h:outputLabel for="horaFinInsert" value="Hora de Fin: " />
 				<h:panelGrid columns="2">
 					<pe:inputNumber id="horaFinInsert" style="width: 50px;"
@@ -58,7 +80,7 @@
 						value="#{horarioBean.dataInsert.minFin}" minValue="0"
 						maxValue="59" required="true"  requiredMessage="requiere que ingrese una hora"/>
 				</h:panelGrid>
-			</pm:field>
+			</pm:field> -->
 			
 			<pm:field>
 				<h:outputLabel for="odontologoInsert" value="Odontologo" />

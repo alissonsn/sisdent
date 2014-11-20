@@ -25,7 +25,7 @@ public class MensajeBean {
 
 	private Odontologo odontologo;
 	private Paciente paciente;
-	private Mensaje mensaje;	
+	private Mensaje mensaje;
 	@Autowired
 	MensajeService mensajeservice;
 
@@ -35,22 +35,21 @@ public class MensajeBean {
 	private boolean mensajePersona;
 	@Autowired
 	PacienteService pacienteService;
-	
+
 	@Autowired
 	CitaService citaService;
-	
-	
+
 	public MensajeBean() {
 		odontologo = new Odontologo();
-        mensaje = new Mensaje();     
-        mensaje.setMensajeUsuarioReceptor(new Usuario());
-        paciente = new Paciente();
-        odontologos = new ArrayList<>();
-        mensajeReceptorLeido = new ArrayList<>();
-        mensajeReceptorNoLeido = new ArrayList<>();
-        mensajePersona = true;
+		mensaje = new Mensaje();
+		mensaje.setMensajeUsuarioReceptor(new Usuario());
+		paciente = new Paciente();
+		odontologos = new ArrayList<>();
+		mensajeReceptorLeido = new ArrayList<>();
+		mensajeReceptorNoLeido = new ArrayList<>();
+		mensajePersona = true;
 	}
-	
+
 	public Mensaje getMensaje() {
 		return mensaje;
 	}
@@ -58,55 +57,57 @@ public class MensajeBean {
 	public void setMensaje(Mensaje mensaje) {
 		this.mensaje = mensaje;
 	}
-	
-	
-	public void insertarMensaje(){		
+
+	public void insertarMensaje() {
 		Persona persona = new Persona();
 		Usuario usuario = new Usuario();
 		HttpSession session = StaticHelp.getSession();
 		persona = (Persona) session.getAttribute("personaSesion");
-		usuario =(Usuario) persona.getPersonaUsuario();
-		Timestamp fecha= new Timestamp(System.currentTimeMillis());
-		mensaje.setMensajeUsuarioEmisor(usuario);	
+		usuario = (Usuario) persona.getPersonaUsuario();
+		Timestamp fecha = new Timestamp(System.currentTimeMillis());
+		mensaje.setMensajeUsuarioEmisor(usuario);
 		mensaje.setFecha(fecha);
 		mensaje.setLeido(true);
-		
-		if(mensajeservice.insertarMensaje(mensaje)){
-			StaticHelp.correctMessage("Se ha registrado con éxito el mensaje", "");
+
+		if (mensajeservice.insertarMensaje(mensaje)) {
+			StaticHelp.correctMessage("Se ha registrado con éxito el mensaje",
+					"");
 			RequestContext.getCurrentInstance().update("frmNuevoo:growl");
 		}
-		
+
 		odontologo = new Odontologo();
-        mensaje = new Mensaje();     
-        mensaje.setMensajeUsuarioReceptor(new Usuario());
-        paciente = new Paciente();
-		
+		mensaje = new Mensaje();
+		mensaje.setMensajeUsuarioReceptor(new Usuario());
+		paciente = new Paciente();
+
 	}
-	
+
 	public List<Mensaje> getMensajeReceptorLeido() {
 		Persona persona = new Persona();
 		HttpSession session = StaticHelp.getSession();
 		persona = (Persona) session.getAttribute("personaSesion");
-		mensajeReceptorLeido = mensajeservice.getMensajesReceptorEst(persona.getIdPersona(),false);
+		mensajeReceptorLeido = mensajeservice.getMensajesReceptorEst(
+				persona.getIdPersona(), false);
 		return mensajeReceptorLeido;
 	}
-	
+
 	public void setMensajeReceptorLeido(List<Mensaje> mensajeReceptorLeido) {
-		this.mensajeReceptorLeido= mensajeReceptorLeido;
+		this.mensajeReceptorLeido = mensajeReceptorLeido;
 	}
-	
+
 	public List<Mensaje> getMensajeReceptorNoLeido() {
 		Persona persona = new Persona();
 		HttpSession session = StaticHelp.getSession();
 		persona = (Persona) session.getAttribute("personaSesion");
-		mensajeReceptorNoLeido = mensajeservice.getMensajesReceptorEst(persona.getIdPersona(),true);
+		mensajeReceptorNoLeido = mensajeservice.getMensajesReceptorEst(
+				persona.getIdPersona(), true);
 		return mensajeReceptorNoLeido;
 	}
 
 	public void setMensajeReceptorNoLeido(List<Mensaje> mensajeReceptorNoLeido) {
 		this.mensajeReceptorNoLeido = mensajeReceptorNoLeido;
 	}
-		
+
 	public Odontologo getOdontologo() {
 		return odontologo;
 	}
@@ -130,25 +131,26 @@ public class MensajeBean {
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
-	
+
 	public boolean getMensajePersona() {
 		Persona persona = new Persona();
 		HttpSession session = StaticHelp.getSession();
 		persona = (Persona) session.getAttribute("personaSesion");
-		mensajePersona= mensajeservice.getMensajesAvisoReceptor(persona.getIdPersona(),true);
-		
+		mensajePersona = mensajeservice.getMensajesAvisoReceptor(
+				persona.getIdPersona(), true);
+
 		return mensajePersona;
 	}
-		
- public void mensajeVisto(){
-	 
-	  for(Mensaje mensaje : mensajeReceptorNoLeido){
-		mensaje.setLeido(false);
-		mensaje.setTitulo(mensaje.getTitulo()+" -'Mensaje Visto'");
-		if(mensajeservice.modificarMensaje(mensaje)){
-			RequestContext.getCurrentInstance().update("frmNuevoo:growl");
+
+	public void mensajeVisto() {
+
+		for (Mensaje mensaje : mensajeReceptorNoLeido) {
+			mensaje.setLeido(false);
+			mensaje.setTitulo(mensaje.getTitulo() + " -'Mensaje Visto'");
+			if (mensajeservice.modificarMensaje(mensaje)) {
+				RequestContext.getCurrentInstance().update("frmNuevoo:growl");
+			}
 		}
-	  }
- }
+	}
 	
 }

@@ -10,76 +10,84 @@
 
 </h:head>
 <h:body>
-	<ui:composition     
+	<ui:composition
 		template="/WEB-INF/facelets/templates/plantillaPaciente.xhtml">
 
 		<ui:define name="west">
 	INDEX
 	</ui:define>
 
-		<ui:define name="center" >
+		<ui:define name="center">
 
- <h:form id="form">
-       <p:growl id="growl" sticky="true" />
-<p:accordionPanel dynamic="true" value="#{mensajeBean.mensajeReceptorNoLeido}" var="men" activeIndex="-1"  >      
-    <p:tab title="#{men.titulo} - #{men.mensajeUsuarioEmisor.usuarioPersona.nombre} #{men.mensajeUsuarioEmisor.usuarioPersona.apellidoPaterno}">
-         <h:panelGrid columns="2" cellpadding="10" >
-						<p:graphicImage name="demo/images/car/#{car.brand}.gif" />
-						<h:outputText value="#{men.texto}"/>
-						<p:commandButton value="Responder Mensaje"  update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-navigation">
-                    <f:setPropertyActionListener value="#{mensaje}" target="#{mensajeBean.mensaje}" />            
-                </p:commandButton>               
-         </h:panelGrid>        
-    </p:tab>
-</p:accordionPanel>
+			<h:form id="form">
+				<p:growl id="growl" sticky="true" />
+				<p:accordionPanel dynamic="true"
+					value="#{mensajeBean.mensajeReceptorNoLeido}" var="men"
+					activeIndex="-1">
+					<p:tab
+						title="#{men.titulo} - #{men.mensajeUsuarioEmisor.usuarioPersona.nombre} #{men.mensajeUsuarioEmisor.usuarioPersona.apellidoPaterno}">
+						<h:panelGrid columns="2" cellpadding="10">
+							<p:graphicImage name="demo/images/car/#{car.brand}.gif" />
+							<h:outputText value="#{men.texto}" />
+							<p:commandButton process="@this" value="Responder Mensaje"
+								update=":form:carDetail" oncomplete="PF('carDialog').show()"
+								icon="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-navigation">
+								<f:setPropertyActionListener value="#{men}"
+									target="#{mensajeBean.mensaje}" />
+							</p:commandButton>
+						</h:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
 
-<p:dialog position="bottom"  header="Enviar Mensaje" widgetVar="carDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false">
-        <p:outputPanel id="carDetail" style="text-align:center;">
-          
-            <p:panelGrid    columns="1" columnClasses="label,value">
-                
-					<h:outputLabel for="odontologoSelectMenu" value="Odontologo" />
+				<p:dialog position="bottom" header="Enviar Mensaje"
+					widgetVar="carDialog" modal="false" showEffect="fade"
+					hideEffect="fade" resizable="false">
+					<p:outputPanel id="carDetail" style="text-align:center;">
 
-					<p:selectOneMenu id="odontologoSelectMenu"
-						value="#{mensajeBean.mensaje.mensajeUsuarioReceptor.idUsuario}"
-						required="true" requiredMessage="Debe seleccionar un Receptor">
-						<f:selectItem itemLabel="Elija un Receptor"></f:selectItem>
-						<f:selectItems value="#{citaBean.citasDePacienteOdontologo}"
-							var="cita"
-							itemLabel="#{cita.citaOdontologo.odontologoPersona.nombre} #{cita.citaOdontologo.odontologoPersona.apellidoPaterno}"
-							itemValue="#{cita.citaOdontologo.odontologoPersona.personaUsuario.idUsuario}" />
-					</p:selectOneMenu>
-				
-				
-					<p:outputLabel for="asunto" value="Asunto:"
-						styleClass="ui-field-contain > label" />
-					<p:inputText id="asunto"
-						styleClass="ui-field-contain > label ~ [class*='ui-']"
-						value="#{mensajeBean.mensaje.titulo}" required="true"
-						requiredMessage="Se requiere un asunto" />
-			
+						<p:panelGrid columns="1" columnClasses="label,value">
 
-				
-					<p:outputLabel for="textarea" value="Mensaje"
-						styleClass="ui-field-contain > label" />
-					<p:inputTextarea id="textarea"
-						styleClass="ui-field-contain > label ~ [class*='ui-']"
-						value="#{mensajeBean.mensaje.texto}" required="true"
-						requiredMessage="Se requiere un texto " />
-				
+							<h:outputLabel for="odontologoSelectMenu" value="Odontologo" />
 
-				
-			
-            </p:panelGrid>
-           
-					<p:commandButton value="Enviar" style="width:120px"
-						actionListener="#{mensajeBean.insertarMensaje}"
-						update="carDetail,growl" />
-				
-        </p:outputPanel>
-    </p:dialog>
+							<p:selectOneMenu id="odontologoSelectMenu"
+								value="#{mensajeBean.mensaje.mensajeUsuarioReceptor.idUsuario}"
+								required="true" requiredMessage="Debe seleccionar un Receptor">
+								<f:selectItem itemLabel="Elija un Receptor"></f:selectItem>
+								<f:selectItems value="#{citaBean.citasDePacienteOdontologo}"
+									var="cita"
+									itemLabel="#{cita.citaOdontologo.odontologoPersona.nombre} #{cita.citaOdontologo.odontologoPersona.apellidoPaterno}"
+									itemValue="#{cita.citaOdontologo.odontologoPersona.personaUsuario.idUsuario}" />
+							</p:selectOneMenu>
 
-</h:form>  
+
+							<p:outputLabel for="asunto" value="Asunto:"
+								styleClass="ui-field-contain > label" />
+							<p:inputText id="asunto"
+								styleClass="ui-field-contain > label ~ [class*='ui-']"
+								value="#{mensajeBean.mensaje.titulo}" required="true"
+								requiredMessage="Se requiere un asunto" />
+
+
+
+							<p:outputLabel for="textarea" value="Mensaje"
+								styleClass="ui-field-contain > label" />
+							<p:inputTextarea id="textarea"
+								styleClass="ui-field-contain > label ~ [class*='ui-']"
+								value="#{mensajeBean.mensaje.texto}" required="true"
+								requiredMessage="Se requiere un texto " />
+
+
+
+
+						</p:panelGrid>
+
+						<p:commandButton value="Enviar" style="width:120px"
+							actionListener="#{mensajeBean.insertarMensaje}"
+							update="carDetail,growl" />
+
+					</p:outputPanel>
+				</p:dialog>
+
+			</h:form>
 		</ui:define>
 
 	</ui:composition>

@@ -43,54 +43,48 @@ import com.odontologia.model.Persona;
 
 @SuppressWarnings({ "deprecation" })
 public class ReporteBean {
-	
+
 	private List<Persona> personas;
 
 	public ReporteBean() {
 		personas = new ArrayList<>();
-		
 
 	}
 
 	JasperPrint jasperPrint;
-	
+
 	@SuppressWarnings("finally")
-	public static Connection GetConnection()
-    {
-        Connection conexion=null;
-      
-        try
-        {
-            Class.forName("com.mysql.jdbc.Driver");
-            String servidor = "jdbc:mysql://localhost:3306/spadent";
-            String usuarioDB="root";
-            String passwordDB="1234";
-            conexion= DriverManager.getConnection(servidor,usuarioDB,passwordDB);
-        }
-        catch(ClassNotFoundException ex)
-        {
-            System.out.println("Error1 en la Conexión con la BD "+ex.getMessage());
-            conexion=null;
-        }
-        catch(SQLException ex)
-        {
-        	System.out.println("Error2 en la Conexión con la BD "+ex.getMessage());
-            conexion=null;
-        }
-        catch(Exception ex)
-        {
-        	System.out.println("Error3 en la Conexión con la BD "+ex.getMessage());
-            conexion=null;
-        }
-        finally
-        {
-            return conexion;
-        }
-    }
+	public static Connection GetConnection() {
+		Connection conexion = null;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			String servidor = "jdbc:mysql://localhost:3306/spadent";
+			String usuarioDB = "root";
+			String passwordDB = "1234";
+			conexion = DriverManager.getConnection(servidor, usuarioDB,
+					passwordDB);
+		} catch (ClassNotFoundException ex) {
+			System.out.println("Error1 en la Conexión con la BD "
+					+ ex.getMessage());
+			conexion = null;
+		} catch (SQLException ex) {
+			System.out.println("Error2 en la Conexión con la BD "
+					+ ex.getMessage());
+			conexion = null;
+		} catch (Exception ex) {
+			System.out.println("Error3 en la Conexión con la BD "
+					+ ex.getMessage());
+			conexion = null;
+		} finally {
+			return conexion;
+		}
+	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void init(Integer idPaciente) throws JRException {
-		JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(personas);
+		JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(
+				personas);
 		Map parametros = new HashMap<>();
 		parametros.put("ID_PACIENTE", idPaciente);
 		String reportPath = FacesContext.getCurrentInstance()
@@ -113,23 +107,49 @@ public class ReporteBean {
 		FacesContext.getCurrentInstance().responseComplete();
 
 	}
-	
-	//Método que funciona
+
+	// Método que funciona
 	public void verPDF(ActionEvent actionEvent, Integer idPaciente)
-			throws JRException, IOException {		
-		Map<String, Object> parametros = new HashMap<String, Object>();		
+			throws JRException, IOException {
+		Map<String, Object> parametros = new HashMap<String, Object>();
 		parametros.put("ID_PACIENTE", idPaciente);
-		parametros.put("IMAGEN_LOGO", this.getClass().getResourceAsStream("../../../../../resources/images/logo.jpg"));
-		parametros.put("RUTA_IMAGEN_DIENTE_O", this.getClass().getResourceAsStream("../../../../../resources/images/"));
-		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reportes/report1.jasper"));
-		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros, GetConnection());
-		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-		response.addHeader("Content-disposition", "attachment; filename=jsfReporte"+idPaciente+".pdf");
-        ServletOutputStream stream = response.getOutputStream();
-        JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
-        stream.flush();
-        stream.close();
-        FacesContext.getCurrentInstance().responseComplete();
+		parametros.put("IMAGEN_LOGO",
+				this.getClass().getResourceAsStream("logo.jpg"));
+		// parametros.put("RUTA_IMAGEN_DIENTE", "/");
+		File jasper = new File(FacesContext.getCurrentInstance()
+				.getExternalContext().getRealPath("/reportes/report1.jasper"));
+		JasperPrint jasperPrint = JasperFillManager.fillReport(
+				jasper.getPath(), parametros, GetConnection());
+		HttpServletResponse response = (HttpServletResponse) FacesContext
+				.getCurrentInstance().getExternalContext().getResponse();
+		response.addHeader("Content-disposition",
+				"attachment; filename=jsfReporte" + idPaciente + ".pdf");
+		ServletOutputStream stream = response.getOutputStream();
+		JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+		stream.flush();
+		stream.close();
+		FacesContext.getCurrentInstance().responseComplete();
+	}
+
+	// Método que funciona
+	public void verPDFO(ActionEvent actionEvent, Integer idPaciente)
+			throws JRException, IOException {
+		Map<String, Object> parametros = new HashMap<String, Object>();
+		parametros.put("ID_PACIENTE_O", idPaciente);
+		// parametros.put("RUTA_IMAGEN_DIENTE", "/");
+		File jasper = new File(FacesContext.getCurrentInstance()
+				.getExternalContext().getRealPath("/reportes/report1Hijo.jasper"));
+		JasperPrint jasperPrint = JasperFillManager.fillReport(
+				jasper.getPath(), parametros, GetConnection());
+		HttpServletResponse response = (HttpServletResponse) FacesContext
+				.getCurrentInstance().getExternalContext().getResponse();
+		response.addHeader("Content-disposition",
+				"attachment; filename=jsfReporte" + idPaciente + ".pdf");
+		ServletOutputStream stream = response.getOutputStream();
+		JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+		stream.flush();
+		stream.close();
+		FacesContext.getCurrentInstance().responseComplete();
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

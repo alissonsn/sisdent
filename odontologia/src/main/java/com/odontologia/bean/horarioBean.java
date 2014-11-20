@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 
@@ -141,12 +143,16 @@ public class horarioBean {
 		cita.setHoraInicio(inicio);
 		cita.setHoraFin(fin);
 		cita.setTitulo(titulo);
-
-		event = new DefaultScheduleEvent(titulo, inicio, fin, dataInsert);
-		eventModel.addEvent(event);
-		citaService.insertarCita(cita);
-		citaService.enviarEmailRegistCitaPaciente(cita.getIdCita());
-		recargaHorario();
+		if(citaService.validarHorarioCita(cita)==false){//Validamos si el horario de ese odontólogo está ocupado
+			event = new DefaultScheduleEvent(titulo, inicio, fin, dataInsert);
+			eventModel.addEvent(event);
+			citaService.insertarCita(cita);
+			citaService.enviarEmailRegistCitaPaciente(cita.getIdCita());
+			recargaHorario();
+		}
+		else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ESE HORARIO YA ESTÁ OCUPADO, PRUEBE OTRO POR FAVOR",""));
+		}		
 		cita = new Cita();
 		event = new DefaultScheduleEvent();
 		dataInsert = new citaData();
@@ -154,30 +160,37 @@ public class horarioBean {
 	
 	@SuppressWarnings("deprecation")
 	public void insertarCitaMovil(){		
-		Persona persona = new Persona();
-		Paciente paciente = new Paciente();
-		cita.setCitaOdontologo(odontologoSeleccionado);
-		HttpSession session = StaticHelp.getSession();
-		persona = (Persona) session.getAttribute("personaSesion");
-		paciente = pacienteservice.buscarPorPersona(persona);
-		cita.setCitaPaciente(paciente);
-		cita.setCitaEstadoCita(citaService.estadoCitaFromNombre("EN ESPERA"));
+		Persona persona = new Persona();//Inicializamos persona
+		Paciente paciente = new Paciente();//Inicializamos paciente
+		cita.setCitaOdontologo(odontologoSeleccionado); //Agregamos al odontólogo a la cita
+		HttpSession session = StaticHelp.getSession(); //Invocamos a la sesion
+		persona = (Persona) session.getAttribute("personaSesion"); //Agarramos persona del atributo Sesion
+		paciente = pacienteservice.buscarPorPersona(persona); //Buscamos al paciente por persona
+		cita.setCitaPaciente(paciente); //Agregamos al paciente a la cita
+		cita.setCitaEstadoCita(citaService.estadoCitaFromNombre("EN ESPERA"));//Agregamos estado de cita a la cita
+		
+		dataInsert.setMinInicio(0); //Damos valor 0 a los minutos
 		
 		Timestamp inicio = new Timestamp(2014 - 1900, dataInsert.getInicio()
 				.getMonth(), dataInsert.getInicio().getDate(),
-				dataInsert.getHoraInicio(), dataInsert.getMinInicio(), 0, 0);
+				dataInsert.getHoraInicio(), dataInsert.getMinInicio(), 0, 0);//Configuramos la hora inicio
 		
 		Timestamp fin = new Timestamp(2014 - 1900, dataInsert.getInicio()
 				.getMonth(), dataInsert.getInicio().getDate(), dataInsert
-				.getHoraFin(), dataInsert.getMinFin(), 0, 0);
+				.getHoraInicio()+1, dataInsert.getMinInicio(), 0, 0);//Configuramos la hora fin
 		
-		cita.setHoraInicio(inicio);
-		cita.setHoraFin(fin);		
-		citaService.insertarCita(cita);
-		citaService.enviarEmailRegistCitaPaciente(cita.getIdCita());
-		recargaHorario();
-		cita = new Cita();
-		dataInsert = new citaData();
+		cita.setHoraInicio(inicio);//Agregamos la hora inicio a la cita
+		cita.setHoraFin(fin);//Agregamos la hora fin a la cita
+		if(citaService.validarHorarioCita(cita)==false){//Validamos si el horario de ese odontólogo está ocupado
+			citaService.insertarCita(cita);//Registramos la cita
+			citaService.enviarEmailRegistCitaPaciente(cita.getIdCita());//Enviamos el email al paciente
+			recargaHorario();//Refrescamos el horario
+		}
+		else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ESE HORARIO YA ESTÁ OCUPADO, PRUEBE OTRO POR FAVOR",""));
+		}
+		cita = new Cita();//Inicializamos cita
+		dataInsert = new citaData();//Inicializamos dataInsert
 	}
 
 	public void cancelar() {

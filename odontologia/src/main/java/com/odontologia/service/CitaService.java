@@ -46,4 +46,6 @@ public interface CitaService {
 	public void enviarEmailCancelarCita(Integer idcita);
 	
 	public void enviarEmailCancelarCitaOdon(Integer idcita);
+	
+	public boolean validarHorarioCita(Cita cita);
 }
