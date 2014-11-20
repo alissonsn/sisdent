@@ -25,7 +25,8 @@
 						styleClass="ui-field-contain>label  ~ [class*='ui-'] "
 						value="#{loginBean.usuario}" required="true"
 						requiredMessage = "Se requiere un usuario"
-						>
+						validatorMessage="El usuario solo acepta letras o números">
+					<f:validateRegex pattern="^[A-ZñÑa-z0-9]*"/>
 					</p:inputText>
 				</pm:field>
 
@@ -35,7 +36,9 @@
 					<p:password id="constrasena"
 						styleClass="ui-field-contain>label  ~ [class*='ui-'] "
 						value="#{loginBean.password}" required="true"
-						requiredMessage="Se requiere un contraseña" />
+						requiredMessage="Se requiere un contraseña" validatorMessage="La contraseña solo acepta letras en minúscula y números">
+					<f:validateRegex pattern="[^A-ZÑ\W]*" ></f:validateRegex>
+					</p:password>
 				</pm:field>
 
 				<p:panelGrid columns="2" styleClass="ui-btnPanelGrid">
