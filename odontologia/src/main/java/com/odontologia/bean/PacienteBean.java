@@ -17,6 +17,7 @@ import com.odontologia.model.FichaOdontologica;
 import com.odontologia.model.Paciente;
 import com.odontologia.model.Persona;
 import com.odontologia.model.Usuario;
+import com.odontologia.service.ApoderadoService;
 import com.odontologia.service.DistritoService;
 import com.odontologia.service.FichaOdontologicaService;
 import com.odontologia.service.PacienteService;
@@ -25,6 +26,9 @@ import com.odontologia.util.StaticHelp;
 @Controller
 public class PacienteBean {
 
+	@Autowired
+	ApoderadoService apoderadoService;
+	
 	@Autowired
 	PacienteService pacienteService;
 
@@ -106,11 +110,22 @@ public class PacienteBean {
 		persona = paciente.getPacientePersona();
 		usuario = paciente.getPacientePersona().getPersonaUsuario();
 		distrito = paciente.getPacientePersona().getPersonaDistrito();
+
 		if(paciente.getPacienteFichaOdontologica()!=null){
 			fichaOdontologica = paciente.getPacienteFichaOdontologica();
 		}
 	}
 
+	public void prepararAccionApoderado(int id) {
+		paciente = pacienteService.buscarPorId(id);
+		
+        apoderado = paciente.getPacienteApoderado();
+		persona = paciente.getPacienteApoderado().getApoderadoPersona();
+		usuario = paciente.getPacienteApoderado().getApoderadoPersona().getPersonaUsuario();
+		distrito = paciente.getPacienteApoderado().getApoderadoPersona().getPersonaDistrito();	
+		
+	}
+	
 	public void actualizarPaciente(ActionEvent actionEvent) {
 		persona.setPersonaDistrito(distrito);
 		persona.setPersonaUsuario(usuario);
@@ -127,6 +142,24 @@ public class PacienteBean {
 		personaApoderado = new Persona();
 		apoderado = new Apoderado();
 	}
+	
+	public void actualizarApoderado(ActionEvent actionEvent) {
+		persona.setPersonaDistrito(distrito);
+		persona.setPersonaUsuario(usuario);
+		apoderado.setApoderadoPersona(persona);
+		if (apoderadoService.actualizarApoderado(apoderado)) {
+			StaticHelp.correctMessage(
+					"Se ha actualizado con éxito al apoderado", "");
+			RequestContext.getCurrentInstance().update("frmNuevoo:growl");
+		}
+		paciente = new Paciente();
+		persona = new Persona();
+		usuario = new Usuario();
+		distrito = new Distrito();
+		personaApoderado = new Persona();
+		apoderado = new Apoderado();
+	}
+	
 	
 	/*public void actualizarPacienteMovil(){
 		HttpSession session = StaticHelp.getSession();

@@ -41,7 +41,7 @@
 					</p:column>
 
 					<p:column style="width:32px;text-align: center">
-					             <p:commandButton update=":frmConsultarCitaPersonal:carDetail" oncomplete="PF('dlgCancelarW').show()" icon="ui-icon-close" >
+					             <p:commandButton rendered="#{cita.citaEstadoCita.nombre=='EN ESPERA'}" update=":frmConsultarCitaPersonal:carDetail" oncomplete="PF('dlgCancelarW').show()" icon="ui-icon-close" >
 					                <f:setPropertyActionListener value="#{cita}" target="#{citaBean.cita}" />
 					            </p:commandButton>
 					</p:column>
@@ -63,15 +63,15 @@
 				</p:dataTable>
 				
 				<p:dialog header="¿Desea cancelar esta cita?" widgetVar="dlgCancelarW" modal="false"
-					showEffect="pop" >
+					showEffect="pop"  >
 					<p:outputPanel id="carDetail" style="text-align:center;">			
 						<p:commandButton value="Si"
 							actionListener="#{citaBean.cancelarCita}"
 							styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
 							update="frmConsultarCitaPersonal"
-							oncomplete="PF('dlgCancelarW').hide()"  disabled="#{empty citaBean.cita}"/>
+							oncomplete="PF('dlgCancelarW').hide()"/>
 						<p:commandButton value="No" styleClass="ui-icon-delete"
-							icon="ui-icon-close" oncomplete="PF('dlgCancelarW').hide()" />
+							icon="ui-icon-close" oncomplete="PF('dlgCancelarW').hide()"/>
 					</p:outputPanel>
 				</p:dialog>
 				

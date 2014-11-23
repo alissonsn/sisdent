@@ -41,7 +41,7 @@
 					</p:column>
 
 					<p:column style="width:32px;text-align: center">
-					             <p:commandButton update=":frmConsultarCitaOdontologo:carDetail" oncomplete="PF('dlgCancelarW').show()" icon="ui-icon-close" >
+					             <p:commandButton rendered="#{cita.citaEstadoCita.nombre=='EN ESPERA'}" update=":frmConsultarCitaOdontologo:carDetail" oncomplete="PF('dlgCancelarW').show()" icon="ui-icon-close" >
 					                <f:setPropertyActionListener value="#{cita}" target="#{citaBean.cita}" />
 					            </p:commandButton>
 					</p:column>

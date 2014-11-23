@@ -70,7 +70,9 @@
 					</p:column>
 
 					<p:column headerText="Ver Apoderado" style="text-align:center;">
-						<p:commandButton icon="ui-icon-search"
+						<p:commandButton icon="ui-icon-search" update=":dlgApoderado"
+						    oncomplete="PF('dlgApoderadoW').show()" 
+						    actionListener="#{pacienteBean.prepararAccionApoderado(pac.idPaciente)}"
 							rendered="#{pac.pacienteApoderado ne null}">
 						</p:commandButton>
 					</p:column>
@@ -451,6 +453,102 @@
 
 			</p:dialog>
 
+	<!-- Diálogo de editar apoderado -->
+
+			<p:dialog id="dlgApoderado" header="Editar Apoderado" resizable="false"
+				widgetVar="dlgApoderadoW" showEffect="fade" modal="true"
+				hideEffect="fade" position="center" appendTo="@(body)">
+				<h:form>
+
+					<p:panelGrid columns="2">
+
+						<p:outputLabel value="Nombre:"></p:outputLabel>
+								<p:inputText 
+									value="#{pacienteBean.persona.nombre}" required="true"
+									requiredMessage="Se debe ingresar un nombre"
+									validatorMessage="El nombre no debe contener números ni simbolos ni espacios vacios al inicio">
+								<f:validateRegex pattern="^(([A-Za-zñÑ])+([A-Za-zñÑ ]))*"></f:validateRegex>
+								</p:inputText>
+
+								<p:outputLabel  value="Apellido Paterno:"></p:outputLabel>
+								<p:inputText 
+									value="#{pacienteBean.persona.apellidoPaterno}"
+									required="true"
+									requiredMessage="Se debe ingresar un apellido paterno"
+									validatorMessage="El apellido paterno no debe contener números ni simbolos ni espacios vacios al inicio">
+							<f:validateRegex pattern="^(([A-Za-zñÑ])+([A-Za-zñÑ ]))*"></f:validateRegex>
+								</p:inputText>
+
+								<p:outputLabel  value="Apellido Materno:"></p:outputLabel>
+								<p:inputText 
+									value="#{pacienteBean.persona.apellidoMaterno}"
+									required="true"
+									requiredMessage="Se debe ingresar un apellido materno"
+									validatorMessage="El apellido materno no debe contener números ni simbolos ni espacios vacios al inicio">
+							<f:validateRegex pattern="^(([A-Za-zñÑ])+([A-Za-zñÑ ]))*"></f:validateRegex>
+								</p:inputText>
+
+								<p:outputLabel for="direccion" value="Dirección:"></p:outputLabel>
+								<p:inputText id="direccion"
+									value="#{pacienteBean.persona.direccion}"
+									required="true"
+									requiredMessage="Se debe ingresar una dirección"
+									validatorMessage="La Direccion acepta (jr.-av.-prol.-calle) y detalles de la dirección ">
+							<f:validateRegex pattern="(^jr.|jr|JR|Jr|JR.|Jr.|av|AV|Av|AV.|Av.|av.|Prol|PROL|prol|Prol.|PROL.|prol.|calle|Calle|CALLE)+( )+([A-ZñÑa-z0-9. ]*)"></f:validateRegex>
+								</p:inputText>
+
+								<p:outputLabel for="distrito" value="Distrito:"></p:outputLabel>
+								<p:selectOneMenu id="distrito"
+									value="#{pacienteBean.distrito.idDistrito}" required="true"
+									requiredMessage="Se debe ingresar un distrito" effect="drop">
+									<f:selectItem itemLabel="Seleccionar distrito" itemValue="" />
+									<f:selectItems value="#{pacienteBean.distritos}" var="distrito"
+										itemLabel="#{distrito.nombre}"
+										itemValue="#{distrito.idDistrito}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel for="celular" value="Celular:"></p:outputLabel>
+								<p:inputMask id="celular"
+									value="#{pacienteBean.persona.celular}"
+									mask="999999999" required="true"
+									requiredMessage="Se debe ingresar un celular"
+									validatorMessage="El celular solo acepta 9 números y ninguna letra o símbolo">
+								<f:validateRegex pattern="[0-9]{9}"></f:validateRegex>
+								</p:inputMask>
+
+								<p:outputLabel for="telefonoFijo" value="Teléfono Fijo:"></p:outputLabel>
+								<p:inputMask id="telefonoFijo"
+									value="#{pacienteBean.persona.telefono}"
+									mask="999-9999" required="true"
+									requiredMessage="Se debe ingresar un teléfono">
+								</p:inputMask>
+
+								<p:outputLabel for="email" value="Correo Electrónico:"></p:outputLabel>
+								<p:inputText id="email"
+									value="#{pacienteBean.persona.correoElectronico}"
+									required="true"
+									requiredMessage="Se debe ingresar un correo electrónico"
+									validatorMessage="El formato de correo debe ser (ejemplo@correo.com)">
+								<f:validateRegex
+									pattern="^[_A-ZñÑa-z0-9-\+]+(\.[_A-ZñÑa-z0-9-]+)*@[A-Za-zñÑ0-9-]+(\.[A-Za-zñÑ0-9]+)*(\.[A-Za-z]{2,})" />
+								</p:inputText>
+
+					</p:panelGrid>
+
+					<p:separator></p:separator>
+
+					<p:commandButton
+						actionListener="#{pacienteBean.actualizarApoderado(actionEvent)}"
+						value="Actualizar" update=":frmAdmPac"
+						oncomplete="PF('dlgApoderadoW').hide()"></p:commandButton>
+					<p:commandButton value="Cancelar"
+						actionListener="#{pacienteBean.cancelar(actionEvent)}"
+						update=":frmAdmPac" oncomplete="PF('dlgApoderadoW').hide()">
+					</p:commandButton>
+
+				</h:form>
+
+			</p:dialog>
 
 			<!-- Diálogo de editar paciente -->
 
@@ -529,7 +627,7 @@
 						<f:validateRegex pattern="^[A-ZñÑa-z0-9]*"/>
 						</p:inputText>
 
-						<p:outputLabel value="Conraseña:"></p:outputLabel>
+						<p:outputLabel value="Contraseña:"></p:outputLabel>
 						<p:inputText value="#{pacienteBean.usuario.password}"
 						required="true"
 						requiredMessage="Se requiere una contraseña"
