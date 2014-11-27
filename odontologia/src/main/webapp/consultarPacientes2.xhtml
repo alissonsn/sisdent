@@ -79,7 +79,7 @@
 
 						<p:commandButton icon="ui-icon-document"
 							actionListener="#{reporteBean.verPDF(actionEvent,pac.idPaciente)}"
-							ajax="false" />
+							ajax="false" rendered="#{pac.pacienteFichaOdontologica ne null}" />
 
 					</p:column>
 

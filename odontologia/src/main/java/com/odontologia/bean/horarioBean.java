@@ -43,6 +43,7 @@ public class horarioBean {
 	PacienteService pacienteservice;
 
 	private ScheduleModel eventModel;
+	private ScheduleModel eventModelO;
 	private ScheduleEvent event = new DefaultScheduleEvent();
 	private List<Cita> citas;
 	private List<Cita> citasDeOdontologo;
@@ -317,7 +318,7 @@ public class horarioBean {
 	//HORARIO PARA EL ODONTÓLOGO
 	@SuppressWarnings("deprecation")
 	public void recargaHorarioOdontologo(){
-		eventModel = new DefaultScheduleModel();
+		eventModelO = new DefaultScheduleModel();
 		for (Cita c : getCitasDeOdontologo()) {
 			citaData data = new citaData(c.getCitaOdontologo(),
 					c.getCitaPaciente(), c.getCitaEstadoCita(), c.getIdCita());
@@ -332,7 +333,7 @@ public class horarioBean {
 					horarioAdapter.fromSqlToDate(c.getHoraInicio()),
 					horarioAdapter.fromSqlToDate(c.getHoraFin()), data);
 
-			eventModel.addEvent(m);
+			eventModelO.addEvent(m);
 
 		}
 	}
@@ -366,5 +367,14 @@ public class horarioBean {
 
 	public void setEstadoCita(EstadoCita estadoCita) {
 		this.estadoCita = estadoCita;
+	}
+
+	public ScheduleModel getEventModelO() {
+		recargaHorarioOdontologo();
+		return eventModelO;
+	}
+
+	public void setEventModelO(ScheduleModel eventModelO) {
+		this.eventModelO = eventModelO;
 	}
 }
