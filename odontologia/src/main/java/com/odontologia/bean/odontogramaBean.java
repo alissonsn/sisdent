@@ -86,11 +86,14 @@ public class odontogramaBean {
 	private SuperficieDental superficieDental;
 	private String detalle;
 	
-	private long date;
-	
-	private StreamedContent image;
-	
+	private long date;	
+	private StreamedContent image;	
 	private Odontograma odonto;
+	
+	//Historial del diente
+	private Diente dienteSeleccionadoHistorial;
+	private List<Diente> allDientes;
+	private List<DienteOdontograma> historialSeleccionado;
 	
 	public odontogramaBean(){		
 		paciente = new Paciente();
@@ -99,7 +102,7 @@ public class odontogramaBean {
 		odontogramaPaciente = new ArrayList<>();
 		odontogramasPorPaciente = new ArrayList<>();
 		pacientes = new ArrayList<>();
-		
+		dienteSeleccionadoHistorial = new Diente();
 		dienteSeleccionado = new DienteOdontograma();
 		situacionDental = new SituacionDental();
 		superficieDental = new SuperficieDental();
@@ -110,30 +113,48 @@ public class odontogramaBean {
 		Persona persona = (Persona) session.getAttribute("personaSesion");
 		odontologo = odontologoService.buscarPorPersona(persona);		 		 		
 		fichaOdontologica = fichaOdontologicaService.fichaPorPaciente(paciente);
-		
+				
 		Timestamp fecha = StaticHelp.getFechaActual();
 		Odontograma odontograma = new Odontograma();
 		odontograma.setOdontogramaOdontologo(odontologo);
 		odontograma.setOdontogramaFichaOdontologica(fichaOdontologica);		
-		odontograma.setFechaActualizacion(fecha);
-		odontogramaService.insertarOdontograma(odontograma);	
+		odontograma.setFechaActualizacion(fecha);		
 		
-		SituacionDental situacionDental = situacionDentalService.buscarPorId(1);
-		SuperficieDental superficieDental = superficieDentalService.buscarPorId(1);
-		
-		for(int i=1; i<=32; i++){
-			DienteOdontograma var = new DienteOdontograma();
-			Odontograma last = odontogramaService.lastInsert();			
-			Diente diente = dienteService.dientePorId(i);
-			var.setUrlImagen(imagenOdontogramaService.getUrlImagen(i, 1, 1));
-			var.setDienteOdontogramaDiente(diente);
-			var.setEsModificado(false);
-			var.setDienteOdontogramaSituacionDental(situacionDental);
-			var.setDienteOdontogramaSuperficieDental(superficieDental);
-			var.setDienteOdontogramaOdontograma(last);
-			dienteOdontogramaService.registrarDienteOdontograma(var);
-		}				
-		
+		if(odontogramaService.getOdontogramasPorPaciente(paciente).size()==0){
+			odontogramaService.insertarOdontograma(odontograma);
+			SituacionDental situacionDental = situacionDentalService.buscarPorId(1);
+			SuperficieDental superficieDental = superficieDentalService.buscarPorId(1);
+			for(int j=1; j<=32; j++){
+				DienteOdontograma var = new DienteOdontograma();
+				Odontograma last = odontogramaService.lastInsert();			
+				Diente diente = dienteService.dientePorId(j);
+				var.setUrlImagen(imagenOdontogramaService.getUrlImagen(j, 1, 1));
+				var.setDienteOdontogramaDiente(diente);
+				var.setEsModificado(false);
+				var.setDienteOdontogramaSituacionDental(situacionDental);
+				var.setDienteOdontogramaSuperficieDental(superficieDental);
+				var.setDienteOdontogramaOdontograma(last);
+				dienteOdontogramaService.registrarDienteOdontograma(var);				
+			}
+			
+		}else{
+			Odontograma lastOd = odontogramaService.getLastOdontograma(paciente);			
+			List<DienteOdontograma> lastDientes = dienteOdontogramaService.getByOdontograma(lastOd);
+			odontogramaService.insertarOdontograma(odontograma);
+			for(int i=0; i<=31; i++){				
+				DienteOdontograma temporal = new DienteOdontograma();
+				Odontograma last = odontogramaService.lastInsert();
+				temporal.setDetalle(lastDientes.get(i).getDetalle());
+				temporal.setEsModificado(false);
+				temporal.setDienteOdontogramaDiente(lastDientes.get(i).getDienteOdontogramaDiente());
+				temporal.setDienteOdontogramaOdontograma(last);
+				temporal.setUrlImagen(lastDientes.get(i).getUrlImagen());
+				temporal.setDienteOdontogramaSituacionDental(lastDientes.get(i).getDienteOdontogramaSituacionDental());
+				temporal.setDienteOdontogramaSuperficieDental(lastDientes.get(i).getDienteOdontogramaSuperficieDental());
+				dienteOdontogramaService.registrarDienteOdontograma(temporal);
+			}
+			
+		}
 	}
 	
 	public void cargarOdontogramas(int id){		
@@ -166,10 +187,16 @@ public class odontogramaBean {
 	public String actualizarDiente(){
 		dienteSeleccionado.setDetalle(detalle);
 		dienteSeleccionado.setDienteOdontogramaSituacionDental(situacionDental);
-		dienteSeleccionado.setDienteOdontogramaSuperficieDental(superficieDental);
-		dienteSeleccionado.setUrlImagen(imagenOdontogramaService.getUrlImagen(dienteSeleccionado.getDienteOdontogramaDiente().getIdDiente(), superficieDental.getIdSuperficieDental(), situacionDental.getIdSituacionDental()));
-		//+"?cache="+System.currentTimeMillis()
+		SuperficieDental tempCompleto = superficieDentalService.buscarPorId(1);
+		if(situacionDental!=situacionDentalService.buscarPorId(6)){
+			dienteSeleccionado.setDienteOdontogramaSuperficieDental(tempCompleto);
+			dienteSeleccionado.setUrlImagen(imagenOdontogramaService.getUrlImagen(dienteSeleccionado.getDienteOdontogramaDiente().getIdDiente(), 1, situacionDental.getIdSituacionDental()));
+		}else{
+			dienteSeleccionado.setDienteOdontogramaSuperficieDental(superficieDental);
+			dienteSeleccionado.setUrlImagen(imagenOdontogramaService.getUrlImagen(dienteSeleccionado.getDienteOdontogramaDiente().getIdDiente(), superficieDental.getIdSuperficieDental(), situacionDental.getIdSituacionDental()));
+		}		
 		dienteSeleccionado.setEsModificado(true);
+		dienteSeleccionado.setFechaModificacion(StaticHelp.getFechaActual());
 		dienteOdontogramaService.merge(dienteSeleccionado);
 		dienteSeleccionado = new DienteOdontograma();
 		situacionDental = new SituacionDental();
@@ -180,10 +207,17 @@ public class odontogramaBean {
 	public String actualizarDiente2(){
 		dienteSeleccionado.setDetalle(detalle);
 		dienteSeleccionado.setDienteOdontogramaSituacionDental(situacionDental);
-		dienteSeleccionado.setDienteOdontogramaSuperficieDental(superficieDental);
-		dienteSeleccionado.setUrlImagen(imagenOdontogramaService.getUrlImagen(dienteSeleccionado.getDienteOdontogramaDiente().getIdDiente(), superficieDental.getIdSuperficieDental(), situacionDental.getIdSituacionDental()));
-		//+"?cache="+System.currentTimeMillis()
+		SuperficieDental tempCompleto = superficieDentalService.buscarPorId(1);
+		SituacionDental tempCaries = situacionDentalService.buscarPorId(6);
+		if(situacionDental.getIdSituacionDental()!= tempCaries.getIdSituacionDental()){
+			dienteSeleccionado.setDienteOdontogramaSuperficieDental(tempCompleto);
+			dienteSeleccionado.setUrlImagen(imagenOdontogramaService.getUrlImagen(dienteSeleccionado.getDienteOdontogramaDiente().getIdDiente(), 1, situacionDental.getIdSituacionDental()));
+		}else{
+			dienteSeleccionado.setDienteOdontogramaSuperficieDental(superficieDental);
+			dienteSeleccionado.setUrlImagen(imagenOdontogramaService.getUrlImagen(dienteSeleccionado.getDienteOdontogramaDiente().getIdDiente(), superficieDental.getIdSuperficieDental(), situacionDental.getIdSituacionDental()));
+		}		
 		dienteSeleccionado.setEsModificado(true);
+		dienteSeleccionado.setFechaModificacion(StaticHelp.getFechaActual());
 		dienteOdontogramaService.merge(dienteSeleccionado);
 		dienteSeleccionado = new DienteOdontograma();
 		situacionDental = new SituacionDental();
@@ -208,6 +242,11 @@ public class odontogramaBean {
 		    	InputStream stream = context.getExternalContext().getResourceAsStream("images/"+aux.getUrlImagen());		    			    			    
 				return new DefaultStreamedContent(stream, "image/jpeg");
 		    }						
+	}
+	
+	public String cargarHistorialDiente(){
+		historialSeleccionado = dienteOdontogramaService.getHistorialDiente(dienteSeleccionadoHistorial, paciente);
+		return "HistorialDiente";
 	}
 	
 	public List<DienteOdontograma> getDientesModificados() {		
@@ -327,9 +366,36 @@ public class odontogramaBean {
 
 	public void setDate(long date) {
 		this.date = date;
-	}			
+	}
+
+	public Diente getDienteSeleccionadoHistorial() {
+		return dienteSeleccionadoHistorial;
+	}
+
+	public void setDienteSeleccionadoHistorial(
+			Diente dienteSeleccionadoHistorial) {
+		this.dienteSeleccionadoHistorial = dienteSeleccionadoHistorial;
+	}
+
+	public List<Diente> getAllDientes() {
+		allDientes = dienteOdontogramaService.getDientes();
+		return allDientes;
+	}
+
+	public void setAllDientes(List<Diente> allDientes) {
+		this.allDientes = allDientes;
+	}
+
+	public List<DienteOdontograma> getHistorialSeleccionado() {
+		return historialSeleccionado;
+	}
+
+	public void setHistorialSeleccionado(
+			List<DienteOdontograma> historialSeleccionado) {
+		this.historialSeleccionado = historialSeleccionado;
+	}					
 	
 	
-	
+		
 }
 

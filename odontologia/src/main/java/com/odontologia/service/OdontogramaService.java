@@ -14,5 +14,7 @@ public interface OdontogramaService {
 	public List<Odontograma> getOdontogramasPorPaciente(Paciente paciente);
 	
 	public Odontograma buscarPorId(int id);
+	
+	public Odontograma getLastOdontograma(Paciente paciente);
 
 }

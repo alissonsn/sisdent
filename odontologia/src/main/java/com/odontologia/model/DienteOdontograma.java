@@ -1,5 +1,6 @@
 package com.odontologia.model;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -26,6 +27,9 @@ public class DienteOdontograma {
 	
 	@Column(name="esmodificado", nullable=true)
 	private Boolean esModificado;
+	
+	@Column(name="fechamodificacion", nullable=true)
+	private Timestamp fechaModificacion;
 	
 	@ManyToOne @JoinColumn(name="idodontograma", nullable=false)
 	private Odontograma dienteOdontogramaOdontograma;
@@ -116,6 +120,14 @@ public class DienteOdontograma {
 
 	public void setEsModificado(Boolean esModificado) {
 		this.esModificado = esModificado;
-	}		
-		
+	}
+
+	public Timestamp getFechaModificacion() {
+		return fechaModificacion;
+	}
+
+	public void setFechaModificacion(Timestamp fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}			
+			
 }

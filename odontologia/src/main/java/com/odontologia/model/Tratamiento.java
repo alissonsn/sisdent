@@ -25,9 +25,6 @@ public class Tratamiento {
 	@Column(name="costotratamiento", nullable=true)
 	private Double costoTratamiento;
 	
-	@Column(name="costototal", nullable=true)
-	private Double costoTotal;
-	
 	@ManyToOne @JoinColumn(name="iddienteodontograma", nullable=true)
 	private DienteOdontograma tratamientoDienteOdontograma;
 
@@ -61,14 +58,6 @@ public class Tratamiento {
 
 	public void setCostoTratamiento(Double costoTratamiento) {
 		this.costoTratamiento = costoTratamiento;
-	}
-
-	public Double getCostoTotal() {
-		return costoTotal;
-	}
-
-	public void setCostoTotal(Double costoTotal) {
-		this.costoTotal = costoTotal;
 	}
 
 	public DienteOdontograma getTratamientoDientoOdontograma() {

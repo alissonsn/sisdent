@@ -26,13 +26,11 @@
 					<p:column>
 
 						<p:panel id="idPanel" styleClass="centerTable">
-							<p:commandLink process="@this" update=":dialogDetalle"
+							<p:commandLink process="@this" update=":dialogDetalle,@form"
 								action="#{odontogramaBean.cargaDiente(diente.idDienteOdontograma)}"
 								oncomplete="PF('dienteDialog').show();">
-								<p:graphicImage id="img" width="30" height="60" cache="false"
-									name="images/#{diente.urlImagen}">
-									<f:param name="dienteImagen"
-										value="#{diente.idDienteOdontograma}" />
+								<p:graphicImage width="30" height="60" name="images/#{diente.urlImagen}">
+									<f:param name="idDiente" value="#{diente.idDienteOdontograma}" />
 								</p:graphicImage>
 							</p:commandLink>
 						</p:panel>
@@ -42,7 +40,7 @@
 
 			<h:form id="formDientesModificados">
 				<p:dataTable var="dienteMod" resizableColumns="true" widgetVar="t"
-					emptyMessage="No se ha modificado el odontograma"
+					emptyMessage="No se ha modificado el odontograma"	
 					paginatorPosition="top" rowKey="#{dienteMod.idDienteOdontograma}"
 					value="#{odontogramaBean.dientesModificados}" paginator="true"
 					rows="10"

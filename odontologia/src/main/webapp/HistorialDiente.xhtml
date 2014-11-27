@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="css/estilos.css" />
+
+</h:head>
+<h:body>
+	<ui:composition
+		template="/WEB-INF/facelets/templates/plantillaOdontologo.xhtml">
+
+		<ui:define name="west">
+		Historial
+		</ui:define>
+
+		<ui:define name="center">
+
+			<h:form id="histoDienteForm">
+				<p:dataTable var="dienteHistorial" resizableColumns="true" widgetVar="tableHistorial"
+					emptyMessage="No hay historial del diente seleccionado"
+					paginatorPosition="top" rowKey="#{dienteHistorial.idDienteOdontograma}"
+					value="#{odontogramaBean.historialSeleccionado}" paginator="true"
+					rows="10"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,15">
+					
+					<p:column headerText="Detalle">
+						<h:outputText value="#{dienteHistorial.detalle}" />
+					</p:column>
+					
+					<p:column headerText="Superficie dental">
+						<h:outputText value="#{dienteHistorial.dienteOdontogramaSuperficieDental.nombre}" />
+					</p:column>
+					
+					<p:column headerText="Situacion dental">
+						<h:outputText value="#{dienteHistorial.dienteOdontogramaSituacionDental.nombre}" />
+					</p:column>					
+					
+					<p:column headerText="Fecha Modificacion">
+						<h:outputText value="#{dienteHistorial.fechaModificacion}" />
+					</p:column>					
+					
+				</p:dataTable>
+			</h:form>
+
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>
+

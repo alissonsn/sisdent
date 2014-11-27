@@ -51,7 +51,7 @@ public class OdontogramaServiceImpl implements OdontogramaService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Odontograma> getOdontogramasPorPaciente(Paciente paciente) {
-		List<Odontograma> result = new ArrayList<>();
+		List<Odontograma> result = null;
 		try{
 			Query q = em.createQuery("SELECT o FROM Odontograma o where o.odontogramaFichaOdontologica.fichaOdontologicaPaciente=:paciente");
 			q.setParameter("paciente", paciente);
@@ -66,5 +66,21 @@ public class OdontogramaServiceImpl implements OdontogramaService {
 	@Transactional
 	public Odontograma buscarPorId(int id) {
 		return em.find(Odontograma.class, id);
+	}
+
+	@Transactional
+	public Odontograma getLastOdontograma(Paciente paciente) {
+		Odontograma result = null;
+		try{
+			Query q = em.createQuery("SELECT o FROM Odontograma o WHERE o.odontogramaFichaOdontologica.fichaOdontologicaPaciente=:paciente" +
+					                 " ORDER BY o.fechaActualizacion DESC ");
+			q.setMaxResults(1);
+			q.setParameter("paciente", paciente);
+			result = (Odontograma) q.getSingleResult();
+		}
+		catch(Exception e){
+			System.out.println("ERROR: "+e.getMessage());
+		}
+		return result;
 	}
 }
