@@ -64,27 +64,28 @@
 					<p:column headerText="Acciones"
 						style="width:500px; text-align:center;">
 						<h:panelGrid columns="2" border="0">
-						<p:commandButton id="btnCrearOdontograma"
-							value="Crear Odontograma"
-							action="#{odontogramaBean.crearOdontograma}" update=":fromOdonto">
-							<f:setPropertyActionListener target="#{odontogramaBean.paciente}"
-								value="#{pac}" />
-						</p:commandButton>
+							<p:commandButton id="btnCrearOdontograma"
+								value="Crear Odontograma"
+								action="#{odontogramaBean.crearOdontograma}"
+								update=":fromOdonto">
+								<f:setPropertyActionListener
+									target="#{odontogramaBean.paciente}" value="#{pac}" />
+							</p:commandButton>
 
-						<p:commandButton id="btnVerOdontogramas" value="Ver Odontogramas"
-							oncomplete="PF('dlg').show();" update=":fromOdonto"
-							action="#{odontogramaBean.cargarOdontogramas(pac.idPaciente)}">
-						</p:commandButton>
+							<p:commandButton id="btnVerOdontogramas" value="Ver Odontogramas"
+								oncomplete="PF('dlg').show();" update=":fromOdonto"
+								action="#{odontogramaBean.cargarOdontogramas(pac.idPaciente)}">
+							</p:commandButton>
 
-						<p:commandButton id="btnVerHistorial" value="Historial Dientes"							
-							oncomplete="PF('dlgHisto').show();" update=":formDienteHist">
-							<f:setPropertyActionListener target="#{odontogramaBean.paciente}"
-								value="#{pac}" />
-						</p:commandButton>
+							<p:commandButton id="btnVerHistorial" value="Historial Dientes"
+								oncomplete="PF('dlgHisto').show();" update=":formDienteHist">
+								<f:setPropertyActionListener
+									target="#{odontogramaBean.paciente}" value="#{pac}" />
+							</p:commandButton>
 
-						<p:commandButton icon="ui-icon-document"
-							actionListener="#{reporteBean.verPDF(actionEvent,pac.idPaciente)}"
-							ajax="false" rendered="#{pac.pacienteFichaOdontologica ne null}" />
+							<p:commandButton icon="ui-icon-document"
+								actionListener="#{reporteBean.verPDF(actionEvent,pac.idPaciente)}"
+								ajax="false" rendered="#{pac.pacienteFichaOdontologica ne null}" />
 						</h:panelGrid>
 					</p:column>
 
@@ -126,21 +127,27 @@
 
 			<p:dialog header="Historial de los dientes" widgetVar="dlgHisto"
 				appendTo="@(body)" modal="true">
-	
-			<h:form id="formDienteHist">
 
-			<h:panelGrid columns="1">
-			<p:outputLabel for="dientesList" value="Elija diente: " />
-			<p:selectOneMenu id="dientesList" value="#{odontogramaBean.dienteSeleccionadoHistorial.idDiente}" required="true" requiredMessage="Debe seleccionar un diente">
-			<f:selectItem itemLabel="Elija un diente" ></f:selectItem>
-            <f:selectItems value="#{odontogramaBean.allDientes}" var="diente" itemLabel="#{diente.numeracionFdi}" itemValue="#{diente.idDiente}"/>
-        	</p:selectOneMenu>			
-			<h:panelGrid columns="2">
-			<p:commandButton value="Buscar historial" action="#{odontogramaBean.cargarHistorialDiente}" />
-			<p:commandButton value="Cancelar" oncomplete="PF('dlgHisto').hide();"/>
-			</h:panelGrid>
-			</h:panelGrid>
-			</h:form>
+				<h:form id="formDienteHist">
+
+					<h:panelGrid columns="1">
+						<p:outputLabel for="dientesList" value="Elija diente: " />
+						<p:selectOneMenu id="dientesList"
+							value="#{odontogramaBean.dienteSeleccionadoHistorial.idDiente}"
+							required="true" requiredMessage="Debe seleccionar un diente">
+							<f:selectItem itemLabel="Elija un diente"></f:selectItem>
+							<f:selectItems value="#{odontogramaBean.allDientes}" var="diente"
+								itemLabel="#{diente.numeracionFdi}"
+								itemValue="#{diente.idDiente}" />
+						</p:selectOneMenu>
+						<h:panelGrid columns="2">
+							<p:commandButton value="Buscar historial"
+								action="#{odontogramaBean.cargarHistorialDiente}" />
+							<p:commandButton value="Cancelar"
+								oncomplete="PF('dlgHisto').hide();" />
+						</h:panelGrid>
+					</h:panelGrid>
+				</h:form>
 
 			</p:dialog>
 

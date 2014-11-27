@@ -173,7 +173,7 @@ public class odontogramaBean {
 		Odontograma odontograma = odontogramaService.buscarPorId(id);
 		odonto = odontogramaService.buscarPorId(id);
 		odontogramaPaciente = dienteOdontogramaService.getByOdontograma(odontograma);
-		return "odontograma2";
+		return "odontograma2?faces-redirect=true";
 	}		
 
 	public String cargaDiente(int id){
@@ -222,7 +222,7 @@ public class odontogramaBean {
 		dienteSeleccionado = new DienteOdontograma();
 		situacionDental = new SituacionDental();
 		superficieDental = new SuperficieDental();
-		return "odontograma2";
+		return "odontograma2?faces-redirect=true";
 	}
 	
 	public void cancelar(){

@@ -29,14 +29,17 @@
 							<p:commandLink process="@this" update=":dialogDetalle,@form"
 								action="#{odontogramaBean.cargaDiente(diente.idDienteOdontograma)}"
 								oncomplete="PF('dienteDialog').show();">
-								<p:graphicImage width="30" height="60" name="images/#{diente.urlImagen}">
+								<p:graphicImage width="30" height="60" name="images/#{diente.urlImagen}" cache="false">
 									<f:param name="idDiente" value="#{diente.idDienteOdontograma}" />
 								</p:graphicImage>
 							</p:commandLink>
 						</p:panel>
+						
 					</p:column>
 				</p:dataGrid>
+				
 			</h:form>
+			
 
 			<h:form id="formDientesModificados">
 				<p:dataTable var="dienteMod" resizableColumns="true" widgetVar="t"
