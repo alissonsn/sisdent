@@ -20,7 +20,7 @@ xmlns:pm="http://primefaces.org/mobile" >
 <p:accordionPanel dynamic="true" value="#{mensajeBean.mensajeReceptorLeido}" var="men" activeIndex="-1"  >      
     <p:tab title="#{men.titulo} - #{men.mensajeUsuarioEmisor.usuarioPersona.nombre} #{men.mensajeUsuarioEmisor.usuarioPersona.apellidoPaterno}">
          <h:panelGrid columns="2" cellpadding="10" >
-						<p:graphicImage name="demo/images/car/#{car.brand}.gif" />
+						<p:graphicImage  value="#{men.mensajeUsuarioEmisor.urlFoto}" />
 						<h:outputText value="#{men.texto}"/>
          </h:panelGrid>
     </p:tab>

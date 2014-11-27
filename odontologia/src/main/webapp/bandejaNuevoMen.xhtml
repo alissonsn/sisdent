@@ -27,7 +27,7 @@
 					<p:tab
 						title="#{men.titulo} - #{men.mensajeUsuarioEmisor.usuarioPersona.nombre} #{men.mensajeUsuarioEmisor.usuarioPersona.apellidoPaterno}">
 						<h:panelGrid columns="2" cellpadding="10">
-							<p:graphicImage name="demo/images/car/#{car.brand}.gif" />
+							<p:graphicImage  value="#{men.mensajeUsuarioEmisor.urlFoto}" />
 							<h:outputText value="#{men.texto}" />
 							<p:commandButton process="@this" value="Responder Mensaje"
 								update=":form:carDetail" oncomplete="PF('carDialog').show()"
