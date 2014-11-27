@@ -36,7 +36,7 @@
 
 			
 	
-	<p:fieldset legend="Inicia Sesión" style="margin-bottom:20px;width: 31%;width: 31%;background: rgb(217, 217, 217);border: transparent;height: 250px;margin-left: 12%;
+	<p:fieldset style="margin-bottom:20px;width: 31%;width: 31%;background: rgb(217, 217, 217);border: transparent;height: 250px;margin-left: 12%;
 margin-top: 6%;">
         <h:panelGrid columns="2" cellpadding="5">
             <h:panelGrid columns="2" cellpadding="5" style="margin-top: 3%;margin-left: 6%;width:34%;" >
@@ -234,13 +234,6 @@ margin-top: 6%;">
 							required="true" requiredMessage="Se debe ingresar un teléfono">
 						</p:inputMask>
 
-						<p:outputLabel for="telefonoTrabajo" value="Teléfono Trabajo:"></p:outputLabel>
-						<p:inputMask id="telefonoTrabajo" 
-							value="#{pacienteBean.apoderado.telefonoTrabajo}"	 					
-							 mask="999-9999"
-							 required="true" requiredMessage="Se debe ingresar un trabajo">
-							
-						</p:inputMask>
 
 						<p:outputLabel for="email" value="Correo Electrónico:"></p:outputLabel>
 						<p:inputText id="email"

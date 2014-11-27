@@ -17,6 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
@@ -38,13 +39,20 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.odontologia.model.Paciente;
 import com.odontologia.model.Persona;
+import com.odontologia.service.PacienteService;
+import com.odontologia.util.StaticHelp;
 
 @SuppressWarnings({ "deprecation" })
 public class ReporteBean {
 
 	private List<Persona> personas;
+	
+	@Autowired
+	PacienteService pacienteService;
 
 	public ReporteBean() {
 		personas = new ArrayList<>();
@@ -130,6 +138,34 @@ public class ReporteBean {
 		stream.close();
 		FacesContext.getCurrentInstance().responseComplete();
 	}
+	
+	// Método que funciona
+		public void verPDFPersonal(ActionEvent actionEvent, Integer idPaciente)
+				throws JRException, IOException {
+			Persona persona = new Persona();
+			Paciente paciente = new Paciente();
+			HttpSession session = StaticHelp.getSession();
+			persona = (Persona) session.getAttribute("personaSesion");
+			paciente = pacienteService.buscarPorPersona(persona);
+			Map<String, Object> parametros = new HashMap<String, Object>();
+			parametros.put("ID_PACIENTE", paciente.getIdPaciente());
+			parametros.put("IMAGEN_LOGO",
+					this.getClass().getResourceAsStream("logo.jpg"));
+			// parametros.put("RUTA_IMAGEN_DIENTE", "/");
+			File jasper = new File(FacesContext.getCurrentInstance()
+					.getExternalContext().getRealPath("/reportes/report1.jasper"));
+			JasperPrint jasperPrint = JasperFillManager.fillReport(
+					jasper.getPath(), parametros, GetConnection());
+			HttpServletResponse response = (HttpServletResponse) FacesContext
+					.getCurrentInstance().getExternalContext().getResponse();
+			response.addHeader("Content-disposition",
+					"attachment; filename=jsfReporte" + idPaciente + ".pdf");
+			ServletOutputStream stream = response.getOutputStream();
+			JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+			stream.flush();
+			stream.close();
+			FacesContext.getCurrentInstance().responseComplete();
+		}
 
 	// Método que funciona
 	public void verPDFO(ActionEvent actionEvent, Integer idPaciente)

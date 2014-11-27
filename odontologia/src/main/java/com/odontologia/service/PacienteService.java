@@ -16,5 +16,4 @@ public interface PacienteService {
 	public Paciente buscarPorId(int id);
 	public boolean registrarPacienteApoderado(Paciente paciente, Apoderado apoderado);
     public Paciente buscarPorPersona(Persona persona);
-	
 }

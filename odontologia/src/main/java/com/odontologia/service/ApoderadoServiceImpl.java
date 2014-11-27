@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.odontologia.model.Apoderado;
+import com.odontologia.model.Paciente;
 
 
 @Service
@@ -84,6 +85,21 @@ public class ApoderadoServiceImpl implements ApoderadoService {
 	@Transactional
 	public Apoderado buscarPorId(int id) {
 		return em.find(Apoderado.class, id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Paciente> getPacienteporApoderado(Apoderado apoderado) {
+		List<Paciente> result = new ArrayList<>();
+		try{
+			Query q = em.createQuery("SELECT p FROM Paciente p where p.pacienteApoderado=:apoderado");
+			q.setParameter("apoderado", apoderado);
+			result = q.getResultList();
+		}
+		catch(NoResultException e){
+			System.out.println("ERROR: "+e.getMessage());
+		}
+		return result;
 	}
 
 }

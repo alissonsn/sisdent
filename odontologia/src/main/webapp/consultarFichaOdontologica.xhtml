@@ -19,9 +19,11 @@
 
 		<ui:define name="center">
 
-			VER FICHA
-
-
+			<h:form>
+				<p:commandButton icon="ui-icon-document"
+					actionListener="#{reporteBean.verPDFPersonal(actionEvent,pac.idPaciente)}"
+					ajax="false" />
+			</h:form>
 		</ui:define>
 
 	</ui:composition>
